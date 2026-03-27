@@ -9,6 +9,7 @@ interface AtlasResumePageProps {
     firstName?: string;
     lastName?: string;
     uid?: string;
+    id?: string;
   } | null;
 }
 

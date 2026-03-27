@@ -230,12 +230,19 @@ export type MainView =
   | 'atlas-resume'
   | 'printable-resume'
   | 'pilot-gap-module'
+  | 'pilot-gap-module-2'
+  | 'module-3'
   | 'mentor-modules'
   | 'foundational-enrollment-check'
   | 'foundational-enrolled'
-  | 'foundational-logbook';
-
-
+  | 'foundational-logbook'
+  | 'program-progress'
+  | 'modules'
+  | 'examination-portal'
+  | 'foundational-exam'
+  | 'license-selection'
+  | 'interview-evaluation'
+  | 'program-syllabus';
 
 const pathwayUpdates = [
   {

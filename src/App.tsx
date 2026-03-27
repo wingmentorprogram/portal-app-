@@ -4,6 +4,7 @@ import './App.css';
 // Mentor Management System Imports
 import { onAuthStateChange, type AuthState, SUPER_ADMIN_EMAIL, signOut, supabase } from './lib/supabase-auth';
 import { PilotProfilePage } from './pages/PilotProfilePage';
+import { PilotPortfolioPage } from './pages/PilotPortfolioPage';
 import FoundationalProgramPage from './pages/FoundationalProgramPage';
 import { WingMentorHome, type MainView } from './pages/WingMentorHome';
 import { RecognitionAchievementPage } from './pages/RecognitionAchievementPage';
@@ -253,7 +254,7 @@ export const Icons = {
   ),
   Download: (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
     </svg>
@@ -291,6 +292,20 @@ export const Icons = {
       <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
       <line x1="12" y1="9" x2="12" y2="13" />
       <line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+  ),
+  Info: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="16" x2="12" y2="12" />
+      <line x1="12" y1="8" x2="12.01" y2="8" />
+    </svg>
+  ),
+  Target: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
     </svg>
   ),
   Settings: (props: React.SVGProps<SVGSVGElement>) => (
@@ -381,7 +396,7 @@ const loadingPhaseDetails: Record<LoadingPhase, { title: string; subtitle: strin
   }
 };
 
-const accessibleViewMap: Record<string, ViewName> = {
+const accessibleViewMap: Record<string, MainView | 'mentorship'> = {
   foundational: 'foundational',
   'pilot-profile': 'pilot-profile',
   mentorship: 'mentorship',
@@ -1083,7 +1098,7 @@ function App() {
     const grantedApps = authState.userProfile?.appAccess?.filter(app => app.granted).map(app => app.appId) || [];
     const accessibleViews = grantedApps
       .map(appId => accessibleViewMap[appId])
-      .filter((view): view is ViewName => Boolean(view));
+      .filter(Boolean);
     console.log('📍 Active view:', currentView, '| Accessible apps:', grantedApps, '| Accessible views:', accessibleViews);
   }, [currentView, authState.userProfile]);
 

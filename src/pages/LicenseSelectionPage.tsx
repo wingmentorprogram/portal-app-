@@ -124,9 +124,6 @@ export const LicenseSelectionPage: React.FC<LicenseSelectionPageProps> = ({
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.2s ease',
-                  ':hover': {
-                    borderColor: license.color,
-                  },
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>

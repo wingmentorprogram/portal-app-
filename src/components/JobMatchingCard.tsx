@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabase-auth';
 
 interface JobMatch {
   id: string;
@@ -22,6 +22,10 @@ interface PilotProfile {
 
 interface JobMatchingCardProps {
   userId?: string;
+}
+
+interface ExamScoreRow {
+  score?: number | null;
 }
 
 export const JobMatchingCard: React.FC<JobMatchingCardProps> = ({ userId }) => {
@@ -69,7 +73,7 @@ export const JobMatchingCard: React.FC<JobMatchingCardProps> = ({ userId }) => {
         // Calculate average pass rate from exams
         let passRate = '75%';
         if (examData && examData.length > 0) {
-          const avgScore = examData.reduce((sum, e) => sum + (e.score || 0), 0) / examData.length;
+          const avgScore = (examData as ExamScoreRow[]).reduce((sum: number, e: ExamScoreRow) => sum + (e.score || 0), 0) / examData.length;
           passRate = `${Math.round(avgScore)}%`;
         }
 

@@ -187,12 +187,15 @@ const ShaderPlane = ({ variant }: { variant: 'light' | 'dark' }) => {
     );
 };
 
-export const CloudBackground = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) => {
+export const CloudBackground = ({ variant = 'light', children }: { variant?: 'light' | 'dark'; children?: React.ReactNode }) => {
     return (
+        <>
         <div style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}>
             <Canvas orthographic camera={{ position: [0, 0, 1], zoom: 1 }} dpr={[1, 1]} frameloop="always">
                 <ShaderPlane variant={variant} />
             </Canvas>
         </div>
+        {children}
+        </>
     );
 };

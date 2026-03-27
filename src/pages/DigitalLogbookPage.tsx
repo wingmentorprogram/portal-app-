@@ -82,8 +82,6 @@ export const DigitalLogbookPage: React.FC<DigitalLogbookPageProps> = ({ onBack, 
     console.log('userProfile type:', typeof userProfile);
     console.log('userProfile keys:', userProfile ? Object.keys(userProfile) : 'null');
     console.log('userProfile.id:', userProfile?.id);
-    console.log('db:', db);
-    console.log('db type:', typeof db);
     console.log('formData:', formData);
     console.log('============================');
     
