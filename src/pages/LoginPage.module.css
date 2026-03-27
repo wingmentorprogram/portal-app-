@@ -53,8 +53,6 @@
     overflow: hidden;
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    transform: scale(1.05);
-    transform-origin: center;
 }
 
 /* Left Side - Dark Info Panel */
