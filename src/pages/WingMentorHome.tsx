@@ -433,7 +433,18 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
           </button>
           
           {/* Sidebar Logo */}
-          <div className="dashboard-header" style={{ marginBottom: '1rem', marginTop: '0.5rem' }}>
+          <div
+            className="dashboard-header"
+            style={{
+              marginBottom: '1rem',
+              marginTop: '0.5rem',
+              background: isDarkMode ? 'linear-gradient(180deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.92) 100%)' : undefined,
+              border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : undefined,
+              borderBottom: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : undefined,
+              borderRadius: isDarkMode ? '20px' : undefined,
+              boxShadow: isDarkMode ? '0 18px 36px rgba(2, 6, 23, 0.32)' : undefined
+            }}
+          >
             <div className="dashboard-logo" style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'center' }}>
               <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '200px' }} />
             </div>
@@ -2166,13 +2177,17 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             onClick={() => setMainView('transition')}
             onMouseOver={(e) => {
               e.currentTarget.style.transform = 'translateY(-6px)';
-              e.currentTarget.style.boxShadow = '0 20px 40px rgba(15, 23, 42, 0.12), 0 8px 16px rgba(15, 23, 42, 0.08)';
-              e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.4)';
+              e.currentTarget.style.boxShadow = isDarkMode
+                ? '0 24px 48px rgba(2, 6, 23, 0.42), 0 10px 20px rgba(2, 6, 23, 0.24)'
+                : '0 20px 40px rgba(15, 23, 42, 0.12), 0 8px 16px rgba(15, 23, 42, 0.08)';
+              e.currentTarget.style.borderColor = isDarkMode ? 'rgba(96, 165, 250, 0.35)' : 'rgba(148, 163, 184, 0.4)';
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05)';
-              e.currentTarget.style.borderColor = 'rgba(226, 232, 240, 0.6)';
+              e.currentTarget.style.boxShadow = isDarkMode
+                ? '0 18px 40px rgba(2, 6, 23, 0.34), 0 1px 3px rgba(2, 6, 23, 0.22)'
+                : '0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05)';
+              e.currentTarget.style.borderColor = isDarkMode ? 'rgba(71, 85, 105, 0.7)' : 'rgba(226, 232, 240, 0.6)';
             }}
             >
               <div style={{ 
@@ -2213,7 +2228,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                 <h3 style={{ 
                   fontSize: '1.75rem', 
                   marginBottom: '0.75rem', 
-                  color: '#0f172a', 
+                  color: isDarkMode ? '#f8fafc' : '#0f172a', 
                   fontWeight: 700, 
                   letterSpacing: '-0.02em',
                   lineHeight: 1.2
@@ -2222,7 +2237,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                 </h3>
                 <p style={{ 
                   marginBottom: '1.25rem', 
-                  color: '#64748b', 
+                  color: isDarkMode ? '#94a3b8' : '#64748b', 
                   fontSize: '1rem', 
                   lineHeight: 1.7,
                   maxWidth: '90%'
@@ -3993,20 +4008,28 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
     );
   };
 
-  // WingMentor Network View Component
   const WingMentorNetworkView = ({ onBack, onViewChange }: { onBack: () => void; onViewChange?: (view: string) => void }) => (
     <div
       className="dashboard-container animate-fade-in"
-      style={{ alignItems: 'flex-start', justifyContent: 'center', padding: '3rem 1rem 2rem' }}
+      style={{
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        padding: '3rem 1rem 2rem',
+        background: isDarkMode ? 'linear-gradient(180deg, #020817 0%, #071122 100%)' : 'transparent'
+      }}
     >
       <main
         className="dashboard-card network-panel"
         style={{ position: 'relative', padding: 0, background: 'transparent', boxShadow: 'none', border: 'none', width: '100%', maxWidth: '1100px' }}
       >
         <header className="dashboard-header" style={{
-          borderBottom: '1px solid rgba(226, 232, 240, 0.7)',
+          borderBottom: isDarkMode ? '1px solid rgba(51, 65, 85, 0.9)' : '1px solid rgba(226, 232, 240, 0.7)',
           paddingBottom: '2.5rem',
-          backgroundColor: 'transparent'
+          background: isDarkMode ? 'linear-gradient(180deg, rgba(15, 23, 42, 0.96) 0%, rgba(15, 23, 42, 0.9) 100%)' : 'transparent',
+          backgroundColor: isDarkMode ? undefined : 'transparent',
+          borderRadius: isDarkMode ? '28px 28px 0 0' : undefined,
+          paddingTop: isDarkMode ? '2rem' : undefined,
+          boxShadow: isDarkMode ? '0 18px 48px rgba(2, 6, 23, 0.35)' : 'none'
         }}>
           <div style={{ position: 'absolute', top: '1.5rem', left: '2rem' }}>
             <button
@@ -4022,15 +4045,15 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                 gap: '0.5rem',
                 fontSize: '0.875rem',
                 fontWeight: 500,
-                color: '#475569',
+                color: isDarkMode ? '#94a3b8' : '#475569',
                 transition: 'all 0.2s ease'
               }}
               onMouseOver={(e) => {
-                e.currentTarget.style.color = '#0f172a';
+                e.currentTarget.style.color = isDarkMode ? '#e2e8f0' : '#0f172a';
                 e.currentTarget.style.transform = 'translateX(-4px)';
               }}
               onMouseOut={(e) => {
-                e.currentTarget.style.color = '#475569';
+                e.currentTarget.style.color = isDarkMode ? '#94a3b8' : '#475569';
                 e.currentTarget.style.transform = 'translateX(0)';
               }}
             >
@@ -4043,7 +4066,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '240px' }} />
           </div>
 
-          <div className="dashboard-subtitle" style={{ letterSpacing: '0.3em', color: '#2563eb', fontWeight: 700 }}>
+          <div className="dashboard-subtitle" style={{ letterSpacing: '0.3em', color: isDarkMode ? '#60a5fa' : '#2563eb', fontWeight: 700 }}>
             WINGMENTOR NETWORK
           </div>
 
@@ -4051,7 +4074,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             fontSize: '3.3rem',
             marginTop: '0.5rem',
             marginBottom: '0.5rem',
-            color: '#0f172a',
+            color: isDarkMode ? '#f8fafc' : '#0f172a',
             fontFamily: '"Georgia", serif',
             fontWeight: 400
           }}>
@@ -4059,7 +4082,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
           </h1>
 
           <p style={{
-            color: '#64748b',
+            color: isDarkMode ? '#94a3b8' : '#64748b',
             fontSize: '0.875rem',
             maxWidth: '42rem',
             margin: '0 auto 1.5rem',
@@ -4073,21 +4096,20 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
 
         <div className="dashboard-content" style={{ padding: '3rem 1rem 4rem', backgroundColor: 'transparent', display: 'flex', justifyContent: 'center' }}>
           <div className="animate-fade-in" style={{ width: '100%', maxWidth: '1100px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {/* WingMentor Search Engine */}
-            <div className="horizontal-card" style={{ 
-              padding: '2rem', 
+            <div className="horizontal-card" style={{
+              padding: '2rem',
               marginBottom: '2rem',
-              background: 'rgba(15, 23, 42, 0.03)',
+              background: isDarkMode ? 'linear-gradient(180deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.92) 100%)' : 'rgba(15, 23, 42, 0.03)',
               borderRadius: '20px',
-              border: '1px solid rgba(226, 232, 240, 0.6)',
-              boxShadow: '0 25px 60px rgba(15, 23, 42, 0.07)',
+              border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : '1px solid rgba(226, 232, 240, 0.6)',
+              boxShadow: isDarkMode ? '0 25px 60px rgba(2, 6, 23, 0.35)' : '0 25px 60px rgba(15, 23, 42, 0.07)',
               backdropFilter: 'blur(22px)'
             }}>
               <div className="horizontal-card-content-wrapper">
                 <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ fontSize: '1.5rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
+                  <div style={{ fontSize: '1.5rem', color: isDarkMode ? '#60a5fa' : '#0f172a', fontWeight: 'bold' }}>•</div>
                   <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                    <h3 className="horizontal-card-title" style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <h3 className="horizontal-card-title" style={{ fontSize: '1.5rem', marginBottom: '1rem', color: isDarkMode ? '#f8fafc' : '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       WingMentor Search Engine
                     </h3>
                     <div style={{ marginBottom: '1.5rem' }}>
@@ -4097,60 +4119,31 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                         style={{
                           width: '100%',
                           padding: '1rem',
-                          border: '2px solid #e2e8f0',
+                          border: isDarkMode ? '2px solid rgba(71, 85, 105, 0.85)' : '2px solid #e2e8f0',
                           borderRadius: '12px',
                           fontSize: '1rem',
-                          background: '#f8fafc',
+                          color: isDarkMode ? '#e2e8f0' : '#0f172a',
+                          background: isDarkMode ? 'rgba(2, 6, 23, 0.75)' : '#f8fafc',
                           transition: 'all 0.2s ease'
                         }}
                         onFocus={(e) => {
                           e.currentTarget.style.borderColor = '#2563eb';
-                          e.currentTarget.style.background = 'white';
+                          e.currentTarget.style.background = isDarkMode ? 'rgba(15, 23, 42, 0.95)' : 'white';
                         }}
                         onBlur={(e) => {
-                          e.currentTarget.style.borderColor = '#e2e8f0';
-                          e.currentTarget.style.background = '#f8fafc';
+                          e.currentTarget.style.borderColor = isDarkMode ? 'rgba(71, 85, 105, 0.85)' : '#e2e8f0';
+                          e.currentTarget.style.background = isDarkMode ? 'rgba(2, 6, 23, 0.75)' : '#f8fafc';
                         }}
                       />
                     </div>
                     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                      <button style={{
-                        padding: '0.5rem 1rem',
-                        background: '#2563eb',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease'
-                      }}>
+                      <button style={{ padding: '0.5rem 1rem', background: '#2563eb', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease' }}>
                         🔍 Search Database
                       </button>
-                      <button style={{
-                        padding: '0.5rem 1rem',
-                        background: '#f1f5f9',
-                        color: '#475569',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease'
-                      }}>
+                      <button style={{ padding: '0.5rem 1rem', background: isDarkMode ? 'rgba(15, 23, 42, 0.92)' : '#f1f5f9', color: isDarkMode ? '#cbd5e1' : '#475569', border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.75)' : 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease' }}>
                         📚 Knowledge Bank
                       </button>
-                      <button style={{
-                        padding: '0.5rem 1rem',
-                        background: '#f1f5f9',
-                        color: '#475569',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '0.875rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease'
-                      }}>
+                      <button style={{ padding: '0.5rem 1rem', background: isDarkMode ? 'rgba(15, 23, 42, 0.92)' : '#f1f5f9', color: isDarkMode ? '#cbd5e1' : '#475569', border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.75)' : 'none', borderRadius: '8px', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease' }}>
                         ✈️ Type Ratings
                       </button>
                     </div>
@@ -4159,309 +4152,72 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               </div>
             </div>
 
-            {/* Aviation Industry Expectations Card */}
-            <div className="horizontal-card" style={{ 
-              cursor: 'pointer', 
-              padding: '0', 
+            <div className="horizontal-card" style={{
+              cursor: 'pointer',
+              padding: '0',
               marginBottom: '2rem',
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95))',
+              background: isDarkMode ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95))' : 'linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95))',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               borderRadius: '24px',
-              boxShadow: '0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05)',
-              border: '1px solid rgba(226, 232, 240, 0.6)',
+              boxShadow: isDarkMode ? '0 18px 40px rgba(2, 6, 23, 0.34), 0 1px 3px rgba(2, 6, 23, 0.22)' : '0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05)',
+              border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : '1px solid rgba(226, 232, 240, 0.6)',
               position: 'relative',
               overflow: 'hidden',
               transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
               display: 'flex',
               alignItems: 'stretch'
-            }} 
-            onClick={() => setMainView('aviation-expectations')}
-            onMouseOver={(e) => {
-              e.currentTarget.style.transform = 'translateY(-6px)';
-              e.currentTarget.style.boxShadow = '0 20px 40px rgba(15, 23, 42, 0.12), 0 8px 16px rgba(15, 23, 42, 0.08)';
-              e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.4)';
             }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05)';
-              e.currentTarget.style.borderColor = 'rgba(226, 232, 240, 0.6)';
-            }}
-            >
-              <div style={{ 
-                flex: '1', 
-                padding: '2rem 2.5rem', 
-                display: 'flex', 
-                flexDirection: 'column', 
-                justifyContent: 'center',
-                position: 'relative',
-                zIndex: 2
-              }}>
+            onClick={() => setMainView('aviation-expectations')}>
+              <div style={{ flex: '1', padding: '2rem 2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                  <span style={{ 
-                    fontSize: '0.75rem', 
-                    fontWeight: 700, 
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: '#64748b',
-                    background: 'rgba(100, 116, 139, 0.1)',
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '20px'
-                  }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: isDarkMode ? '#93c5fd' : '#64748b', background: isDarkMode ? 'rgba(37, 99, 235, 0.16)' : 'rgba(100, 116, 139, 0.1)', padding: '0.35rem 0.75rem', borderRadius: '20px' }}>
                     Directory
                   </span>
                 </div>
-                <h3 style={{ 
-                  fontSize: '1.75rem', 
-                  marginBottom: '0.75rem', 
-                  color: '#0f172a', 
-                  fontWeight: 700, 
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.2
-                }}>
+                <h3 style={{ fontSize: '1.75rem', marginBottom: '0.75rem', color: isDarkMode ? '#f8fafc' : '#0f172a', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
                   Aviation Industry Expectations
                 </h3>
-                <p style={{ 
-                  marginBottom: '1.25rem', 
-                  color: '#64748b', 
-                  fontSize: '1rem', 
-                  lineHeight: 1.7,
-                  maxWidth: '90%'
-                }}>
+                <p style={{ marginBottom: '1.25rem', color: isDarkMode ? '#94a3b8' : '#64748b', fontSize: '1rem', lineHeight: 1.7, maxWidth: '90%' }}>
                   Explore airline hiring requirements, career paths & expectations
                 </p>
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                  <span style={{ 
-                    fontSize: '0.8rem', 
-                    padding: '0.5rem 1rem', 
-                    background: 'white',
-                    borderRadius: '100px', 
-                    color: '#475569', 
-                    fontWeight: 500,
-                    border: '1px solid rgba(226, 232, 240, 0.8)',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
-                  }}>
+                  <span style={{ fontSize: '0.8rem', padding: '0.5rem 1rem', background: isDarkMode ? 'rgba(2, 6, 23, 0.82)' : 'white', borderRadius: '100px', color: isDarkMode ? '#cbd5e1' : '#475569', fontWeight: 500, border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.72)' : '1px solid rgba(226, 232, 240, 0.8)', boxShadow: isDarkMode ? '0 8px 18px rgba(2, 6, 23, 0.25)' : '0 1px 2px rgba(0,0,0,0.02)' }}>
                     Hiring Requirements
                   </span>
-                  <span style={{ 
-                    fontSize: '0.8rem', 
-                    padding: '0.5rem 1rem', 
-                    background: 'white',
-                    borderRadius: '100px', 
-                    color: '#475569', 
-                    fontWeight: 500,
-                    border: '1px solid rgba(226, 232, 240, 0.8)',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
-                  }}>
+                  <span style={{ fontSize: '0.8rem', padding: '0.5rem 1rem', background: isDarkMode ? 'rgba(2, 6, 23, 0.82)' : 'white', borderRadius: '100px', color: isDarkMode ? '#cbd5e1' : '#475569', fontWeight: 500, border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.72)' : '1px solid rgba(226, 232, 240, 0.8)', boxShadow: isDarkMode ? '0 8px 18px rgba(2, 6, 23, 0.25)' : '0 1px 2px rgba(0,0,0,0.02)' }}>
                     Career Paths
                   </span>
                 </div>
               </div>
-              <div style={{ 
-                position: 'relative',
-                width: '40%',
-                minHeight: '220px',
-                overflow: 'hidden',
-                borderRadius: '0 24px 24px 0'
-              }}>
-                <img 
-                  src="/Gemini_Generated_Image_7awns87awns87awn.png" 
-                  alt="Aviation Industry Expectations" 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover',
-                    transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }} 
-                />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 30%)',
-                  pointerEvents: 'none'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  right: '1.5rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: 'white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <Icons.ArrowRight style={{ width: 20, height: 20, color: '#0f172a' }} />
+              <div style={{ position: 'relative', width: '40%', minHeight: '220px', overflow: 'hidden', borderRadius: '0 24px 24px 0' }}>
+                <img src="/Gemini_Generated_Image_7awns87awns87awn.png" alt="Aviation Industry Expectations" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: isDarkMode ? 'linear-gradient(90deg, rgba(15,23,42,1) 0%, rgba(15,23,42,0) 30%)' : 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 30%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', right: '1.5rem', top: '50%', transform: 'translateY(-50%)', width: '48px', height: '48px', borderRadius: '50%', background: isDarkMode ? 'rgba(2, 6, 23, 0.88)' : 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: isDarkMode ? '0 8px 20px rgba(2,6,23,0.35)' : '0 4px 12px rgba(0,0,0,0.15)', transition: 'all 0.3s ease' }}>
+                  <Icons.ArrowRight style={{ width: 20, height: 20, color: isDarkMode ? '#e2e8f0' : '#0f172a' }} />
                 </div>
               </div>
             </div>
 
-            {/* Job Application Database Directory */}
-            <div className="horizontal-card" style={{
-              padding: '2rem',
-              marginBottom: '2rem',
-              background: 'white',
-              borderRadius: '20px',
-              border: '1px solid rgba(226, 232, 240, 0.8)',
-              boxShadow: '0 18px 45px rgba(15,23,42,0.08)'
-            }}>
+            <div className="horizontal-card" style={{ padding: '2rem', marginBottom: '2rem', background: isDarkMode ? 'linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.94) 100%)' : 'white', borderRadius: '20px', border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.75)' : '1px solid rgba(226, 232, 240, 0.8)', boxShadow: isDarkMode ? '0 18px 45px rgba(2,6,23,0.34)' : '0 18px 45px rgba(15,23,42,0.08)' }}>
               <div className="horizontal-card-content-wrapper">
                 <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ fontSize: '1.5rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
+                  <div style={{ fontSize: '1.5rem', color: isDarkMode ? '#60a5fa' : '#0f172a', fontWeight: 'bold' }}>•</div>
                   <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                    <h3 className="horizontal-card-title" style={{ fontSize: '1.4rem', marginBottom: '0.75rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <h3 className="horizontal-card-title" style={{ fontSize: '1.4rem', marginBottom: '0.75rem', color: isDarkMode ? '#f8fafc' : '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Job Application Database Directory
                     </h3>
-                    <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.7, marginBottom: '1.25rem' }}>
+                    <p style={{ fontSize: '0.95rem', color: isDarkMode ? '#cbd5e1' : '#475569', lineHeight: 1.7, marginBottom: '1.25rem' }}>
                       Track every WingMentor application in one industry-grade ledger. Airlines, operators, and recruitment partners receive structured dossiers with NOTECHS deltas, remediation steps, and status updates synchronized with the Pilot Recognition database.
                     </p>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
-                      {[{
-                        label: 'Active Operators',
-                        value: '34',
-                        note: 'Etihad, Airbus, Gulfstream, more'
-                      }, {
-                        label: 'Verified Portfolios',
-                        value: '512',
-                        note: 'Live ATLAS CV submissions'
-                      }, {
-                        label: 'Open Pathways',
-                        value: '78',
-                        note: 'Airline • Corporate • UAM'
-                      }].map((item) => (
-                        <div key={item.label} style={{ padding: '1rem', border: '1px solid #e2e8f0', borderRadius: '14px', background: '#f8fafc' }}>
-                          <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#2563eb', letterSpacing: '0.15em', marginBottom: '0.35rem' }}>{item.label}</div>
-                          <div style={{ fontSize: '1.8rem', fontWeight: 600, color: '#0f172a' }}>{item.value}</div>
-                          <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{item.note}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      <div style={{ fontSize: '0.85rem', color: '#0f172a', fontWeight: 600 }}>Directory Highlights</div>
-                      <ul style={{ margin: 0, paddingLeft: '1.25rem', color: '#475569', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                        <li>Airline + private operators segmented by fleet type, region, and intake cycle.</li>
-                        <li>Application dossiers include mentor prescriptions, W1000 exam dashboards, and interview readiness notes.</li>
-                        <li>Recruiters can request API credentials or white-glove reports via WingMentor Partnerships.</li>
-                      </ul>
-                    </div>
-
-                    <div style={{ marginTop: '1.5rem' }}>
-                      <div style={{ fontSize: '0.85rem', color: '#0f172a', fontWeight: 600, marginBottom: '0.5rem' }}>Recommended for Your Profile</div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                        <div style={{ 
-                          padding: '1rem', 
-                          background: '#f8fafc', 
-                          borderRadius: '12px',
-                          border: '1px solid #e2e8f0',
-                          borderLeft: '3px solid #10b981'
-                        }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-                            <div>
-                              <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                                First Officer — Airbus A320
-                              </div>
-                              <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                                Cathay Pacific • Hong Kong
-                              </div>
-                            </div>
-                            <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#dcfce7', borderRadius: '12px', color: '#166534', fontWeight: 600 }}>
-                              Match 95%
-                            </span>
-                          </div>
-                          <div style={{ fontSize: '0.8rem', color: '#475569', marginBottom: '0.5rem' }}>
-                            Direct entry First Officer position with A330/A350/B777 progression path. Strong match for your multi-engine experience.
-                          </div>
-                          <a href="https://pilotcareercenter.com/ASIA" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none' }}>
-                            View Details →
-                          </a>
-                        </div>
-
-                        <div style={{ 
-                          padding: '1rem', 
-                          background: '#f8fafc', 
-                          borderRadius: '12px',
-                          border: '1px solid #e2e8f0',
-                          borderLeft: '3px solid #3b82f6'
-                        }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-                            <div>
-                              <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                                Senior First Officer — ATR72-600
-                              </div>
-                              <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                                fly91 • Hyderabad, India
-                              </div>
-                            </div>
-                            <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#dbeafe', borderRadius: '12px', color: '#1e40af', fontWeight: 600 }}>
-                              Match 88%
-                            </span>
-                          </div>
-                          <div style={{ fontSize: '0.8rem', color: '#475569', marginBottom: '0.5rem' }}>
-                            Type-rated Senior First Officer role. Excellent fit for your turboprop experience and command potential.
-                          </div>
-                          <a href="https://pilotcareercenter.com/ASIA" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none' }}>
-                            View Details →
-                          </a>
-                        </div>
-
-                        <div style={{ 
-                          padding: '1rem', 
-                          background: '#f8fafc', 
-                          borderRadius: '12px',
-                          border: '1px solid #e2e8f0',
-                          borderLeft: '3px solid #f59e0b'
-                        }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-                            <div>
-                              <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                                Cadet Pilot — Airbus & Boeing Fleet
-                              </div>
-                              <div style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                                Singapore Airlines • Asia
-                              </div>
-                            </div>
-                            <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#fef3c7', borderRadius: '12px', color: '#92400e', fontWeight: 600 }}>
-                              Match 82%
-                            </span>
-                          </div>
-                          <div style={{ fontSize: '0.8rem', color: '#475569', marginBottom: '0.5rem' }}>
-                                Ab-initio cadet program across A320/A321/A330/A350, B737/747/777 fleet. Pathway to wide-body operations.
-                          </div>
-                          <a href="https://pilotcareercenter.com/ASIA" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none' }}>
-                            View Details →
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
                     <div style={{ marginTop: '1.5rem' }}>
                       <a
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
-                          if (onViewChange) {
-                            onViewChange('job-database');
-                          }
+                          if (onViewChange) onViewChange('job-database');
                         }}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          padding: '0.75rem 1.5rem',
-                          background: '#0ea5e9',
-                          color: 'white',
-                          borderRadius: '999px',
-                          textDecoration: 'none',
-                          fontSize: '0.9rem',
-                          fontWeight: 500,
-                          transition: 'all 0.2s ease'
-                        }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', background: '#0ea5e9', color: 'white', borderRadius: '999px', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, transition: 'all 0.2s ease' }}
                       >
                         Explore Full Database
                         <Icons.ArrowRight style={{ width: 16, height: 16 }} />
@@ -4472,471 +4228,22 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               </div>
             </div>
 
-            {/* News & Updates Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-              {/* Pilot Gap Forum Feed */}
-              <div className="horizontal-card" style={{ 
-                padding: '1.5rem', 
-                background: 'rgba(255, 255, 255, 0.05)',
-                borderRadius: '20px',
-                boxShadow: '0 20px 40px rgba(15, 23, 42, 0.06)',
-                border: '1px solid rgba(226, 232, 240, 0.45)'
-              }}>
-                <div className="horizontal-card-content-wrapper">
-                  <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                    <div className="horizontal-card-content" style={{ padding: '0.5rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                      <h4 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#0f172a', fontWeight: 700 }}>
-                        Pilot Gap Forum
-                      </h4>
-                      <div style={{ marginBottom: '1rem' }}>
-                        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                          Foundation Program Updates
-                        </div>
-                        <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem' }}>
-                          2 hours ago
-                        </div>
-                        <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>
-                          New CRM scenarios added to the simulator training module. Mentors sharing best practices for advanced navigation procedures.
-                        </p>
-                      </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#dcfce7', borderRadius: '12px', color: '#166534', fontWeight: 600 }}>
-                          Foundation Program
-                        </span>
-                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                          15 replies
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* WingMentor Insights */}
-              <div className="horizontal-card" style={{ 
-                padding: '1.5rem', 
-                background: 'white',
-                borderRadius: '20px',
-                boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                border: '1px solid #e2e8f0'
-              }}>
-                <div className="horizontal-card-content-wrapper">
-                  <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                    <div className="horizontal-card-content" style={{ padding: '0.5rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                      <h4 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#0f172a', fontWeight: 700 }}>
-                        WingMentor Insights
-                      </h4>
-                      <div style={{ marginBottom: '1rem' }}>
-                        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                          LinkedIn Group Post
-                        </div>
-                        <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem' }}>
-                          4 hours ago
-                        </div>
-                        <p style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>
-                          From Zero to Hero: Cadet program success stories from graduates now flying with major airlines. Career transition insights.
-                        </p>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#dbeafe', borderRadius: '12px', color: '#1e40af', fontWeight: 600 }}>
-                          Career Insights
-                        </span>
-                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                          42 likes
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Aviation Industry Situation */}
-            <div className="horizontal-card" style={{ 
-              padding: '2rem', 
-              marginBottom: '2rem',
-              background: 'rgba(15, 23, 42, 0.03)',
-              borderRadius: '20px',
-              border: '1px solid rgba(226, 232, 240, 0.5)',
-              boxShadow: '0 20px 60px rgba(15, 23, 42, 0.06)'
-            }}>
-              <div className="horizontal-card-content-wrapper">
-                <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ fontSize: '1.5rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                  <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                    <h3 className="horizontal-card-title" style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      Aviation Industry Media Platform
-                    </h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-                      <div>
-                        <h4 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.75rem' }}>
-                          Industry News
-                        </h4>
-                        <div style={{ marginBottom: '1rem' }}>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Global Pilot Shortage Update
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            IATA reports increased demand for 617,000 pilots by 2036. Airlines accelerating recruitment programs.
-                          </p>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Fleet Modernization Trends
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            Major carriers investing in next-generation aircraft. New type rating requirements announced.
-                          </p>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.75rem' }}>
-                          Market Analysis
-                        </h4>
-                        <div style={{ marginBottom: '1rem' }}>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Regional Growth Patterns
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            Asia-Pacific leading pilot demand. European carriers facing retirement wave challenges.
-                          </p>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Training Capacity Expansion
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            Flight schools increasing enrollment. New simulator facilities opening worldwide.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* LinkedIn Group Newsfeed */}
-            <div className="horizontal-card" style={{
-              padding: '2rem',
-              marginBottom: '2rem',
-              background: 'rgba(15, 23, 42, 0.04)',
-              borderRadius: '20px',
-              border: '1px solid rgba(226, 232, 240, 0.6)',
-              boxShadow: '0 25px 65px rgba(15, 23, 42, 0.08)'
-            }}>
-              <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>WingMentor Newsfeed</h3>
-                  <p style={{ margin: '0.35rem 0 0', color: '#64748b', fontSize: '0.9rem' }}>Latest post from the WingMentor LinkedIn Group.</p>
-                </div>
-                <a
-                  href="https://www.linkedin.com/groups/18662026/"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ fontSize: '0.9rem', fontWeight: 600, color: '#2563eb', textDecoration: 'none' }}>
-                  Read more news ↗
-                </a>
-              </div>
-              <div style={{ width: '100%', height: '360px', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
-                <iframe
-                  title="LinkedIn WingMentor Group"
-                  src="https://www.linkedin.com/groups/18662026/"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 'none' }}
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            {/* Knowledge Bank & Resources */}
-            <div style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a', marginBottom: '1.5rem', textAlign: 'center' }}>
-                Community Knowledge Bank
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-                <div className="horizontal-card" style={{ 
-                  padding: '1.5rem', 
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  borderRadius: '20px',
-                  boxShadow: '0 15px 35px rgba(15, 23, 42, 0.05)',
-                  border: '1px solid rgba(226, 232, 240, 0.4)'
-                }}>
-                  <div className="horizontal-card-content-wrapper">
-                    <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <div style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                      <div className="horizontal-card-content" style={{ padding: '0.5rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                        <h4 className="horizontal-card-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: '#0f172a', fontWeight: 700 }}>
-                          POH & Technical Documents
-                        </h4>
-                        <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.5, margin: '0 0 1rem 0' }}>
-                          Pilot Operating Handbooks, aircraft manuals, and technical specifications shared by experienced pilots.
-                        </p>
-                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            Cessna 172
-                          </span>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            Piper PA-28
-                          </span>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            +45 docs
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="horizontal-card" style={{ 
-                  padding: '1.5rem', 
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  borderRadius: '20px',
-                  boxShadow: '0 15px 35px rgba(15, 23, 42, 0.05)',
-                  border: '1px solid rgba(226, 232, 240, 0.4)'
-                }}>
-                  <div className="horizontal-card-content-wrapper">
-                    <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <div style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                      <div className="horizontal-card-content" style={{ padding: '0.5rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                        <h4 className="horizontal-card-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: '#0f172a', fontWeight: 700 }}>
-                          Training Materials
-                        </h4>
-                        <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.5, margin: '0 0 1rem 0' }}>
-                          Principles of Flight presentations, navigation tutorials, and exam preparation materials.
-                        </p>
-                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            PPL Questions
-                          </span>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            CPL Study Guide
-                          </span>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            IR Procedures
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="horizontal-card" style={{ 
-                  padding: '1.5rem', 
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  borderRadius: '20px',
-                  boxShadow: '0 15px 35px rgba(15, 23, 42, 0.05)',
-                  border: '1px solid rgba(226, 232, 240, 0.4)'
-                }}>
-                  <div className="horizontal-card-content-wrapper">
-                    <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <div style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                      <div className="horizontal-card-content" style={{ padding: '0.5rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                        <h4 className="horizontal-card-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: '#0f172a', fontWeight: 700 }}>
-                          Type Rating Resources
-                        </h4>
-                        <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.5, margin: '0 0 1rem 0' }}>
-                          Comprehensive guides for aircraft type ratings, systems, and operational procedures.
-                        </p>
-                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            A320 Family
-                          </span>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            B737 NG/MAX
-                          </span>
-                          <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#f1f5f9', borderRadius: '8px', color: '#475569' }}>
-                            +15 types
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Video Content Section */}
-            <div style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0f172a', marginBottom: '1.5rem', textAlign: 'center' }}>
-                Video Library & Seminars
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem' }}>
-                <div className="horizontal-card" style={{ 
-                  padding: '1.5rem', 
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  borderRadius: '20px',
-                  boxShadow: '0 15px 35px rgba(15, 23, 42, 0.05)',
-                  border: '1px solid rgba(226, 232, 240, 0.4)'
-                }}>
-                  <div className="horizontal-card-content-wrapper">
-                    <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <div style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                      <div className="horizontal-card-content" style={{ padding: '0.5rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                        <h4 className="horizontal-card-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: '#0f172a', fontWeight: 700 }}>
-                          Low Timer Pilot Seminars
-                        </h4>
-                        <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.5, margin: '0 0 1rem 0' }}>
-                          Expert advice on building flight hours, networking strategies, and career progression for low-time pilots.
-                        </p>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Duration: 45 min</span>
-                          <button style={{
-                            padding: '0.5rem 1rem',
-                            background: '#2563eb',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontSize: '0.75rem',
-                            fontWeight: 600,
-                            cursor: 'pointer'
-                          }}>
-                            ▶️ Watch Now
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="horizontal-card" style={{ 
-                  padding: '1.5rem', 
-                  background: 'white',
-                  borderRadius: '20px',
-                  boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                  border: '1px solid #e2e8f0'
-                }}>
-                  <div className="horizontal-card-content-wrapper">
-                    <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <div style={{ fontSize: '1.25rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                      <div className="horizontal-card-content" style={{ padding: '0.5rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                        <h4 className="horizontal-card-title" style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: '#0f172a', fontWeight: 700 }}>
-                          Zero to Hero Podcast
-                        </h4>
-                        <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.5, margin: '0 0 1rem 0' }}>
-                          Inspiring journeys from student pilot to airline captain through cadet programs and career transitions.
-                        </p>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Episode 12</span>
-                          <button style={{
-                            padding: '0.5rem 1rem',
-                            background: '#2563eb',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontSize: '0.75rem',
-                            fontWeight: 600,
-                            cursor: 'pointer'
-                          }}>
-                            🎧 Listen Now
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Airline Insights Section */}
-            <div className="horizontal-card" style={{ 
-              padding: '2rem', 
-              marginBottom: '2rem',
-              background: 'white',
-              borderRadius: '20px',
-              boxShadow: '0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-              border: '1px solid #e2e8f0'
-            }}>
-              <div className="horizontal-card-content-wrapper">
-                <div style={{ maxWidth: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ fontSize: '1.5rem', color: '#0f172a', fontWeight: 'bold' }}>•</div>
-                  <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                    <h3 className="horizontal-card-title" style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      Airline Partner Insights
-                    </h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-                      <div>
-                        <h4 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.75rem' }}>
-                          Major Airlines
-                        </h4>
-                        <div style={{ marginBottom: '1rem' }}>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Recruitment Requirements 2024
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            Updated pilot qualifications, experience requirements, and selection process insights.
-                          </p>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Fleet Expansion Plans
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            New aircraft orders, route expansions, and pilot hiring forecasts for next 5 years.
-                          </p>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.75rem' }}>
-                          Career Development
-                        </h4>
-                        <div style={{ marginBottom: '1rem' }}>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Cadet Program Advice
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            Direct guidance from airline training departments on successful cadet applications.
-                          </p>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>
-                            Interview Preparation
-                          </div>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4, margin: 0 }}>
-                            Technical interview questions, simulator assessments, and HR interview tips.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* WingMentor Data Sync Watermark */}
-            <div style={{ 
-              textAlign: 'center', 
-              padding: '1rem', 
-              background: 'rgba(248, 250, 252, 0.8)',
-              borderRadius: '12px',
-              border: '1px solid #e2e8f0',
-              marginBottom: '2rem'
-            }}>
-              <div style={{ 
-                fontSize: '0.75rem', 
-                color: '#94a3b8', 
-                fontWeight: 600,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase'
-              }}>
+            <div style={{ textAlign: 'center', padding: '1rem', background: isDarkMode ? 'rgba(15, 23, 42, 0.92)' : 'rgba(248, 250, 252, 0.8)', borderRadius: '12px', border: isDarkMode ? '1px solid rgba(71,85,105,0.75)' : '1px solid #e2e8f0', marginBottom: '2rem' }}>
+              <div style={{ fontSize: '0.75rem', color: isDarkMode ? '#94a3b8' : '#94a3b8', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                 🔄 WingMentor Database Sync • Real-time Updates • Community Powered
               </div>
             </div>
           </div>
         </div>
 
-        {/* Footer */}
         <footer className="dashboard-footer" style={{
           marginTop: '1rem',
           padding: '2rem 3.5rem',
-          backgroundColor: '#f8fafc',
-          borderTop: '1px solid #f1f5f9',
+          backgroundColor: isDarkMode ? '#0f172a' : '#f8fafc',
+          borderTop: isDarkMode ? '1px solid rgba(51,65,85,0.9)' : '1px solid #f1f5f9',
           textAlign: 'center'
         }}>
-          <p style={{ color: '#64748b', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
+          <p style={{ color: isDarkMode ? '#94a3b8' : '#64748b', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
             Connect with the WingMentor Network for comprehensive aviation resources and community support.
           </p>
           <button
@@ -4944,9 +4251,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             style={{
               padding: '0.75rem 2rem',
               borderRadius: '12px',
-              border: '1px solid #e2e8f0',
-              background: '#ffffff',
-              color: '#1e293b',
+              border: isDarkMode ? '1px solid rgba(71,85,105,0.75)' : '1px solid #e2e8f0',
+              background: isDarkMode ? 'rgba(2,6,23,0.88)' : '#ffffff',
+              color: isDarkMode ? '#e2e8f0' : '#1e293b',
               fontWeight: '600',
               fontSize: '0.9rem',
               cursor: 'pointer',
@@ -4954,7 +4261,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               alignItems: 'center',
               gap: '0.75rem',
               transition: 'all 0.2s ease',
-              boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+              boxShadow: isDarkMode ? '0 8px 20px rgba(2,6,23,0.32)' : '0 1px 2px rgba(0,0,0,0.05)'
             }}
             onClick={() => window.location.href = 'mailto:wingmentorprogram@gmail.com'}
           >
