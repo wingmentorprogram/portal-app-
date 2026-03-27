@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import { Icons } from '../icons';
+import type { UserProfile } from '../types/user';
+
+interface PilotJobDatabasePageProps {
+  onBack?: () => void;
+  onLogout?: () => void;
+  userProfile?: UserProfile | null;
+}
 
 export const jobApplicationListings = [
   {
@@ -2686,7 +2693,7 @@ export const jobApplicationListings = [
   }
 ];
 
-const PilotJobDatabasePage: React.FC = () => {
+const PilotJobDatabasePage: React.FC<PilotJobDatabasePageProps> = ({ onBack, onLogout, userProfile }) => {
   const [selectedAircraft, setSelectedAircraft] = useState<string>('all');
   const [selectedLocation, setSelectedLocation] = useState<string>('all');
   const [selectedRole, setSelectedRole] = useState<string>('all');
@@ -2773,9 +2780,9 @@ const PilotJobDatabasePage: React.FC = () => {
     <div className="dashboard-container animate-fade-in" style={{ alignItems: 'stretch', justifyContent: 'center', padding: '3rem 2rem 4rem', minHeight: '100vh', background: 'radial-gradient(circle at top, #e0f2ff 0%, #f8fbff 45%, #f1f5f9 100%)' }}>
       <main className="dashboard-card" style={{ width: '100%', maxWidth: '1440px', padding: '0', background: 'transparent', boxShadow: 'none' }}>
         <header style={{ marginBottom: '2.5rem', borderRadius: '24px', background: 'linear-gradient(120deg, #0f172a, #1d4ed8)', color: 'white', padding: '2.5rem', boxShadow: '0 25px 60px rgba(15, 23, 42, 0.35)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            <a
-              href="/"
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+            <button
+              onClick={onBack}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -2784,7 +2791,8 @@ const PilotJobDatabasePage: React.FC = () => {
                 background: 'rgba(14, 165, 233, 0.1)',
                 color: '#0ea5e9',
                 borderRadius: '999px',
-                textDecoration: 'none',
+                border: 'none',
+                cursor: 'pointer',
                 fontSize: '0.9rem',
                 fontWeight: 500,
                 transition: 'all 0.2s ease'
@@ -2792,7 +2800,29 @@ const PilotJobDatabasePage: React.FC = () => {
             >
               <Icons.ArrowLeft style={{ width: 16, height: 16 }} />
               Back to Home
-            </a>
+            </button>
+            {onLogout && (
+              <button
+                onClick={onLogout}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.5rem 1rem',
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  color: '#fca5a5',
+                  borderRadius: '999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  fontWeight: 500,
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <Icons.LogOut style={{ width: 16, height: 16 }} />
+                Logout
+              </button>
+            )}
           </div>
           <h1 style={{ fontSize: '2.8rem', fontWeight: 500, marginBottom: '0.5rem', fontFamily: '"Georgia", serif' }}>
             Pilot Job Application Atlas

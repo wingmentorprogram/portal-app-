@@ -1032,6 +1032,8 @@ function App() {
             </div>
           </main>
         </div>
+      ) : currentView === 'job-database' ? (
+        <PilotJobDatabasePage onBack={() => setCurrentView('hub')} onLogout={handleLogout} userProfile={authState.userProfile} />
       ) : (
         <></>
       )}
