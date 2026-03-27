@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { MentorModulesPage0 } from './MentorModulesPage0';
 import { MentorModulesPage1 } from './MentorModulesPage1';
 import { MentorModulesPage2 } from './MentorModulesPage2';

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { UserProfile } from '../types/user';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 interface ExaminationPortalPageProps {
   userProfile?: UserProfile | null;

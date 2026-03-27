@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import type { UserProfile } from '../types/user';
 import { RestrictionPage } from './RestrictionPage';
 import { EnrolledFoundationalCard } from '../components/EnrolledFoundationalCard';

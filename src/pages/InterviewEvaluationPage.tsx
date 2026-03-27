@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { UserProfile } from '../types/user';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 interface InterviewEvaluationPageProps {
   userProfile?: UserProfile | null;

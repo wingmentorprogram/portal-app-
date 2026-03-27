@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import type { UserProfile } from '../types/user';
 import { RecognitionAchievementPage } from './RecognitionAchievementPage';
 import { PilotProfilePage } from './PilotProfilePage';

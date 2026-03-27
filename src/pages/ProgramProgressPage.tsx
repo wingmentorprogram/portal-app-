@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { UserProfile } from '../types/user';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { supabase } from "../lib/supabase-auth";
 
 interface ProgramProgressPageProps {

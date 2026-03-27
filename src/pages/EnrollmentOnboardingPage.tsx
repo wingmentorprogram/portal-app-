@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { completeEnrollment, supabase } from '../lib/supabase-auth';
 import { sendEnrollmentConfirmationEmail } from '../lib/email';
 

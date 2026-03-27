@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { auth } from '../lib/firebase';
 import { searchUsers, getOrCreateChat, sendMessage, subscribeToMessages, getUserProfile, type WingMentorUser, type ChatMessage } from '../lib/firestore';
 import { JobMatchingCard } from '../components/JobMatchingCard';

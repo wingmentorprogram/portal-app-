@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 interface EmergingAirTaxiPageProps {
     onBack: () => void;

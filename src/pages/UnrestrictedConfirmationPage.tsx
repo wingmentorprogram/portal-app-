@@ -1,7 +1,7 @@
 import React from 'react';
 import { CloudBackground } from '../components/CloudBackground';
 import type { UserProfile } from '../types/user';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 interface UnrestrictedConfirmationPageProps {
   userProfile: UserProfile;

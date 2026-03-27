@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { useRecognitionMatches } from '../hooks/useRecognitionMatches';
 import { usePilotPortfolio } from '../hooks/usePilotPortfolio';
 

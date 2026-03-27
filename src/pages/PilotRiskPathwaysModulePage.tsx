@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 interface PilotRiskPathwaysModulePageProps {
   onBack: () => void;

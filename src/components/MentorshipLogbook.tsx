@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { auth } from '../lib/firebase';
 import { submitMentorshipLog, getUserLogs, type MentorshipLog } from '../lib/firestore';
 

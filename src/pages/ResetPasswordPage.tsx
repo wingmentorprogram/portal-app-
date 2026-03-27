@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase-auth';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 export const ResetPasswordPage: React.FC = () => {
     const [newPassword, setNewPassword] = useState('');

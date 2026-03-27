@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { PilotGapModuleChapter0 } from './PilotGapModuleChapter0';
 import { PilotGapModuleChapter1 } from './PilotGapModuleChapter1';
 import { PilotGapModuleChapter2 } from './PilotGapModuleChapter2';

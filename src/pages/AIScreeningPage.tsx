@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 interface AIScreeningPageProps {
     onBack: () => void;

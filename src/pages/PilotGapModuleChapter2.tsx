@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 
 interface PilotGapModuleChapter2Props {
     onBack: () => void;

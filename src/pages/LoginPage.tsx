@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Icons } from '../App';
+import { Icons } from '../icons';
 import { signIn } from '../lib/supabase-auth';
 import { ForgotPasswordPage } from './ForgotPasswordPage';
 import styles from './LoginPage.module.css';
