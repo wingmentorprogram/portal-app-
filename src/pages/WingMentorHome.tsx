@@ -194,6 +194,8 @@ interface WingMentorHomeProps {
   onStartFoundationalEnrollment?: () => void;
   onViewChange?: (view: string) => void;
   initialView?: MainView;
+  isDarkMode?: boolean;
+  onToggleDarkMode?: () => void;
   preloadedData?: {
     portfolio?: any;
     achievements?: any;
@@ -274,6 +276,8 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
   onStartFoundationalEnrollment,
   onViewChange,
   initialView = 'programs',
+  isDarkMode = false,
+  onToggleDarkMode,
   preloadedData = {}
 }) => {
   const [mainView, setMainView] = useState<MainView>(initialView || 'dashboard');
@@ -3857,23 +3861,46 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               left: 0,
               right: 0,
               zIndex: 100,
-              background: 'linear-gradient(180deg, rgba(248,250,252,0.98) 0%, rgba(248,250,252,0.9) 100%)',
+              background: isDarkMode
+                ? 'linear-gradient(180deg, rgba(2,6,23,0.96) 0%, rgba(15,23,42,0.9) 100%)'
+                : 'linear-gradient(180deg, rgba(248,250,252,0.98) 0%, rgba(248,250,252,0.9) 100%)',
               backdropFilter: 'blur(8px)',
-              borderBottom: '1px solid rgba(226,232,240,0.8)',
+              borderBottom: isDarkMode ? '1px solid rgba(71,85,105,0.55)' : '1px solid rgba(226,232,240,0.8)',
               boxSizing: 'border-box',
             }}
           >
             <div>
-              <p style={{ margin: 0, fontSize: '0.9rem', color: '#94a3b8', letterSpacing: '0.08em' }}>WELCOME BACK</p>
+              <p style={{ margin: 0, fontSize: '0.9rem', color: isDarkMode ? '#94a3b8' : '#94a3b8', letterSpacing: '0.08em' }}>WELCOME BACK</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
-                <Icons.User style={{ width: 22, height: 22, color: '#2563eb' }} />
-                <h2 style={{ margin: 0, fontSize: '1.5rem', color: '#0f172a', fontWeight: 600 }}>
+                <Icons.User style={{ width: 22, height: 22, color: isDarkMode ? '#60a5fa' : '#2563eb' }} />
+                <h2 style={{ margin: 0, fontSize: '1.5rem', color: isDarkMode ? '#f8fafc' : '#0f172a', fontWeight: 600 }}>
                   {userFirstName}
                 </h2>
               </div>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <button
+                onClick={onToggleDarkMode}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  padding: '0.65rem 1.2rem',
+                  borderRadius: '999px',
+                  border: isDarkMode ? '1px solid rgba(148,163,184,0.35)' : '1px solid #dbeafe',
+                  background: isDarkMode ? 'rgba(30,41,59,0.9)' : '#eff6ff',
+                  color: isDarkMode ? '#e2e8f0' : '#1e40af',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  boxShadow: isDarkMode ? '0 8px 20px rgba(2,6,23,0.3)' : '0 2px 6px rgba(37,99,235,0.08)'
+                }}
+              >
+                <Icons.Monitor style={{ width: 16, height: 16 }} />
+                {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              </button>
+
               <button
                 onClick={() => onViewChange?.('module-01')}
                 style={{

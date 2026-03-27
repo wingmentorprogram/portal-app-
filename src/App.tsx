@@ -462,6 +462,7 @@ import PilotJobDatabasePage from './pages/PilotJobDatabasePage';
 
 const GRAPHICS_PRESET_STORAGE_KEY = 'wm-graphics-preset';
 const GRAPHICS_PRESET_CONFIRMED_STORAGE_KEY = 'wm-graphics-preset-confirmed';
+const DARK_MODE_STORAGE_KEY = 'wm-dark-mode';
 
 const detectGraphicsPreset = (): DetectionResult => {
   if (typeof window === 'undefined') {
@@ -531,6 +532,7 @@ function App() {
   const [graphicsDetection, setGraphicsDetection] = useState<DetectionResult>(() => detectGraphicsPreset());
   const [graphicsPreset, setGraphicsPreset] = useState<GraphicsPreset>(() => detectGraphicsPreset().recommendedPreset);
   const [hasConfirmedGraphicsPreset, setHasConfirmedGraphicsPreset] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState<LoadingPhase>('fetch');
   const [loadingError, setLoadingError] = useState<string | null>(null);
   const [canSkipLoading, setCanSkipLoading] = useState(false);
@@ -590,9 +592,11 @@ function App() {
 
     const savedPreset = window.localStorage.getItem(GRAPHICS_PRESET_STORAGE_KEY) as GraphicsPreset | null;
     const savedConfirmed = window.localStorage.getItem(GRAPHICS_PRESET_CONFIRMED_STORAGE_KEY) === 'true';
+    const savedDarkMode = window.localStorage.getItem(DARK_MODE_STORAGE_KEY) === 'true';
 
     setGraphicsPreset(savedPreset || detected.recommendedPreset);
     setHasConfirmedGraphicsPreset(savedConfirmed);
+    setIsDarkMode(savedDarkMode);
   }, []);
 
   const handleConfirmGraphicsPreset = useCallback(() => {
@@ -614,6 +618,21 @@ function App() {
       delete document.body.dataset.performancePreset;
     };
   }, [graphicsPreset]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.body.dataset.theme = isDarkMode ? 'dark' : 'light';
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(DARK_MODE_STORAGE_KEY, String(isDarkMode));
+    }
+    return () => {
+      delete document.body.dataset.theme;
+    };
+  }, [isDarkMode]);
+
+  const handleToggleDarkMode = useCallback(() => {
+    setIsDarkMode((prev) => !prev);
+  }, []);
 
   const handleViewChange = (view: ViewName) => {
     console.log('🔀 View change requested:', view);
@@ -1037,6 +1056,8 @@ function App() {
           onStartFoundationalEnrollment={() => setCurrentView('foundational-onboarding')}
           onViewChange={(view) => handleViewChange(view as ViewName)}
           initialView={pendingHomeView || 'wingmentor-network'}
+          isDarkMode={isDarkMode}
+          onToggleDarkMode={handleToggleDarkMode}
         />
       ) : currentView === 'foundational' ? (
         <FoundationalProgramPage
@@ -1078,6 +1099,8 @@ function App() {
           onViewChange={(view) => handleViewChange(view as ViewName)}
           initialView={currentView === 'pathways' ? 'pathways' : 'programs'}
           preloadedData={authState.preloadedData}
+          isDarkMode={isDarkMode}
+          onToggleDarkMode={handleToggleDarkMode}
         />
       ) : currentView === 'privatesector' ? (
         <PrivateSectorPage onBack={() => setCurrentView('pathways')} onLogout={handleLogout} />
