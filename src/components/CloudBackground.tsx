@@ -2,7 +2,7 @@ import { useRef, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-type GraphicsPerformancePreset = 'low' | 'mid' | 'high' | 'macbook-air-2017';
+type GraphicsPerformancePreset = 'low' | 'mid' | 'high';
 
 const fragmentShader = `
 uniform float uTime;
@@ -195,16 +195,12 @@ export const CloudBackground = ({ variant = 'light', performancePreset = 'mid', 
         ? [1, 1.5]
         : performancePreset === 'mid'
             ? [1, 1.2]
-            : performancePreset === 'macbook-air-2017'
-                ? [1, 1]
-                : [0.75, 1];
+            : [0.75, 1];
     const speedMultiplier = performancePreset === 'high'
         ? 1
         : performancePreset === 'mid'
             ? 0.85
-            : performancePreset === 'macbook-air-2017'
-                ? 0.65
-                : 0.4;
+            : 0.4;
     const frameLoop = performancePreset === 'high' ? 'always' : 'demand';
 
     return (

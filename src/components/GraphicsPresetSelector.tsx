@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icons } from '../icons';
 
-export type GraphicsPreset = 'low' | 'mid' | 'high' | 'macbook-air-2017';
+export type GraphicsPreset = 'low' | 'mid' | 'high';
 
 export interface DetectionResult {
   recommendedPreset: GraphicsPreset;
@@ -19,27 +19,22 @@ interface GraphicsPresetSelectorProps {
 const presetDetails: Record<GraphicsPreset, { title: string; subtitle: string; badge: string }> = {
   low: {
     title: 'Low-End PC',
-    subtitle: 'Reduced graphics, lighter animation load, best for older hardware.',
+    subtitle: 'Best for older PCs and Macs, including older MacBook Air models and devices from before 2020.',
     badge: 'Maximum stability'
   },
   mid: {
     title: 'Mid-Range PC',
-    subtitle: 'Balanced visuals and performance for everyday laptops and desktops.',
+    subtitle: 'Balanced visuals for mainstream laptops and desktops, especially around 2020-era hardware.',
     badge: 'Recommended balance'
   },
   high: {
     title: 'High-End PC',
-    subtitle: 'Full visual quality for stronger GPUs and newer desktop systems.',
+    subtitle: 'Full visual quality for the latest high-end systems, including newer performance Macs and flagship PCs.',
     badge: 'Best visuals'
-  },
-  'macbook-air-2017': {
-    title: 'MacBook Air 2017',
-    subtitle: 'Mac-friendly lightweight profile tuned for Intel integrated graphics.',
-    badge: 'Mac optimized'
   }
 };
 
-const presetOrder: GraphicsPreset[] = ['low', 'mid', 'high', 'macbook-air-2017'];
+const presetOrder: GraphicsPreset[] = ['low', 'mid', 'high'];
 
 export const GraphicsPresetSelector: React.FC<GraphicsPresetSelectorProps> = ({
   detection,

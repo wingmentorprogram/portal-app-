@@ -484,34 +484,42 @@ const detectGraphicsPreset = (): DetectionResult => {
   const platform = (nav.userAgentData?.platform || nav.platform || '').toLowerCase();
   const screenPixels = window.innerWidth * window.innerHeight;
 
-  const isMacbookAir2017 = (platform.includes('mac') || userAgent.includes('macintosh')) && memory <= 8 && cores <= 4;
-  if (isMacbookAir2017) {
+  const isOlderMac = (platform.includes('mac') || userAgent.includes('macintosh')) && cores <= 4;
+  if (isOlderMac) {
     return {
-      recommendedPreset: 'macbook-air-2017',
-      reason: 'Detected an older macOS laptop profile with limited integrated graphics headroom.',
-      deviceLabel: 'macOS laptop / likely Intel integrated graphics'
+      recommendedPreset: 'low',
+      reason: 'Detected an older Mac profile, which is best grouped into the low-end optimization tier.',
+      deviceLabel: 'Older Mac hardware / integrated graphics profile'
     };
   }
 
   if (memory <= 4 || cores <= 4 || screenPixels <= 1280 * 720) {
     return {
       recommendedPreset: 'low',
-      reason: 'Detected lower memory or CPU resources, so a lightweight profile is safest.',
+      reason: 'Detected older or lower-powered hardware, so the lightweight profile is the safest choice.',
       deviceLabel: `${memory}GB memory • ${cores} CPU threads`
+    };
+  }
+
+  if ((platform.includes('mac') || userAgent.includes('macintosh')) && (userAgent.includes('apple silicon') || cores >= 8) && memory >= 8) {
+    return {
+      recommendedPreset: 'high',
+      reason: 'Detected a newer high-performance Mac profile suitable for the highest visual tier.',
+      deviceLabel: `${memory}GB memory • ${cores} CPU threads • modern Mac profile`
     };
   }
 
   if (memory >= 8 && cores >= 8 && screenPixels >= 1920 * 1080) {
     return {
       recommendedPreset: 'high',
-      reason: 'Detected stronger hardware with enough memory and CPU capacity for full visuals.',
+      reason: 'Detected newer high-end hardware, so the full visual profile should run smoothly.',
       deviceLabel: `${memory}GB memory • ${cores} CPU threads • large display`
     };
   }
 
   return {
     recommendedPreset: 'mid',
-    reason: 'Detected a balanced device profile, so medium graphics should be the best fit.',
+    reason: 'Detected a balanced 2020-era or mainstream device profile, so mid-range optimization is the best fit.',
     deviceLabel: `${memory}GB memory • ${cores} CPU threads`
   };
 };
@@ -593,6 +601,18 @@ function App() {
       window.localStorage.setItem(GRAPHICS_PRESET_CONFIRMED_STORAGE_KEY, 'true');
     }
     setHasConfirmedGraphicsPreset(true);
+  }, [graphicsPreset]);
+
+  const handleReopenGraphicsPreset = useCallback(() => {
+    setHasConfirmedGraphicsPreset(false);
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.body.dataset.performancePreset = graphicsPreset;
+    return () => {
+      delete document.body.dataset.performancePreset;
+    };
   }, [graphicsPreset]);
 
   const handleViewChange = (view: ViewName) => {
@@ -1007,7 +1027,7 @@ function App() {
           onConfirm={handleConfirmGraphicsPreset}
         />
       ) : currentView === 'login' ? (
-        <LoginPage onLogin={handleLogin} blurred={loginBlurred} />
+        <LoginPage onLogin={handleLogin} blurred={loginBlurred} onChangeOptimization={handleReopenGraphicsPreset} />
       ) : currentView === 'reset-password' ? (
         <ResetPasswordPage />
       ) : currentView === 'hub' ? (

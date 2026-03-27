@@ -10,9 +10,10 @@ const REMEMBER_FLAG_KEY = 'wm-remember-active';
 interface LoginPageProps {
     onLogin: (email: string) => void;
     blurred?: boolean;
+    onChangeOptimization?: () => void;
 }
 
-export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, blurred = false }) => {
+export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, blurred = false, onChangeOptimization }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -105,6 +106,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, blurred = false }
                         <div className={styles.formHeader}>
                             <h2 className={styles.formTitle}>Connecting pilots to the aviation industry</h2>
                             <p className={styles.formSubtitle}>Sign in with your WingMentor credentials.</p>
+                            {onChangeOptimization && (
+                                <button
+                                    type="button"
+                                    onClick={onChangeOptimization}
+                                    className={styles.optimizationButton}
+                                >
+                                    Change Optimization
+                                </button>
+                            )}
                         </div>
 
                         {error && (
