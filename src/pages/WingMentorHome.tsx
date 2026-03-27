@@ -392,7 +392,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         left: 0,
         top: 0,
         zIndex: 10,
-        background: 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)'
+        background: isDarkMode
+          ? 'linear-gradient(180deg, #020817 0%, #0f172a 55%, #111827 100%)'
+          : 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)'
       }}>
         <div
           className="dashboard-container animate-fade-in"
@@ -417,13 +419,13 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               gap: '0.5rem',
               padding: '0.625rem 1rem',
               borderRadius: '8px',
-              background: 'rgba(255, 255, 255, 0.9)',
-              border: '1px solid rgba(226, 232, 240, 0.8)',
-              color: '#1e293b',
+              background: isDarkMode ? 'rgba(15, 23, 42, 0.92)' : 'rgba(255, 255, 255, 0.9)',
+              border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : '1px solid rgba(226, 232, 240, 0.8)',
+              color: isDarkMode ? '#e2e8f0' : '#1e293b',
               fontSize: '0.875rem',
               fontWeight: 600,
               cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+              boxShadow: isDarkMode ? '0 10px 30px rgba(2, 6, 23, 0.35)' : '0 2px 8px rgba(0, 0, 0, 0.08)',
             }}
           >
             <Icons.LogOut style={{ width: 16, height: 16 }} />
@@ -612,18 +614,20 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             left: 0,
             right: 0,
             padding: '1rem',
-            background: 'linear-gradient(180deg, transparent 0%, rgba(240, 244, 248, 0.9) 30%)',
-            borderTop: '1px solid rgba(226, 232, 240, 0.6)'
+            background: isDarkMode
+              ? 'linear-gradient(180deg, transparent 0%, rgba(2, 6, 23, 0.92) 30%)'
+              : 'linear-gradient(180deg, transparent 0%, rgba(240, 244, 248, 0.9) 30%)',
+            borderTop: isDarkMode ? '1px solid rgba(51, 65, 85, 0.75)' : '1px solid rgba(226, 232, 240, 0.6)'
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <button
                 onClick={() => setMainView('contact')}
                 style={{
                   padding: '0.75rem 1rem',
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  border: '1px solid rgba(226, 232, 240, 0.8)',
+                  background: isDarkMode ? 'rgba(15, 23, 42, 0.82)' : 'rgba(255, 255, 255, 0.8)',
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : '1px solid rgba(226, 232, 240, 0.8)',
                   borderRadius: '12px',
-                  color: '#475569',
+                  color: isDarkMode ? '#cbd5e1' : '#475569',
                   fontSize: '0.875rem',
                   fontWeight: 500,
                   cursor: 'pointer',
@@ -634,14 +638,14 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   backdropFilter: 'blur(10px)'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
-                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
-                  e.currentTarget.style.color = '#2563eb';
+                  e.currentTarget.style.background = isDarkMode ? 'rgba(30, 41, 59, 0.96)' : 'rgba(255, 255, 255, 0.95)';
+                  e.currentTarget.style.borderColor = isDarkMode ? 'rgba(96, 165, 250, 0.4)' : 'rgba(59, 130, 246, 0.3)';
+                  e.currentTarget.style.color = isDarkMode ? '#93c5fd' : '#2563eb';
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
-                  e.currentTarget.style.borderColor = 'rgba(226, 232, 240, 0.8)';
-                  e.currentTarget.style.color = '#475569';
+                  e.currentTarget.style.background = isDarkMode ? 'rgba(15, 23, 42, 0.82)' : 'rgba(255, 255, 255, 0.8)';
+                  e.currentTarget.style.borderColor = isDarkMode ? 'rgba(71, 85, 105, 0.7)' : 'rgba(226, 232, 240, 0.8)';
+                  e.currentTarget.style.color = isDarkMode ? '#cbd5e1' : '#475569';
                 }}
               >
                 <Icons.MessageCircle style={{ width: 16, height: 16 }} />
@@ -651,10 +655,10 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                 onClick={() => setMainView('contact')}
                 style={{
                   padding: '0.75rem 1rem',
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  border: '1px solid rgba(226, 232, 240, 0.8)',
+                  background: isDarkMode ? 'rgba(15, 23, 42, 0.82)' : 'rgba(255, 255, 255, 0.8)',
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : '1px solid rgba(226, 232, 240, 0.8)',
                   borderRadius: '12px',
-                  color: '#475569',
+                  color: isDarkMode ? '#cbd5e1' : '#475569',
                   fontSize: '0.875rem',
                   fontWeight: 500,
                   cursor: 'pointer',
@@ -665,14 +669,14 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   backdropFilter: 'blur(10px)'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
-                  e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+                  e.currentTarget.style.background = isDarkMode ? 'rgba(30, 41, 59, 0.96)' : 'rgba(255, 255, 255, 0.95)';
+                  e.currentTarget.style.borderColor = isDarkMode ? 'rgba(245, 158, 11, 0.35)' : 'rgba(245, 158, 11, 0.3)';
                   e.currentTarget.style.color = '#f59e0b';
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
-                  e.currentTarget.style.borderColor = 'rgba(226, 232, 240, 0.8)';
-                  e.currentTarget.style.color = '#475569';
+                  e.currentTarget.style.background = isDarkMode ? 'rgba(15, 23, 42, 0.82)' : 'rgba(255, 255, 255, 0.8)';
+                  e.currentTarget.style.borderColor = isDarkMode ? 'rgba(71, 85, 105, 0.7)' : 'rgba(226, 232, 240, 0.8)';
+                  e.currentTarget.style.color = isDarkMode ? '#cbd5e1' : '#475569';
                 }}
               >
                 <Icons.Settings style={{ width: 16, height: 16 }} />
@@ -3909,13 +3913,13 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   gap: '0.35rem',
                   padding: '0.65rem 1.2rem',
                   borderRadius: '999px',
-                  border: '1px solid #dbeafe',
-                  background: '#eff6ff',
-                  color: '#1e40af',
+                  border: isDarkMode ? '1px solid rgba(59, 130, 246, 0.35)' : '1px solid #dbeafe',
+                  background: isDarkMode ? 'rgba(30, 41, 59, 0.9)' : '#eff6ff',
+                  color: isDarkMode ? '#bfdbfe' : '#1e40af',
                   fontWeight: 600,
                   fontSize: '0.9rem',
                   cursor: 'pointer',
-                  boxShadow: '0 2px 6px rgba(37,99,235,0.08)'
+                  boxShadow: isDarkMode ? '0 8px 24px rgba(2, 6, 23, 0.28)' : '0 2px 6px rgba(37,99,235,0.08)'
                 }}
               >
                 <Icons.BookOpen style={{ width: 16, height: 16 }} /> Pilot Modules
@@ -3929,13 +3933,13 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   gap: '0.35rem',
                   padding: '0.65rem 1.2rem',
                   borderRadius: '999px',
-                  border: '1px solid #e2e8f0',
-                  background: '#fff',
-                  color: '#1e293b',
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.7)' : '1px solid #e2e8f0',
+                  background: isDarkMode ? 'rgba(15, 23, 42, 0.92)' : '#fff',
+                  color: isDarkMode ? '#e2e8f0' : '#1e293b',
                   fontWeight: 600,
                   fontSize: '0.9rem',
                   cursor: 'pointer',
-                  boxShadow: '0 2px 6px rgba(15,23,42,0.08)'
+                  boxShadow: isDarkMode ? '0 8px 24px rgba(2, 6, 23, 0.28)' : '0 2px 6px rgba(15,23,42,0.08)'
                 }}
               >
                 <Icons.User style={{ width: 16, height: 16 }} /> Profile
@@ -3949,13 +3953,13 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   gap: '0.35rem',
                   padding: '0.65rem 1.2rem',
                   borderRadius: '999px',
-                  border: '1px solid transparent',
-                  background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
-                  color: '#475569',
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.65)' : '1px solid transparent',
+                  background: isDarkMode ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.96) 100%)' : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+                  color: isDarkMode ? '#cbd5e1' : '#475569',
                   fontWeight: 600,
                   fontSize: '0.9rem',
                   cursor: 'pointer',
-                  boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.8)'
+                  boxShadow: isDarkMode ? '0 8px 24px rgba(2, 6, 23, 0.28)' : 'inset 0 1px 1px rgba(255,255,255,0.8)'
                 }}
               >
                 <Icons.Settings style={{ width: 16, height: 16 }} /> Settings
@@ -5191,7 +5195,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#f8fafc' }}>
+    <div style={{ display: 'flex', height: '100vh', background: isDarkMode ? '#020817' : '#f8fafc' }}>
       <Sidebar />
       
       {/* Main Content Area */}

@@ -74,7 +74,6 @@ body[data-performance-preset='low'] .infoPanelGradient2 {
   display: none !important;
 }
 
-body[data-performance-preset='mid'] .backgroundGradient2,
 body[data-performance-preset='mid'] .infoPanelGradient2 {
   opacity: 0.45 !important;
   filter: blur(24px) !important;
@@ -82,13 +81,6 @@ body[data-performance-preset='mid'] .infoPanelGradient2 {
 
 body[data-theme='dark'] {
   background: #020817;
-  color: #e2e8f0;
-}
-
-body[data-theme='dark'] .dashboard-container,
-body[data-theme='dark'] .network-panel,
-body[data-theme='dark'] main,
-body[data-theme='dark'] section {
   color: #e2e8f0;
 }
 
@@ -102,6 +94,15 @@ body[data-theme='dark'] .horizontal-card {
   box-shadow: 0 30px 80px rgba(2,6,23,0.45) !important;
 }
 
+body[data-theme='dark'] .dashboard-container,
+body[data-theme='dark'] .network-panel,
+body[data-theme='dark'] .dashboard-header,
+body[data-theme='dark'] .dashboard-subtitle,
+body[data-theme='dark'] .horizontal-card-content,
+body[data-theme='dark'] .hub-card-arrow {
+  color: #e2e8f0;
+}
+
 body[data-theme='dark'] .horizontal-card-title,
 body[data-theme='dark'] .dashboard-title,
 body[data-theme='dark'] h1,
@@ -111,12 +112,8 @@ body[data-theme='dark'] h3 {
 }
 
 body[data-theme='dark'] .horizontal-card-desc,
-body[data-theme='dark'] .dashboard-subtitle,
-body[data-theme='dark'] p,
-body[data-theme='dark'] label,
-body[data-theme='dark'] span,
-body[data-theme='dark'] div {
-  color: inherit;
+body[data-theme='dark'] .dashboard-subtitle {
+  color: #94a3b8 !important;
 }
 
 body[data-theme='dark'] input,
