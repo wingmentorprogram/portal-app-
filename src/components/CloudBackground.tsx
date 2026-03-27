@@ -2,6 +2,8 @@ import { useRef, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
+type GraphicsPerformancePreset = 'low' | 'mid' | 'high' | 'macbook-air-2017';
+
 const fragmentShader = `
 uniform float uTime;
 uniform vec2 uResolution;
@@ -129,7 +131,7 @@ void main() {
 }
 `;
 
-const ShaderPlane = ({ variant }: { variant: 'light' | 'dark' }) => {
+const ShaderPlane = ({ variant, speedMultiplier }: { variant: 'light' | 'dark'; speedMultiplier: number }) => {
     const materialRef = useRef<THREE.ShaderMaterial>(null);
     const { size } = useThree();
 
@@ -167,7 +169,7 @@ const ShaderPlane = ({ variant }: { variant: 'light' | 'dark' }) => {
 
     useFrame((state) => {
         if (materialRef.current) {
-            materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+            materialRef.current.uniforms.uTime.value = state.clock.elapsedTime * speedMultiplier;
             materialRef.current.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
         }
     });
@@ -187,13 +189,42 @@ const ShaderPlane = ({ variant }: { variant: 'light' | 'dark' }) => {
     );
 };
 
-export const CloudBackground = ({ variant = 'light', children }: { variant?: 'light' | 'dark'; children?: React.ReactNode }) => {
+export const CloudBackground = ({ variant = 'light', performancePreset = 'mid', children }: { variant?: 'light' | 'dark'; performancePreset?: GraphicsPerformancePreset; children?: React.ReactNode }) => {
+    const shouldUseStaticBackground = performancePreset === 'low';
+    const dpr: [number, number] = performancePreset === 'high'
+        ? [1, 1.5]
+        : performancePreset === 'mid'
+            ? [1, 1.2]
+            : performancePreset === 'macbook-air-2017'
+                ? [1, 1]
+                : [0.75, 1];
+    const speedMultiplier = performancePreset === 'high'
+        ? 1
+        : performancePreset === 'mid'
+            ? 0.85
+            : performancePreset === 'macbook-air-2017'
+                ? 0.65
+                : 0.4;
+    const frameLoop = performancePreset === 'high' ? 'always' : 'demand';
+
     return (
         <>
         <div style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}>
-            <Canvas orthographic camera={{ position: [0, 0, 1], zoom: 1 }} dpr={[1, 1]} frameloop="always">
-                <ShaderPlane variant={variant} />
-            </Canvas>
+            {shouldUseStaticBackground ? (
+                <div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: variant === 'light'
+                            ? 'linear-gradient(180deg, #dbeafe 0%, #eff6ff 42%, #f8fafc 100%)'
+                            : 'linear-gradient(180deg, #27466f 0%, #47688b 48%, #6d8ead 100%)'
+                    }}
+                />
+            ) : (
+                <Canvas orthographic camera={{ position: [0, 0, 1], zoom: 1 }} dpr={dpr} frameloop={frameLoop}>
+                    <ShaderPlane variant={variant} speedMultiplier={speedMultiplier} />
+                </Canvas>
+            )}
         </div>
         {children}
         </>

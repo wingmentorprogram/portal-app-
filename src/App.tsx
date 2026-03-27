@@ -9,6 +9,7 @@ import FoundationalProgramPage from './pages/FoundationalProgramPage';
 import { WingMentorHome, type MainView } from './pages/WingMentorHome';
 import { RecognitionAchievementPage } from './pages/RecognitionAchievementPage';
 import { LoginPage } from './pages/LoginPage';
+import { GraphicsPresetSelector, type DetectionResult, type GraphicsPreset } from './components/GraphicsPresetSelector';
 
 // Declare the remote module for TypeScript
 // @ts-ignore
@@ -459,11 +460,69 @@ import MentorshipProtocolsModulePage from './pages/MentorshipProtocolsModulePage
 import PeerAdvocacyModulePage from './pages/PeerAdvocacyModulePage';
 import PilotJobDatabasePage from './pages/PilotJobDatabasePage';
 
+const GRAPHICS_PRESET_STORAGE_KEY = 'wm-graphics-preset';
+const GRAPHICS_PRESET_CONFIRMED_STORAGE_KEY = 'wm-graphics-preset-confirmed';
+
+const detectGraphicsPreset = (): DetectionResult => {
+  if (typeof window === 'undefined') {
+    return {
+      recommendedPreset: 'mid',
+      reason: 'Defaulting to a balanced profile until device information is available.',
+      deviceLabel: 'Unknown device'
+    };
+  }
+
+  const nav = window.navigator as Navigator & {
+    deviceMemory?: number;
+    hardwareConcurrency?: number;
+    userAgentData?: { platform?: string };
+  };
+
+  const memory = nav.deviceMemory ?? 4;
+  const cores = nav.hardwareConcurrency ?? 4;
+  const userAgent = nav.userAgent.toLowerCase();
+  const platform = (nav.userAgentData?.platform || nav.platform || '').toLowerCase();
+  const screenPixels = window.innerWidth * window.innerHeight;
+
+  const isMacbookAir2017 = (platform.includes('mac') || userAgent.includes('macintosh')) && memory <= 8 && cores <= 4;
+  if (isMacbookAir2017) {
+    return {
+      recommendedPreset: 'macbook-air-2017',
+      reason: 'Detected an older macOS laptop profile with limited integrated graphics headroom.',
+      deviceLabel: 'macOS laptop / likely Intel integrated graphics'
+    };
+  }
+
+  if (memory <= 4 || cores <= 4 || screenPixels <= 1280 * 720) {
+    return {
+      recommendedPreset: 'low',
+      reason: 'Detected lower memory or CPU resources, so a lightweight profile is safest.',
+      deviceLabel: `${memory}GB memory • ${cores} CPU threads`
+    };
+  }
+
+  if (memory >= 8 && cores >= 8 && screenPixels >= 1920 * 1080) {
+    return {
+      recommendedPreset: 'high',
+      reason: 'Detected stronger hardware with enough memory and CPU capacity for full visuals.',
+      deviceLabel: `${memory}GB memory • ${cores} CPU threads • large display`
+    };
+  }
+
+  return {
+    recommendedPreset: 'mid',
+    reason: 'Detected a balanced device profile, so medium graphics should be the best fit.',
+    deviceLabel: `${memory}GB memory • ${cores} CPU threads`
+  };
+};
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [loginBlurred, setLoginBlurred] = useState(false);
+  const [graphicsDetection, setGraphicsDetection] = useState<DetectionResult>(() => detectGraphicsPreset());
+  const [graphicsPreset, setGraphicsPreset] = useState<GraphicsPreset>(() => detectGraphicsPreset().recommendedPreset);
+  const [hasConfirmedGraphicsPreset, setHasConfirmedGraphicsPreset] = useState(false);
   const [loadingPhase, setLoadingPhase] = useState<LoadingPhase>('fetch');
   const [loadingError, setLoadingError] = useState<string | null>(null);
   const [canSkipLoading, setCanSkipLoading] = useState(false);
@@ -514,6 +573,27 @@ function App() {
   const [completedModules, setCompletedModules] = useState<string[]>([]);
   const [lastLoginEmail, setLastLoginEmail] = useState<string | null>(null);
   const [pendingHomeView, setPendingHomeView] = useState<MainView | null>(null);
+
+  useEffect(() => {
+    const detected = detectGraphicsPreset();
+    setGraphicsDetection(detected);
+
+    if (typeof window === 'undefined') return;
+
+    const savedPreset = window.localStorage.getItem(GRAPHICS_PRESET_STORAGE_KEY) as GraphicsPreset | null;
+    const savedConfirmed = window.localStorage.getItem(GRAPHICS_PRESET_CONFIRMED_STORAGE_KEY) === 'true';
+
+    setGraphicsPreset(savedPreset || detected.recommendedPreset);
+    setHasConfirmedGraphicsPreset(savedConfirmed);
+  }, []);
+
+  const handleConfirmGraphicsPreset = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(GRAPHICS_PRESET_STORAGE_KEY, graphicsPreset);
+      window.localStorage.setItem(GRAPHICS_PRESET_CONFIRMED_STORAGE_KEY, 'true');
+    }
+    setHasConfirmedGraphicsPreset(true);
+  }, [graphicsPreset]);
 
   const handleViewChange = (view: ViewName) => {
     console.log('🔀 View change requested:', view);
@@ -879,7 +959,7 @@ function App() {
 
   return (
     <>
-      <CloudBackground variant={currentView === 'login' || showLoading || isInitializing ? 'dark' : 'light'} />
+      <CloudBackground variant={currentView === 'login' || showLoading || isInitializing ? 'dark' : 'light'} performancePreset={graphicsPreset} />
       {isInitializing ? (
         <div style={{
           position: 'fixed',
@@ -918,6 +998,13 @@ function App() {
             clearLoadingSequence();
           }}
           canSkip={canSkipLoading}
+        />
+      ) : currentView === 'login' && !hasConfirmedGraphicsPreset ? (
+        <GraphicsPresetSelector
+          detection={graphicsDetection}
+          selectedPreset={graphicsPreset}
+          onSelect={setGraphicsPreset}
+          onConfirm={handleConfirmGraphicsPreset}
         />
       ) : currentView === 'login' ? (
         <LoginPage onLogin={handleLogin} blurred={loginBlurred} />
