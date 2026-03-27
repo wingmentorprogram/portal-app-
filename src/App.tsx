@@ -998,7 +998,7 @@ function App() {
 
   return (
     <>
-      <CloudBackground variant={currentView === 'login' || showLoading || isInitializing ? 'dark' : 'light'} performancePreset={graphicsPreset} />
+      <CloudBackground variant={currentView === 'login' || showLoading || isInitializing || isDarkMode ? 'dark' : 'light'} performancePreset={graphicsPreset} />
       {isInitializing ? (
         <div style={{
           position: 'fixed',

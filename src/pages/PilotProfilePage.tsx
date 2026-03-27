@@ -943,7 +943,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
   }, [userProfile?.uid]);
 
   return (
-    <div className="dashboard-container animate-fade-in" style={{ backgroundColor: '#eef4fb', paddingBottom: '4rem' }}>
+    <div className="dashboard-container animate-fade-in pilot-profile-page" style={{ backgroundColor: '#eef4fb', paddingBottom: '4rem' }}>
       <main
         style={{
           position: 'relative',
@@ -954,7 +954,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
         }}
       >
         {/* Header */}
-        <header style={{
+        <header className="pilot-profile-header" style={{
           padding: '3rem 4rem',
           background: 'linear-gradient(180deg, #fff 0%, #f0f4fb 100%)',
           position: 'relative',
@@ -1008,7 +1008,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                 return (
                   <>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'stretch' }}>
-                      <div style={{ ...baseCardStyle, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1.25rem', justifyContent: 'space-between' }}>
+                      <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1.25rem', justifyContent: 'space-between' }}>
                         <div>
                           <div style={{
                             width: '100px',
@@ -1040,7 +1040,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                         </div>
                       </div>
 
-                      <div style={{ ...baseCardStyle, display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+                      <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                         <div>
                           <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>Pilot Credentials</h3>
                           <p style={{ margin: '0.35rem 0 0', color: '#64748b', fontSize: '0.85rem' }}>Licensing, hours, and access pass</p>
@@ -1066,7 +1066,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                         </div>
                       </div>
 
-                      <div style={{ ...baseCardStyle, minHeight: '100%' }}>
+                      <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, minHeight: '100%' }}>
                         <div style={{ marginBottom: '0.75rem' }}>
                           <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.25em', color: '#94a3b8', textTransform: 'uppercase' }}>Readiness Snapshot</p>
                           <h3 style={{ margin: '0.35rem 0 0', fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>Resource & Availability</h3>
@@ -1085,7 +1085,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                         </div>
                       </div>
 
-                      <div style={{
+                      <div className="pilot-profile-summary-card" style={{
                         gridColumn: '1 / -1',
                         background: 'white',
                         borderRadius: '26px',
@@ -1136,7 +1136,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
 
             <CategorySection title="Pilot Logbooks" description="Verified flight records, digital access, and mentor logbook links">
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
-                <div style={{ ...baseCardStyle, borderRadius: '24px', padding: '1.75rem' }}>
+                <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, borderRadius: '24px', padding: '1.75rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
                     <div>
                       <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Flight Logbook</p>
@@ -1187,7 +1187,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                   )}
                 </div>
 
-                <div style={{ ...baseCardStyle, borderRadius: '24px', padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, borderRadius: '24px', padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   <div>
                     <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Mentor Engagement</p>
                     <h3 style={{ margin: '0.35rem 0', fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Recent Mentor Hours</h3>
@@ -1219,7 +1219,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-                <div style={{ background: 'white', borderRadius: '22px', padding: '1.25rem', border: '1px solid rgba(226,232,240,0.9)', boxShadow: '0 10px 30px rgba(15,23,42,0.04)' }}>
+                <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '22px', padding: '1.25rem', border: '1px solid rgba(226,232,240,0.9)', boxShadow: '0 10px 30px rgba(15,23,42,0.04)' }}>
                   <p style={{ margin: 0, fontSize: '0.65rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: '#94a3b8' }}>Logbook</p>
                   <h3 style={{ margin: '0.35rem 0 0.75rem', fontSize: '1.2rem', fontWeight: 600, color: '#0f172a' }}>Digital Logbook Access</h3>
                   <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', minHeight: '2.25rem' }}>Verified flight record history</p>
@@ -1292,7 +1292,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
             <CategorySection title="Pilot Status" description="Live job alignment, readiness metrics, and mentor touchpoints">
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-                  <div style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
+                  <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                       <div>
                         <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Performance Statistics</p>
@@ -1302,7 +1302,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                     </div>
                     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                       {[{ title: 'Exam Progress', subtitle: 'Historical Scores & Subject Mastery' }, { title: 'Study Tracking', subtitle: 'Distribution Analysis & Clock Time' }].map(card => (
-                        <div key={card.title} style={{ flex: '1 1 240px', background: '#f8fafc', borderRadius: '14px', padding: '1rem', border: '1px solid #e2e8f0' }}>
+                        <div key={card.title} className="pilot-profile-glass-card" style={{ flex: '1 1 240px', background: '#f8fafc', borderRadius: '14px', padding: '1rem', border: '1px solid #e2e8f0' }}>
                           <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#94a3b8' }}>{card.title}</p>
                           <p style={{ margin: '0.5rem 0 0', color: '#0f172a' }}>{card.subtitle}</p>
                         </div>
@@ -1328,12 +1328,12 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                     </div>
                   </div>
 
-                  <div style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
+                  <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
                     <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Mentor Feedback</p>
                     <p style={{ fontSize: '0.9rem', color: '#64748b', textAlign: 'center', padding: '1.5rem 0', margin: 0 }}>No mentor feedback available yet.</p>
                   </div>
 
-                  <div style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div>
                       <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Pilot Portfolio</p>
                       <h3 style={{ margin: '0.4rem 0 0', fontSize: '1rem', fontWeight: 600 }}>Atlas Formatted Resume</h3>

@@ -33,7 +33,7 @@ const renderCard = (card: {
   progress?: number;
   onClick?: (() => void) | undefined;
 }) => (
-  <div key={card.title} style={{
+  <div key={card.title} className="recognition-glass-card" style={{
     background: 'rgba(255, 255, 255, 0.9)',
     borderRadius: '24px',
     padding: '1.75rem',
@@ -197,7 +197,7 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
   };
 
   return (
-    <div className="dashboard-container animate-fade-in">
+    <div className="dashboard-container animate-fade-in recognition-page">
       <main className="dashboard-card" style={{ position: 'relative' }}>
         <button
           onClick={onBack}
@@ -241,7 +241,7 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
         </div>
         {/* Stats Summary */}
         <section className="dashboard-section">
-          <div style={{
+          <div className="recognition-stats-card" style={{
             background: 'white',
             borderRadius: '28px',
             padding: '1.25rem',
@@ -354,7 +354,7 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             {achievements.map((achievement) => (
-              <div key={achievement.id} style={{
+              <div key={achievement.id} className="recognition-achievement-card" style={{
                 background: 'white',
                 borderRadius: '12px',
                 padding: '1.5rem',
@@ -411,7 +411,7 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
 
         {/* Coming Soon Section */}
         <section className="dashboard-section" style={{ marginTop: '2rem' }}>
-          <div style={{
+          <div className="recognition-coming-soon-card" style={{
             background: '#f8fafc',
             borderRadius: '12px',
             padding: '2rem',

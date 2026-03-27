@@ -135,6 +135,89 @@ body[data-theme='dark'] .dashboard-logo img {
   filter: brightness(0.96) contrast(1.05);
 }
 
+body[data-theme='dark'] .dashboard-header p,
+body[data-theme='dark'] p,
+body[data-theme='dark'] span,
+body[data-theme='dark'] label,
+body[data-theme='dark'] small {
+  color: #cbd5e1;
+}
+
+body[data-theme='dark'] .recognition-page .recognition-stats-card,
+body[data-theme='dark'] .recognition-page .recognition-achievement-card,
+body[data-theme='dark'] .recognition-page .recognition-coming-soon-card,
+body[data-theme='dark'] .recognition-page .recognition-glass-card,
+body[data-theme='dark'] .pilot-profile-page .pilot-profile-glass-card,
+body[data-theme='dark'] .pilot-profile-page .pilot-profile-summary-card {
+  background: linear-gradient(180deg, rgba(15,23,42,0.96) 0%, rgba(30,41,59,0.94) 100%) !important;
+  border: 1px solid rgba(71,85,105,0.7) !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 24px 60px rgba(2,6,23,0.36) !important;
+}
+
+body[data-theme='dark'] .pilot-profile-page {
+  background: linear-gradient(180deg, #020817 0%, #071122 100%) !important;
+}
+
+body[data-theme='dark'] .pilot-profile-page .pilot-profile-header {
+  background: linear-gradient(180deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.92) 100%) !important;
+  border-bottom: 1px solid rgba(71,85,105,0.7) !important;
+}
+
+body[data-theme='dark'] .pilot-profile-page h1,
+body[data-theme='dark'] .pilot-profile-page h2,
+body[data-theme='dark'] .pilot-profile-page h3,
+body[data-theme='dark'] .recognition-page h1,
+body[data-theme='dark'] .recognition-page h2,
+body[data-theme='dark'] .recognition-page h3 {
+  color: #f8fafc !important;
+}
+
+body[data-theme='dark'] .pilot-profile-page p,
+body[data-theme='dark'] .pilot-profile-page span,
+body[data-theme='dark'] .recognition-page p,
+body[data-theme='dark'] .recognition-page span {
+  color: #94a3b8 !important;
+}
+
+body[data-theme='dark'] .pilot-profile-page button,
+body[data-theme='dark'] .recognition-page button {
+  box-shadow: none;
+}
+
+body[data-theme='dark'] .pilot-profile-page [style*='background: white'],
+body[data-theme='dark'] .pilot-profile-page [style*='background: #f8fafc'],
+body[data-theme='dark'] .pilot-profile-page [style*='background: #eff6ff'],
+body[data-theme='dark'] .pilot-profile-page [style*='background: #fef3c7'],
+body[data-theme='dark'] .pilot-profile-page [style*='background: rgba(255,255,255,0.9)'],
+body[data-theme='dark'] .pilot-profile-page [style*='background: rgba(255,255,255,0.6)'],
+body[data-theme='dark'] .recognition-page [style*='background: white'],
+body[data-theme='dark'] .recognition-page [style*='background: #f8fafc'],
+body[data-theme='dark'] .recognition-page [style*='background: rgba(255, 255, 255, 0.9)'],
+body[data-theme='dark'] .dashboard-container [style*='background: white'],
+body[data-theme='dark'] .dashboard-container [style*='background: #f8fafc'],
+body[data-theme='dark'] .dashboard-container [style*='background-color: white'],
+body[data-theme='dark'] .dashboard-container [style*='background-color: #f8fafc'] {
+  background: linear-gradient(180deg, rgba(15,23,42,0.96) 0%, rgba(30,41,59,0.94) 100%) !important;
+  color: #e2e8f0 !important;
+  border-color: rgba(71,85,105,0.7) !important;
+}
+
+body[data-theme='dark'] .pilot-profile-page [style*='color: #0f172a'],
+body[data-theme='dark'] .pilot-profile-page [style*='color: #1f2937'],
+body[data-theme='dark'] .pilot-profile-page [style*='color: #475569'],
+body[data-theme='dark'] .pilot-profile-page [style*='color: #64748b'],
+body[data-theme='dark'] .recognition-page [style*='color: #0f172a'],
+body[data-theme='dark'] .recognition-page [style*='color: #1e293b'],
+body[data-theme='dark'] .recognition-page [style*='color: #475569'],
+body[data-theme='dark'] .recognition-page [style*='color: #64748b'],
+body[data-theme='dark'] .dashboard-container [style*='color: #0f172a'],
+body[data-theme='dark'] .dashboard-container [style*='color: #1e293b'],
+body[data-theme='dark'] .dashboard-container [style*='color: #475569'],
+body[data-theme='dark'] .dashboard-container [style*='color: #64748b'] {
+  color: #e2e8f0 !important;
+}
+
 body[data-theme='dark'] input,
 body[data-theme='dark'] select,
 body[data-theme='dark'] textarea {
