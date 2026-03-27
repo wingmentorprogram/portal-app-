@@ -785,20 +785,45 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      // Clear URL hash to prevent routing issues
-      window.location.hash = '';
-      // Force sign out and reset auth state
+      // First sign out from Supabase
       await signOut();
-      // Clear any stored session
+      
+      // Clear any stored session data
       localStorage.removeItem('supabase.auth.token');
       localStorage.removeItem('supabase.auth.refreshToken');
+      
+      // Reset auth state
+      setAuthState({
+        user: null,
+        userProfile: null,
+        loading: false,
+        currentSystem: 'pms',
+        preloadedData: {}
+      });
+      
+      // Reset view state
       setCurrentView('login');
       setLoginBlurred(false);
-      // Force page reload to clear any lingering state
-      window.location.reload();
+      setShowLoading(false);
+      hasShownInitialLoading.current = false;
+      
+      // Clear URL hash
+      window.location.hash = '';
+      
+      // Small delay to ensure state updates before any potential reload
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (error) {
       console.error("Logout error:", error);
-      // Fallback: force redirect to login
+      // Fallback: force redirect to login even if error
+      setAuthState({
+        user: null,
+        userProfile: null,
+        loading: false,
+        currentSystem: 'pms',
+        preloadedData: {}
+      });
       setCurrentView('login');
       window.location.hash = '';
     }
