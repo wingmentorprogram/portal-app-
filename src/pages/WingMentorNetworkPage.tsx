@@ -259,6 +259,18 @@ export const WingMentorNetworkPage: React.FC<WingMentorNetworkPageProps> = ({ on
                         <p className="text-[0.9rem] text-slate-500 leading-relaxed max-w-sm mt-3">
                             Coordinate simulator sessions, request debriefs, and message your peers. Reach 20 logged hours to unlock Official Mentor status.
                         </p>
+                        <img
+                            src="/Networking.jpg"
+                            alt="WingMentor Network"
+                            style={{
+                                width: '100%',
+                                maxWidth: '280px',
+                                height: 'auto',
+                                borderRadius: '12px',
+                                marginTop: '1.5rem',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                            }}
+                        />
                     </div>
 
                     <div className="bg-white px-6 py-4 border-b border-solid border-slate-100 shadow-sm relative z-10 w-full">
