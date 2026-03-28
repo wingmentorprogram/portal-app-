@@ -613,7 +613,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                     <Icons.ArrowRight style={{ width: 20, height: 20 }} />
                   </div>
                 </div>
-                <img src="https://images.unsplash.com/photo-1451187580453-4082a83e6d4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="WingMentor Network" className="hub-card-bg-image" style={{ width: '35%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+                <img src="/Networking.jpg" alt="WingMentor Network" className="hub-card-bg-image" style={{ width: '35%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               </div>
             </div>
           </section>
