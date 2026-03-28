@@ -1136,6 +1136,70 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                           ))}
                         </div>
                       </div>
+
+                      {/* Pilot Portfolio - Full width rectangular card */}
+                      <div style={{
+                        gridColumn: '1 / -1',
+                        background: 'white',
+                        borderRadius: '16px',
+                        padding: '1.25rem 2rem',
+                        border: '1px solid rgba(226,232,240,0.9)',
+                        boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '1.5rem'
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
+                          <div style={{
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '12px',
+                            background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'white',
+                            fontSize: '1.5rem'
+                          }}>
+                            📄
+                          </div>
+                          <div>
+                            <p style={{ margin: 0, fontSize: '0.65rem', letterSpacing: '0.2em', color: '#94a3b8', textTransform: 'uppercase' }}>Pilot Portfolio</p>
+                            <h3 style={{ margin: '0.2rem 0', fontSize: '1.1rem', fontWeight: 600, color: '#0f172a' }}>Atlas Formatted Resume</h3>
+                            <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem' }}>Preview the recruiter-ready resume on Recognition & Achievements</p>
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                          <button
+                            style={{
+                              padding: '0.75rem 1.5rem',
+                              borderRadius: '10px',
+                              border: 'none',
+                              background: '#0ea5e9',
+                              color: '#fff',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              fontSize: '0.9rem'
+                            }}
+                            onClick={() => {
+                              if (onViewAtlas) {
+                                onViewAtlas();
+                              } else {
+                                window.location.href = '/atlas-resume';
+                              }
+                            }}
+                          >
+                            View Atlas Resume
+                          </button>
+                          <span
+                            onClick={onViewRecognition}
+                            style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500, whiteSpace: 'nowrap' }}
+                          >
+                            View Recognition →
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
                   </>
@@ -1342,51 +1406,6 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                     <p style={{ fontSize: '0.9rem', color: '#64748b', textAlign: 'center', padding: '1.5rem 0', margin: 0 }}>No mentor feedback available yet.</p>
                   </div>
 
-                  <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div>
-                      <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Pilot Portfolio</p>
-                      <h3 style={{ margin: '0.4rem 0 0', fontSize: '1rem', fontWeight: 600 }}>Atlas Formatted Resume</h3>
-                      <p style={{ margin: '0.35rem 0 0', color: '#64748b', fontSize: '0.9rem' }}>Preview the same recruiter-ready resume available on Recognition & Achievements.</p>
-                    </div>
-                    <button
-                      style={{
-                        padding: '0.8rem 1.25rem',
-                        borderRadius: '12px',
-                        border: '1px solid rgba(14,165,233,0.3)',
-                        background: '#0ea5e9',
-                        color: '#fff',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(14, 165, 233, 0.3)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = 'none';
-                      }}
-                      onClick={() => {
-                        if (onViewAtlas) {
-                          onViewAtlas();
-                        } else {
-                          // Fallback: try to navigate to atlas resume via window location
-                          window.location.href = '/atlas-resume';
-                        }
-                      }}
-                    >
-                      View Atlas Resume
-                    </button>
-                    <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
-                      <span
-                        onClick={onViewRecognition}
-                        style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500 }}
-                      >
-                        View Recognition & Achievements →
-                      </span>
-                    </div>
-                  </div>
                 </div>
                 <div>
                   <PilotRecognitionTicker 
