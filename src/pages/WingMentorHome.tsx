@@ -2423,22 +2423,22 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             {/* Foundation Program Progress Card - Hard Truth Format */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem', marginTop: '2rem', textAlign: 'left' }}>
                 <div style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                  backgroundColor: 'rgba(15, 23, 42, 0.7)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
                   borderRadius: '24px',
                   padding: '4rem 3rem',
-                  boxShadow: '0 8px 32px rgba(15, 23, 42, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                   textAlign: 'center',
                   width: '100%',
                   boxSizing: 'border-box'
                 }}>
                   <img src="/logo.png" alt="WingMentor Logo" style={{ height: '110px', width: 'auto', objectFit: 'contain', marginBottom: '1.5rem' }} />
-                  <div style={{ color: '#2563eb', fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+                  <div style={{ color: '#60a5fa', fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
                     PROGRESS TRACKING
                   </div>
-                  <h2 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#0f172a', marginBottom: '2.5rem', fontFamily: 'Georgia, serif' }}>
+                  <h2 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#f8fafc', marginBottom: '2.5rem', fontFamily: 'Georgia, serif' }}>
                     Foundation Program Journey
                   </h2>
                   
@@ -2454,21 +2454,21 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       opacity: 1,
                       animation: 'slideInOut 8s infinite'
                     }}>
-                      <div style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.8, margin: 0, textAlign: 'left' }}>
+                      <div style={{ color: '#cbd5e1', fontSize: '1.05rem', lineHeight: 1.8, margin: 0, textAlign: 'left' }}>
                         <strong>Your Foundation Program progress is tracked in real-time.</strong> WingMentor monitors your training advancement and syncs with our comprehensive database.
                         <br /><br />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                          <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a' }}>
+                          <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#f8fafc' }}>
                             Module Progress
                           </span>
-                          <span style={{ fontSize: '0.875rem', color: '#2563eb', fontWeight: 600 }}>
+                          <span style={{ fontSize: '0.875rem', color: '#60a5fa', fontWeight: 600 }}>
                             {completedCount} of {totalCount} Complete
                           </span>
                         </div>
                       <div style={{
                         width: '100%',
                         height: '8px',
-                        background: '#e2e8f0',
+                        background: 'rgba(255,255,255,0.1)',
                         borderRadius: '4px',
                         overflow: 'hidden',
                         marginBottom: '0.5rem'
@@ -2476,12 +2476,12 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                         <div style={{
                           width: `${progressPercent}%`,
                           height: '100%',
-                          background: 'linear-gradient(90deg, #2563eb, #1d4ed8)',
+                          background: 'linear-gradient(90deg, #3b82f6, #60a5fa)',
                           borderRadius: '4px',
                           transition: 'width 0.3s ease'
                         }}></div>
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#94a3b8' }}>
                         <span>{progressPercent}% Complete</span>
                         <span>Last sync: {loadingProgress ? 'Loading...' : new Date().toLocaleTimeString()}</span>
                       </div>
@@ -2498,24 +2498,24 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                     opacity: 0,
                     animation: 'slideInOut 8s infinite 4s'
                   }}>
-                    <div style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.8, margin: 0, textAlign: 'left' }}>
+                    <div style={{ color: '#cbd5e1', fontSize: '1.05rem', lineHeight: 1.8, margin: 0, textAlign: 'left' }}>
                       <strong>Advanced CRM techniques module now available.</strong> The latest module in your Foundation Program includes enhanced simulator scenarios and real-world case studies.
                       <br /><br />
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                        <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a' }}>
+                        <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#f8fafc' }}>
                           Recent Achievement
                         </span>
-                        <span style={{ fontSize: '0.875rem', color: '#10b981', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.875rem', color: '#34d399', fontWeight: 600 }}>
                           Completed
                         </span>
                       </div>
                       <div style={{
                         padding: '0.75rem',
-                        background: 'rgba(16, 185, 129, 0.1)',
+                        background: 'rgba(16, 185, 129, 0.15)',
                         borderRadius: '8px',
-                        border: '1px solid rgba(16, 185, 129, 0.2)'
+                        border: '1px solid rgba(16, 185, 129, 0.3)'
                       }}>
-                        <div style={{ fontSize: '0.8rem', color: '#047857', lineHeight: 1.5 }}>
+                        <div style={{ fontSize: '0.8rem', color: '#6ee7b7', lineHeight: 1.5 }}>
                           ✅ Module 8: Advanced CRM Techniques<br/>
                           ✅ Module 9: Decision Making Under Pressure<br/>
                           ✅ Module 10: Team Communication
@@ -2537,14 +2537,14 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                     width: '32px',
                     height: '4px',
                     borderRadius: '2px',
-                    background: 'rgba(15, 23, 42, 0.8)',
+                    background: 'rgba(255, 255, 255, 0.8)',
                     animation: 'progressPulse 8s infinite'
                   }}></div>
                   <div style={{
                     width: '32px',
                     height: '4px',
                     borderRadius: '2px',
-                    background: 'rgba(226, 232, 240, 0.6)'
+                    background: 'rgba(255, 255, 255, 0.2)'
                   }}></div>
                 </div>
               </div>
@@ -4331,6 +4331,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             onViewDigitalLogbook={() => setMainView('digital-logbook')}
             onViewMentorLogbook={() => setMainView('mentor-logbook')}
             onViewAtlas={() => setMainView('atlas-resume')}
+            onViewRecognition={() => setMainView('recognition')}
             userProfile={userProfile ?? undefined} 
           />
         );
@@ -4352,6 +4353,8 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             onViewLogbook={() => setMainView('logbook')}
             onViewDigitalLogbook={() => setMainView('digital-logbook')}
             onViewMentorLogbook={() => setMainView('mentor-logbook')}
+            onViewAtlas={() => setMainView('atlas-resume')}
+            onViewRecognition={() => setMainView('recognition')}
             userProfile={userProfile ?? undefined} 
           />
         );

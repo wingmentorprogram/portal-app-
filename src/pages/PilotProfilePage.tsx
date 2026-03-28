@@ -12,6 +12,7 @@ interface PilotProfilePageProps {
   onViewDigitalLogbook?: () => void;
   onViewMentorLogbook?: () => void;
   onViewAtlas?: () => void;
+  onViewRecognition?: () => void;
   userProfile?: {
     firstName?: string;
     lastName?: string;
@@ -107,11 +108,11 @@ const AirlinePassport: React.FC<AirlinePassportProps> = ({ userId }) => {
   }
   return (
     <div style={{
-      background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)',
+      background: 'linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.95) 100%)',
       borderRadius: '24px',
       padding: '2rem',
-      boxShadow: '0 20px 60px rgba(15, 23, 42, 0.12)',
-      border: '1px solid rgba(255,255,255,0.8)',
+      boxShadow: '0 20px 60px rgba(0,0,0, 0.3)',
+      border: '1px solid rgba(255,255,255,0.1)',
       backdropFilter: 'blur(20px)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
@@ -129,27 +130,27 @@ const AirlinePassport: React.FC<AirlinePassportProps> = ({ userId }) => {
           🛂
         </div>
         <div>
-          <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700, color: '#0f172a' }}>
+          <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 700, color: '#f1f5f9' }}>
             Airline Passport
           </h3>
-          <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: '#64748b' }}>
+          <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: '#94a3b8' }}>
             One-tap sync to recruitment portals
           </p>
         </div>
       </div>
 
-      <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+      <p style={{ fontSize: '1rem', color: '#cbd5e1', lineHeight: 1.6, marginBottom: '1.5rem' }}>
         Share your verified WingMentor Network data directly with airline recruiters. Sync flight hours, competencies, and achievements instantly.
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
         {displayAirlines.map((airline) => (
           <div key={airline.id} style={{
-            background: airline.status === 'connected' ? 'rgba(16, 185, 129, 0.05)' : 'white',
+            background: airline.status === 'connected' ? 'rgba(16, 185, 129, 0.1)' : 'linear-gradient(135deg, rgba(30,41,59,0.9), rgba(51,65,85,0.8))',
             borderRadius: '16px',
             padding: '1.25rem',
-            border: airline.status === 'connected' ? '2px solid #10b981' : '1px solid #e2e8f0',
-            boxShadow: airline.status === 'connected' ? '0 4px 12px rgba(16, 185, 129, 0.15)' : '0 2px 8px rgba(0,0,0,0.04)',
+            border: airline.status === 'connected' ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+            boxShadow: airline.status === 'connected' ? '0 4px 12px rgba(16, 185, 129, 0.2)' : '0 2px 8px rgba(0,0,0,0.3)',
             transition: 'all 0.3s ease'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
@@ -179,22 +180,22 @@ const AirlinePassport: React.FC<AirlinePassportProps> = ({ userId }) => {
                 )}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>{airline.name}</div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: airline.status === 'connected' ? '#059669' : airline.status === 'pending' ? '#d97706' : '#64748b' }}>
+                <div style={{ fontSize: '1.125rem', fontWeight: 700, color: '#f1f5f9' }}>{airline.name}</div>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: airline.status === 'connected' ? '#34d399' : airline.status === 'pending' ? '#fbbf24' : '#94a3b8' }}>
                   {airline.status === 'connected' ? '✓ Connected' : airline.status === 'pending' ? '⏳ Pending' : '○ Available'}
                 </div>
               </div>
             </div>
 
             {airline.status === 'connected' && airline.lastSynced && (
-              <div style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }} />
+              <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#34d399' }} />
                 Last synced {airline.lastSynced}
               </div>
             )}
 
             {airline.matchPercentage > 0 && (
-              <div style={{ fontSize: '0.75rem', color: '#059669', marginBottom: '0.75rem', fontWeight: 600 }}>
+              <div style={{ fontSize: '0.75rem', color: '#34d399', marginBottom: '0.75rem', fontWeight: 600 }}>
                 {airline.matchPercentage}% Profile Match
               </div>
             )}
@@ -241,7 +242,7 @@ const AirlinePassport: React.FC<AirlinePassportProps> = ({ userId }) => {
             </button>
 
             {airline.status === 'connected' && (
-              <div style={{ marginTop: '0.75rem', padding: '0.5rem', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px', fontSize: '0.75rem', color: '#059669', textAlign: 'center' }}>
+              <div style={{ marginTop: '0.75rem', padding: '0.5rem', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '8px', fontSize: '0.75rem', color: '#34d399', textAlign: 'center' }}>
                 Flight hours auto-synced to recruitment portal
               </div>
             )}
@@ -252,7 +253,7 @@ const AirlinePassport: React.FC<AirlinePassportProps> = ({ userId }) => {
       <div style={{
         marginTop: '1.5rem',
         padding: '1rem',
-        background: 'rgba(15, 23, 42, 0.03)',
+        background: 'rgba(30, 41, 59, 0.6)',
         borderRadius: '16px',
         display: 'flex',
         alignItems: 'center',
@@ -261,8 +262,8 @@ const AirlinePassport: React.FC<AirlinePassportProps> = ({ userId }) => {
         gap: '0.75rem'
       }}>
         <div>
-          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a' }}>Verified Data Passport</div>
-          <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#f1f5f9' }}>Verified Data Passport</div>
+          <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>
             {displayAirlines.filter(a => a.status === 'connected').length} of {displayAirlines.length} airlines connected
           </div>
         </div>
@@ -272,7 +273,7 @@ const AirlinePassport: React.FC<AirlinePassportProps> = ({ userId }) => {
       </div>
       
       {error && (
-        <div style={{ marginTop: '1rem', padding: '0.75rem', background: '#fee2e2', borderRadius: '8px', color: '#dc2626', fontSize: '0.875rem' }}>
+        <div style={{ marginTop: '1rem', padding: '0.75rem', background: 'rgba(220, 38, 38, 0.2)', borderRadius: '8px', color: '#f87171', fontSize: '0.875rem' }}>
           Error: {error}
         </div>
       )}
@@ -703,7 +704,7 @@ const PilotRecognitionTicker: React.FC<{
   );
 };
 
-export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onViewLogbook, onViewDigitalLogbook, onViewMentorLogbook, onViewAtlas, userProfile }) => {
+export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onViewLogbook, onViewDigitalLogbook, onViewMentorLogbook, onViewAtlas, onViewRecognition, userProfile }) => {
   const [competencyScores] = useState({
     knowledge: 86,
     recency: 73,
@@ -1377,6 +1378,14 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                     >
                       View Atlas Resume
                     </button>
+                    <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+                      <span
+                        onClick={onViewRecognition}
+                        style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500 }}
+                      >
+                        View Recognition & Achievements →
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div>
