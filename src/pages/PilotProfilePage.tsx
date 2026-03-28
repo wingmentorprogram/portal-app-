@@ -1039,6 +1039,14 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                             </div>
                           ))}
                         </div>
+                        <div style={{ textAlign: 'center', marginTop: '0.75rem' }}>
+                          <span
+                            onClick={onViewRecognition}
+                            style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500 }}
+                          >
+                            View Recognition & Achievements →
+                          </span>
+                        </div>
                       </div>
 
                       <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
@@ -1192,12 +1200,6 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                           >
                             View Atlas Resume
                           </button>
-                          <span
-                            onClick={onViewRecognition}
-                            style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500, whiteSpace: 'nowrap' }}
-                          >
-                            View Recognition & Achievements →
-                          </span>
                         </div>
                       </div>
                     </div>
