@@ -1055,7 +1055,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                           <p style={{ margin: '0.35rem 0 0', color: '#64748b', fontSize: '0.85rem' }}>Licensing, hours, and access pass</p>
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '0.75rem' }}>
-                          {[{ label: 'Dual XC hrs', value: 0 }, { label: 'Dual LCL hrs', value: 0 }, { label: 'PIC LCL hrs', value: pilotData.picHours }, { label: 'PIC XC hrs', value: pilotData.totalHours }].map(tile => (
+                          {[{ label: 'Dual XC hrs', value: 0 }, { label: 'Dual LOC', value: 0 }, { label: 'PIC LOC', value: pilotData.picHours }, { label: 'XC LOC', value: pilotData.totalHours }].map(tile => (
                             <div key={tile.label} style={{ background: 'rgba(255,255,255,0.9)', borderRadius: '12px', padding: '0.85rem', border: '1px solid rgba(255,255,255,0.4)', textAlign: 'center' }}>
                               <p style={{ margin: 0, fontSize: '0.65rem', color: '#6b7280', letterSpacing: '0.1em' }}>{tile.label}</p>
                               <p style={{ margin: '0.35rem 0 0', fontSize: '1.3rem', fontWeight: 700, color: '#0f172a' }}>{tile.value}</p>
