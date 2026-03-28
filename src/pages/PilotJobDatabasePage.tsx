@@ -8,6 +8,13 @@ interface PilotJobDatabasePageProps {
   userProfile?: UserProfile | null;
 }
 
+type JobListing = (typeof jobApplicationListings)[number] & {
+  jobDescription?: string;
+  jobExpectations?: string;
+  companyWebsite?: string;
+  source?: string;
+};
+
 export const jobApplicationListings = [
   {
     title: 'Captain - A320 family',
@@ -2690,6 +2697,500 @@ export const jobApplicationListings = [
     medicalClass: '',
     icaoElpLevel: '',
     compensation: ''
+  },
+  {
+    title: 'Captain - A320 family',
+    company: 'Etihad',
+    aircraft: '',
+    location: 'AUH- Abu Dhabi',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/A320-family-captain-etihad-AE-81Oyt9ulnn',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Education Allowance | Housing | Income protection insurance | Income tax coverage | Insurance - Life | Paid Time Off (PTO) | Per Diem | Performance-based bonus | Travel | Visa sponsorship | Other',
+    jobDescription: 'It’s an extraordinary time to join Etihad. In 2025 alone we’ve carried over 10 million guests, announced 30+ new destinations, and recorded the strongest half-year profit in our history. With more than 20 new aircraft arriving this year and a clear path to double our fleet by 2030, we’re investing heavily in the future and redefining what global aviation looks like.',
+    companyWebsite: 'https://career22.sapsf.com/sfcareer/jobreqcareerpvt?jobId=80950&company=C0007249891P&st=B3BE3AB2CD0774AE05671BD7E44498F1E34FE360'
+  },
+  {
+    title: 'First Officer - A320 family',
+    company: 'Etihad',
+    aircraft: '',
+    location: 'AUH- Abu Dhabi',
+    role: 'First Officer',
+    url: 'https://pilotsglobal.com/job/A320-family-first-officer-etihad-AE-Cm8ut9ulzu',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Education Allowance | Housing | Income protection insurance | Income tax coverage | Insurance - Life | Paid Time Off (PTO) | Per Diem | Performance-based bonus | Travel | Visa sponsorship | Other',
+    jobDescription: 'It’s an extraordinary time to join Etihad. In 2025 alone we’ve carried over 10 million guests, announced 30+ new destinations, and recorded the strongest half-year profit in our history. With more than 20 new aircraft arriving this year and a clear path to double our fleet by 2030, we’re investing heavily in the future and redefining what global aviation looks like.',
+    companyWebsite: 'https://career22.sapsf.com/sfcareer/jobreqcareerpvt?jobId=80951&company=C0007249891P&st=6F3352DA9DB3F48EB1CA7FE8A7C9827574F0C8A0'
+  },
+  {
+    title: 'Captain - Citation III / VI / VII',
+    company: 'SXM Airways',
+    aircraft: '',
+    location: 'SXM- Philipsburg',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/Citation-III-VI-VII-captain-sxm_airways-SX-bfwTt3048n',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Visa sponsorship',
+    jobDescription: 'SXM Airways, based at Princess Juliana International Airport (TNCM), operates charter services across the Caribbean with a fleet of four BN-2 Islanders. We are now expanding into medevac operations with our newly acquired Cessna Citation VII.',
+    companyWebsite: 'https://pilotsglobal.com/apply/Citation-III-VI-VII-captain-sxm_airways-SX-bfwTt3048n'
+  },
+  {
+    title: 'Direct Entry Captain - A320 family',
+    company: 'Private Employer',
+    aircraft: '',
+    location: 'Base location Commuting to West Asia',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/A320-family-direct-entry-captain-private_employer-AZ-R1VTt5zdh2',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Paid Time Off (PTO) | Transportation | Visa sponsorship | Other | Monthly Salary: USD 9,500 | Housing Support: USD 600',
+    jobDescription: 'Our client, a prestigious national flag carrier located at the crossroads of Western Asia and Eastern Europe, is expanding its operations and inviting experienced, professional, and highly motivated flight crew to join their growing team.',
+    companyWebsite: 'https://pilotsglobal.com/apply/A320-family-direct-entry-captain-private_employer-AZ-R1VTt5zdh2'
+  },
+  {
+    title: 'Captain - A320 family',
+    company: 'Air Astana',
+    aircraft: '',
+    location: 'ALA- Almaty',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/A320-family-captain-air_astana-KZ-bd8b243d49',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Housing | Insurance - Loss of Lic. | Insurance - Medical | Per Diem | Travel | Visa sponsorship',
+    jobDescription: 'Discover Exciting Opportunities with Air Astana - Your Path to Soaring Heights! Air Astana stands as a prominent name in the aviation industry and operates a modern fleet of 56 aircraft.',
+    companyWebsite: 'https://job.airastana.com/en/Home/VacancyInfo/19333155-0805-2d0a-d2e1-d844e715cfed'
+  },
+  {
+    title: 'First Officer - F406 Caravan 2',
+    company: 'Westair Aviation',
+    aircraft: '',
+    location: 'WDH- Windhoek',
+    role: 'First Officer',
+    url: 'https://pilotsglobal.com/job/F406-Caravan-2-first-officer-westair_aviation-NA-EyNTs83agl',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://westairgroupofcompanies.breezy.hr/p/d9d9dd26d251-flight-crew-f406-c425-2025'
+  },
+  {
+    title: 'First Officer - Let L-410',
+    company: 'Zebu Air',
+    aircraft: '',
+    location: 'LLW- Lilongwe',
+    role: 'First Officer',
+    url: 'https://pilotsglobal.com/job/Let-L-410-first-officer-zebu_air-MW-1zRxt71atu',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://zebu-air.com/careers/'
+  },
+  {
+    title: 'Lead Captain - Challenger CL-604',
+    company: 'ExecuJet',
+    aircraft: '',
+    location: 'DWC- Dubai',
+    role: 'Lead Captain',
+    url: 'https://pilotsglobal.com/job/Challenger-CL-604-lead-captain-execujet-AE-sU0yt8uz3x',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    jobDescription: 'ExecuJet Middle East is currently seeking an experienced Challenger 650 Commander/Lead Commander to fill a vacancy within Flight Operations based in Dubai.',
+    companyWebsite: 'https://luxaviation.bamboohr.com/careers/347'
+  },
+  {
+    title: 'First Officer - B737NG',
+    company: 'SolitAir',
+    aircraft: '',
+    location: 'DWC- Dubai',
+    role: 'First Officer',
+    url: 'https://pilotsglobal.com/job/B737NG-first-officer-solitair-AE-W60Ttbym45',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://www.solitairholding.careers/jobs/7344323-first-officer-boeing-737'
+  },
+  {
+    title: 'Captain - Global Express',
+    company: 'HongKong Jet',
+    aircraft: '',
+    location: 'HLP- Jakarta',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/Global-Express-captain-hongkong_jet-ID-37Ditacwd4',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://hongkongjet.com.hk/career/global-vision-captain-based-in-jakarta/'
+  },
+  {
+    title: 'Captain - G550',
+    company: 'HongKong Jet',
+    aircraft: '',
+    location: 'HKG- Hong Kong',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/G550-captain-hongkong_jet-HK-1CLPta8ti2',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://hongkongjet.com.hk/career/gulfstream-g550-captain-first-officer-based-in-southeast-asia/'
+  },
+  {
+    title: 'First Officer - A320 family',
+    company: 'Tigerair Taiwan',
+    aircraft: '',
+    location: 'TPE- Taipei',
+    role: 'First Officer',
+    url: 'https://pilotsglobal.com/job/A320-family-first-officer-tigerair_taiwan-TW-54f6cf2f50',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://www.tigerairtw.com/zh-TW/about-tigerair/join-us'
+  },
+  {
+    title: 'Theoretical Knowledge Instructor - Various Aircraft',
+    company: 'Qatar Aeronautical Academy',
+    aircraft: '',
+    location: 'DIA- Doha',
+    role: 'Theoretical Knowledge Instructor',
+    url: 'https://pilotsglobal.com/job/Various-Aircraft-theoretical-knowledge-instructor-qatar_aeronautical_academy-QA-C6kxt0umwv',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://www.qaa.edu.qa/English/Academy/Careers/Pages/default.aspx'
+  },
+  {
+    title: 'Captain - G-IV G350/G400/G450',
+    company: 'Rotana Jet',
+    aircraft: '',
+    location: 'AUH- Abu Dhabi',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/G-IV-G350-G400-G450-captain-rotana_jet-AE-5b28045d9a',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    jobDescription: 'We have requirement for G-450 Captain: Type Rated & Experienced candidates to contact for immediate opening.',
+    companyWebsite: 'https://rotanajet.com/careers-1'
+  },
+  {
+    title: 'Captain - A320 family',
+    company: 'Peach Aviation',
+    aircraft: '',
+    location: 'KIX- Osaka',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/A320-family-captain-peach_aviation-JP-dFxtsj9hrr',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://www.flypeach.com/en/fm/recruting/how_to_apply_for_a_position'
+  },
+  {
+    title: 'Captain - A320 family',
+    company: 'Fly Jinnah',
+    aircraft: '',
+    location: 'KHI- Karachi',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/A320-family-captain-fly_jinnah-PK-ca8e3ce10f',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Housing | Uniform allowance | Visa sponsorship | Monthly Salary after Training / Final Line Check: AED 33,800 plus per diem',
+    jobDescription: 'Fly Jinnah - Pakistan\'s newest airline - is currently seeking skilled A320 Type-rated Foreign/Expat pilots to join the Pilots team on a fixed-term contract.',
+    companyWebsite: 'https://www.airarabiagroupcareers.com/gb/en/job/16736/Captain-Fixed-Term-Limited-Contract-UAE-Pakistan'
+  },
+  {
+    title: 'Captain - Cessna 208 Caravan',
+    company: 'Westair Aviation',
+    aircraft: '',
+    location: 'WDH- Windhoek',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/Cessna-208-Caravan-captain-westair_aviation-NA-6B4Ns83ach',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://westairgroupofcompanies.breezy.hr/p/a3b992ada3ae-flight-crew-c208-2025'
+  },
+  {
+    title: 'Captain - B737NG',
+    company: 'Spring Airlines Japan',
+    aircraft: '',
+    location: 'NRT- Tokyo',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/B737NG-captain-spring_airlines_japan-JP-6093fc52ed',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Education Allowance | Income tax coverage | License conversion | Paid Time Off (PTO) | Retention bonus | Training | Transportation | Travel | Visa sponsorship',
+    jobDescription: 'SPRING JAPAN is an equal opportunity employer and fully supports and covers JCAB license training.',
+    companyWebsite: 'https://pages.ch.com/en/Activitiesall/SpringJapan_B737-800_ExpatCaptain'
+  },
+  {
+    title: 'First Officer - A320 family',
+    company: 'Royal Jordanian',
+    aircraft: '',
+    location: 'AMM- Amman',
+    role: 'First Officer',
+    url: 'https://pilotsglobal.com/job/A320-family-first-officer-royal_jordanian-JO-502b6e4433',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    companyWebsite: 'https://careers.royaljordanian.com/en/jordan/jobs/a320-first-officer-type-rated-5430605/'
+  },
+  {
+    title: 'Captain - A320 family',
+    company: 'BeOnd',
+    aircraft: '',
+    location: 'BAH- Bahrain',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/A320-family-captain-beond-MV-4n3trvo5c0',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: '24 month renewable contract | 6 weeks on / 2 weeks off roster | Comprehensive international medical insurance',
+    companyWebsite: 'https://apply.workable.com/beond/j/CB0982431E/'
+  },
+  {
+    title: 'Captain - ATR-72',
+    company: 'Green Africa Airways',
+    aircraft: '',
+    location: 'LOS- Lagos',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/ATR-72-captain-green_africa_airways-NG-596bb4c500',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    jobDescription: 'Green Africa is looking for experienced Captains to join its rapidly expanding Flight Operations team and safely deliver affordable fares to customers.',
+    companyWebsite: 'https://hris.peoplehum.com/ehire/jobs/greenafrica/18020e49-114b-480e-aa93-905a31d22714?source_name=PEOPLEHUM_EXTERNAL&source_type=Direct&locale=en-US'
+  },
+  {
+    title: 'First Officer - Legacy 600',
+    company: 'Empire Aviation',
+    aircraft: '',
+    location: 'DWC- Dubai',
+    role: 'First Officer',
+    url: 'https://pilotsglobal.com/job/Legacy-600-first-officer-empire_aviation-AE-miufsz3apa',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: 'Visa sponsorship',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Salary commensurate with experience | Fully comprehensive medical insurance | Annual flight ticket to your home country',
+    companyWebsite: 'https://empireaviation.com/careers/'
+  },
+  {
+    title: 'Line Training Captain - B737 MAX',
+    company: 'Vietjet Qazaqstan',
+    aircraft: '',
+    location: 'NQZ- Nursultan',
+    role: 'Captain',
+    url: 'https://pilotsglobal.com/job/B737-MAX-line-training-captain-vietjet_qazaqstan-KZ-Abk4t9l0tl',
+    posted: '2026-03-27',
+    status: 'Check website',
+    applicationUrl: 'Check website',
+    flightTime: '',
+    license: '',
+    visaSponsorship: '',
+    picTime: '',
+    picInTypeTime: '',
+    typeRating: '',
+    medicalClass: '',
+    icaoElpLevel: '',
+    compensation: 'Check website',
+    jobDescription: 'Join VietJet Qazaqstan, an innovative and fast-growing airline transforming air travel in Kazakhstan.',
+    companyWebsite: 'https://career.vietjetqazaqstan.kz/job/b737-line-captain-10232'
   }
 ];
 
@@ -2699,6 +3200,9 @@ const PilotJobDatabasePage: React.FC<PilotJobDatabasePageProps> = ({ onBack, onL
   const [selectedRole, setSelectedRole] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [expandedJobKey, setExpandedJobKey] = useState<string | null>(null);
+  const [pinnedExpandedJobKey, setPinnedExpandedJobKey] = useState<string | null>(null);
+  const [redirectJob, setRedirectJob] = useState<JobListing | null>(null);
 
   const aircraftTypes = Array.from(new Set(jobApplicationListings.map(job => job.aircraft)));
   const locations = Array.from(new Set(jobApplicationListings.map(job => job.location)));
@@ -2775,6 +3279,52 @@ const PilotJobDatabasePage: React.FC<PilotJobDatabasePageProps> = ({ onBack, onL
 
     return matchesAircraft && matchesLocation && matchesRole && matchesSearch && matchesCategory;
   });
+
+  const getExpandedDetails = (job: JobListing) => {
+    const summary =
+      job.jobDescription ||
+      [job.role || '', job.aircraft || '', job.company || ''].filter(Boolean).join(' | ') ||
+      'Open the source listing to review the complete role summary.';
+
+    return [
+      { label: 'Summary', value: summary },
+      { label: 'Expectations', value: job.jobExpectations || job.flightTime || job.picTime || 'Check source listing for qualification requirements.' },
+      { label: 'Flight Hours', value: job.flightTime || 'Check website' },
+      { label: 'PIC Hours', value: job.picTime || 'Check website' },
+      { label: 'Type Rating', value: job.typeRating || 'Check website' },
+      { label: 'License', value: job.license || 'Check website' },
+      { label: 'Medical', value: job.medicalClass || 'Check website' },
+      { label: 'Compensation', value: job.compensation || 'Check website' },
+      { label: 'Apply', value: job.applicationUrl || 'Check website' },
+      { label: 'Website', value: job.companyWebsite || job.url }
+    ].filter(detail => detail.value);
+  };
+
+  const handleJobLinkClick = (event: React.MouseEvent<HTMLAnchorElement>, job: JobListing) => {
+    event.preventDefault();
+    setRedirectJob(job);
+  };
+
+  const confirmRedirect = () => {
+    if (!redirectJob?.url) return;
+    window.open(redirectJob.url, '_blank', 'noopener,noreferrer');
+    setRedirectJob(null);
+  };
+
+  const handleJobRowEnter = (rowKey: string) => {
+    if (pinnedExpandedJobKey) return;
+    setExpandedJobKey(rowKey);
+  };
+
+  const handleJobRowLeave = (rowKey: string) => {
+    if (pinnedExpandedJobKey === rowKey) return;
+    setExpandedJobKey(current => (current === rowKey ? null : current));
+  };
+
+  const handleJobRowToggle = (rowKey: string) => {
+    setPinnedExpandedJobKey(current => (current === rowKey ? null : rowKey));
+    setExpandedJobKey(rowKey);
+  };
 
   return (
     <div className="dashboard-container animate-fade-in" style={{ alignItems: 'stretch', justifyContent: 'center', padding: '3rem 2rem 4rem', minHeight: '100vh', background: 'radial-gradient(circle at top, #e0f2ff 0%, #f8fbff 45%, #f1f5f9 100%)' }}>
@@ -2994,36 +3544,75 @@ const PilotJobDatabasePage: React.FC<PilotJobDatabasePageProps> = ({ onBack, onL
               </tr>
             </thead>
             <tbody>
-              {filteredListings.map((job, index) => (
-                <tr
-                  key={`${job.title}-${index}`}
-                  style={{ borderTop: '1px solid #edf2f7', background: 'white' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = '#f5f7fb')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = 'white')}
-                >
-                  <td style={{ padding: '1.15rem 1.75rem', fontWeight: 600, color: '#1d4ed8' }}>
-                    <a href={job.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-                      {job.title}
-                    </a>
-                    <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.35rem' }}>{job.posted ? `Posted ${job.posted}` : job.company}</div>
-                  </td>
-                  <td style={{ padding: '1.15rem 1.75rem', fontWeight: 500 }}>{job.company}</td>
-                  <td style={{ padding: '1.15rem 1.75rem', color: '#475569' }}>{job.aircraft}</td>
-                  <td style={{ padding: '1.15rem 1.75rem', color: '#475569' }}>{job.location}</td>
-                  <td style={{ padding: '1.15rem 1.75rem' }}>
-                    {job.role && (
-                      <span style={{ display: 'inline-flex', alignItems: 'center', padding: '0.3rem 0.85rem', borderRadius: '999px', background: 'rgba(14, 165, 233, 0.12)', color: '#0ea5e9', fontWeight: 600, fontSize: '0.8rem' }}>
-                        {job.role}
-                      </span>
+              {filteredListings.map((job, index) => {
+                const rowKey = `${job.title}-${index}`;
+                const isExpanded = expandedJobKey === rowKey || pinnedExpandedJobKey === rowKey;
+                const isPinned = pinnedExpandedJobKey === rowKey;
+
+                return (
+                  <React.Fragment key={rowKey}>
+                    <tr
+                      style={{ borderTop: '1px solid #edf2f7', background: isExpanded ? '#f5f7fb' : 'white', cursor: 'pointer' }}
+                      onMouseEnter={() => handleJobRowEnter(rowKey)}
+                      onMouseLeave={() => handleJobRowLeave(rowKey)}
+                      onClick={() => handleJobRowToggle(rowKey)}
+                    >
+                      <td style={{ padding: '1.15rem 1.75rem', fontWeight: 600, color: '#1d4ed8' }}>
+                        <a href={job.url} target="_blank" rel="noopener noreferrer" onClick={(event) => handleJobLinkClick(event, job as JobListing)} style={{ textDecoration: 'none', color: 'inherit' }}>
+                          {job.title}
+                        </a>
+                        <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.35rem' }}>{job.posted ? `Posted ${job.posted}` : job.company}</div>
+                      </td>
+                      <td style={{ padding: '1.15rem 1.75rem', fontWeight: 500 }}>{job.company}</td>
+                      <td style={{ padding: '1.15rem 1.75rem', color: '#475569' }}>{job.aircraft}</td>
+                      <td style={{ padding: '1.15rem 1.75rem', color: '#475569' }}>{job.location}</td>
+                      <td style={{ padding: '1.15rem 1.75rem' }}>
+                        {job.role && (
+                          <span style={{ display: 'inline-flex', alignItems: 'center', padding: '0.3rem 0.85rem', borderRadius: '999px', background: 'rgba(14, 165, 233, 0.12)', color: '#0ea5e9', fontWeight: 600, fontSize: '0.8rem' }}>
+                            {job.role}
+                          </span>
+                        )}
+                      </td>
+                      <td style={{ padding: '1.15rem 1.75rem' }}>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', padding: '0.35rem 0.95rem', borderRadius: '999px', background: job.status === 'Hiring Now!' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(249, 115, 22, 0.15)', color: job.status === 'Hiring Now!' ? '#059669' : '#f97316', fontWeight: 600, fontSize: '0.8rem' }}>
+                          {job.status || 'Open'}
+                        </span>
+                      </td>
+                    </tr>
+                    {isExpanded && (
+                      <tr onMouseEnter={() => handleJobRowEnter(rowKey)} onMouseLeave={() => handleJobRowLeave(rowKey)}>
+                        <td colSpan={6} style={{ padding: '0 1.75rem 1.5rem', background: '#f5f7fb', borderBottom: '1px solid #e2e8f0' }}>
+                          <div style={{ borderRadius: '20px', padding: '1.25rem', background: 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239,246,255,0.96))', border: '1px solid rgba(191,219,254,0.9)', boxShadow: '0 12px 30px rgba(15, 23, 42, 0.08)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                              <div>
+                                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#0f172a' }}>{job.title}</div>
+                                <div style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '0.25rem' }}>{isPinned ? 'Details are pinned open. Click the row again to collapse it.' : 'Hover or click a row to review more details. Click the title to continue to the source listing.'}</div>
+                              </div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                                <button onClick={(event) => { event.stopPropagation(); handleJobRowToggle(rowKey); }} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1rem', borderRadius: '999px', border: '1px solid #cbd5e1', background: 'white', color: '#0f172a', cursor: 'pointer', fontWeight: 600 }}>
+                                  {isPinned ? 'Collapse Details' : 'Pin Details Open'}
+                                </button>
+                                <button onClick={(event) => { event.stopPropagation(); setRedirectJob(job as JobListing); }} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1rem', borderRadius: '999px', border: 'none', background: '#0f172a', color: 'white', cursor: 'pointer', fontWeight: 600 }}>
+                                  <Icons.ExternalLink style={{ width: 16, height: 16 }} />
+                                  Open Listing
+                                </button>
+                              </div>
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
+                              {getExpandedDetails(job as JobListing).map(detail => (
+                                <div key={`${rowKey}-${detail.label}`} style={{ background: 'white', borderRadius: '14px', border: '1px solid #dbeafe', padding: '0.9rem 1rem' }}>
+                                  <div style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', marginBottom: '0.35rem' }}>{detail.label}</div>
+                                  <div style={{ fontSize: '0.92rem', lineHeight: 1.6, color: '#0f172a', wordBreak: 'break-word' }}>{detail.value}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
                     )}
-                  </td>
-                  <td style={{ padding: '1.15rem 1.75rem' }}>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', padding: '0.35rem 0.95rem', borderRadius: '999px', background: job.status === 'Hiring Now!' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(249, 115, 22, 0.15)', color: job.status === 'Hiring Now!' ? '#059669' : '#f97316', fontWeight: 600, fontSize: '0.8rem' }}>
-                      {job.status || 'Open'}
-                    </span>
-                  </td>
-                </tr>
-              ))}
+                  </React.Fragment>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -3083,6 +3672,34 @@ const PilotJobDatabasePage: React.FC<PilotJobDatabasePageProps> = ({ onBack, onL
           </div>
         </div>
         </section>
+
+        {redirectJob && (
+          <div style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem', zIndex: 50 }}>
+            <div className="portalModal" style={{ width: '100%', maxWidth: '520px', background: 'white', borderRadius: '24px', padding: '1.75rem', boxShadow: '0 30px 80px rgba(15, 23, 42, 0.25)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                <div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a' }}>External Job Listing</div>
+                  <div style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '0.35rem' }}>You will be directed to the job listed website for full application details.</div>
+                </div>
+                <button onClick={() => setRedirectJob(null)} style={{ border: 'none', background: 'transparent', color: '#64748b', cursor: 'pointer' }}>
+                  Close
+                </button>
+              </div>
+              <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '1rem', border: '1px solid #e2e8f0', marginBottom: '1.25rem' }}>
+                <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: '0.35rem' }}>{redirectJob.title}</div>
+                <div style={{ color: '#475569', fontSize: '0.92rem', lineHeight: 1.6 }}>{redirectJob.company} | {redirectJob.location || 'Location on source listing'} </div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <button onClick={() => setRedirectJob(null)} style={{ padding: '0.75rem 1.2rem', borderRadius: '999px', border: '1px solid #cbd5e1', background: 'white', color: '#0f172a', cursor: 'pointer', fontWeight: 600 }}>
+                  Stay Here
+                </button>
+                <button onClick={confirmRedirect} style={{ padding: '0.75rem 1.2rem', borderRadius: '999px', border: 'none', background: 'linear-gradient(120deg, #2563eb, #38bdf8)', color: 'white', cursor: 'pointer', fontWeight: 600 }}>
+                  Continue to Job Site
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

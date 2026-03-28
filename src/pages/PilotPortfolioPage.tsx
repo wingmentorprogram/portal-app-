@@ -118,7 +118,8 @@ export const PilotPortfolioPage: React.FC<PilotPortfolioPageProps> = ({ onBack, 
   }
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ position: 'fixed', top: '70px', left: 0, right: 0, bottom: 0, overflow: 'auto', zIndex: 10 }}>
+      <main style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', minHeight: 'calc(100vh - 70px)' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
         <button
@@ -814,6 +815,7 @@ export const PilotPortfolioPage: React.FC<PilotPortfolioPageProps> = ({ onBack, 
           </div>
         </div>
       )}
+      </main>
     </div>
   );
 };

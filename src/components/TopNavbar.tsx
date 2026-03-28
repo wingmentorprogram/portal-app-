@@ -4,8 +4,10 @@ export const TopNavbar: React.FC = () => {
     return (
         <nav
             style={{
-                position: 'sticky',
+                position: 'fixed',
                 top: 0,
+                left: 0,
+                right: 0,
                 zIndex: 1000,
                 backgroundColor: '#ffffff',
                 borderBottom: '1px solid #e2e8f0',
@@ -14,7 +16,9 @@ export const TopNavbar: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+                boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)'
             }}
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

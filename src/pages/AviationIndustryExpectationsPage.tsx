@@ -267,8 +267,8 @@ export const AviationIndustryExpectationsPage: React.FC<AviationIndustryExpectat
   };
 
   return (
-    <div className="dashboard-container animate-fade-in">
-      <main className="dashboard-card" style={{ maxWidth: '1400px', padding: '2rem' }}>
+    <div className="dashboard-container animate-fade-in" style={{ paddingTop: '70px' }}>
+      <main className="dashboard-card" style={{ maxWidth: '1400px', padding: '2rem', minHeight: 'calc(100vh - 70px)' }}>
         {/* Header */}
         <div style={{ marginBottom: '2rem' }}>
           <button

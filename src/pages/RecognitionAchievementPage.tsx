@@ -197,8 +197,8 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
   };
 
   return (
-    <div className="dashboard-container animate-fade-in recognition-page">
-      <main className="dashboard-card" style={{ position: 'relative' }}>
+    <div className="dashboard-container animate-fade-in recognition-page" style={{ position: 'fixed', top: '70px', left: 0, right: 0, bottom: 0, overflow: 'auto', zIndex: 10, padding: '2rem 1rem', alignItems: 'flex-start', minHeight: 'auto' }}>
+      <main className="dashboard-card" style={{ position: 'relative', minHeight: 'auto' }}>
         <button
           onClick={onBack}
           style={{

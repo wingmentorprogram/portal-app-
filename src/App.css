@@ -218,6 +218,51 @@ body[data-theme='dark'] .dashboard-container [style*='color: #64748b'] {
   color: #e2e8f0 !important;
 }
 
+ body[data-theme='dark'] .programs-view-page,
+ body[data-theme='dark'] .programs-view-page .wingmentor-subpage-shell {
+  background: linear-gradient(180deg, #020817 0%, #071122 100%) !important;
+ }
+
+ body[data-theme='dark'] .programs-view-page [style*='background: white'],
+ body[data-theme='dark'] .programs-view-page [style*='background: rgba(255, 255, 255, 0.95)'],
+ body[data-theme='dark'] .programs-view-page [style*='background: rgba(255, 255, 255, 0.9)'],
+ body[data-theme='dark'] .programs-view-page [style*='background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95))'],
+ body[data-theme='dark'] .programs-view-page [style*='background: #f8fafc'] {
+  background: linear-gradient(180deg, rgba(15,23,42,0.96) 0%, rgba(30,41,59,0.94) 100%) !important;
+  border-color: rgba(71,85,105,0.7) !important;
+  box-shadow: 0 24px 60px rgba(2,6,23,0.34) !important;
+  color: #e2e8f0 !important;
+ }
+
+ body[data-theme='dark'] .programs-view-page [style*='background: rgba(100, 116, 139, 0.1)'] {
+  background: rgba(51, 65, 85, 0.9) !important;
+  border-color: rgba(71,85,105,0.7) !important;
+  color: #cbd5e1 !important;
+ }
+
+ body[data-theme='dark'] .programs-view-page [style*='background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 30%)'] {
+  background: linear-gradient(90deg, rgba(2,6,23,0.88) 0%, rgba(2,6,23,0) 35%) !important;
+ }
+
+ body[data-theme='dark'] .programs-view-page [style*='color: #0f172a'],
+ body[data-theme='dark'] .programs-view-page [style*='color: #475569'],
+ body[data-theme='dark'] .programs-view-page [style*='color: #64748b'],
+ body[data-theme='dark'] .programs-view-page [style*='color: #94a3b8'] {
+  color: #e2e8f0 !important;
+ }
+
+ body[data-theme='dark'] .programs-view-page h1,
+ body[data-theme='dark'] .programs-view-page h2,
+ body[data-theme='dark'] .programs-view-page h3,
+ body[data-theme='dark'] .programs-view-page h4 {
+  color: #f8fafc !important;
+ }
+
+ body[data-theme='dark'] .programs-view-page button {
+  color: #e2e8f0 !important;
+  border-color: rgba(71,85,105,0.7) !important;
+ }
+
 body[data-theme='dark'] input,
 body[data-theme='dark'] select,
 body[data-theme='dark'] textarea {
