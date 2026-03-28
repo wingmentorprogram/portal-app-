@@ -1486,10 +1486,10 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               <div style={{ color: '#2563eb', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1rem' }}>
                 Industry Intelligence
               </div>
-              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 400, color: '#0f172a', marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 400, color: isDarkMode ? '#f8fafc' : '#0f172a', marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
                 Industry News & Updates
               </h2>
-              <p style={{ color: '#64748b', fontSize: '1.15rem', lineHeight: 1.7, maxWidth: '36rem', margin: '0 auto' }}>
+              <p style={{ color: isDarkMode ? '#94a3b8' : '#64748b', fontSize: '1.15rem', lineHeight: 1.7, maxWidth: '36rem', margin: '0 auto' }}>
                 Stay informed about the latest aviation industry developments, regulatory changes, and market trends affecting pilot careers worldwide.
               </p>
             </div>
@@ -1497,9 +1497,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             <div style={{
               borderRadius: '24px',
               overflow: 'hidden',
-              background: 'white',
-              boxShadow: '0 15px 35px rgba(0,0,0,0.08)',
-              border: '1px solid rgba(0,0,0,0.04)',
+              background: isDarkMode ? 'linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.95) 100%)' : 'white',
+              boxShadow: isDarkMode ? '0 15px 35px rgba(0,0,0,0.3)' : '0 15px 35px rgba(0,0,0,0.08)',
+              border: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.04)',
               marginBottom: '2.5rem'
             }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -1609,10 +1609,10 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                           {item.date}
                         </span>
                       </div>
-                      <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1.125rem', fontWeight: 400, color: '#0f172a', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>
+                      <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1.125rem', fontWeight: 400, color: isDarkMode ? '#f8fafc' : '#0f172a', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>
                         {item.title}
                       </h3>
-                      <p style={{ color: '#475569', fontSize: '15px', lineHeight: 1.6, margin: 0 }}>
+                      <p style={{ color: isDarkMode ? '#94a3b8' : '#475569', fontSize: '15px', lineHeight: 1.6, margin: 0 }}>
                         {item.excerpt}
                       </p>
                     </div>
@@ -1630,10 +1630,10 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               <div style={{ color: '#2563eb', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1rem' }}>
                 Latest Announcements
               </div>
-              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 400, color: '#0f172a', marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+              <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 400, color: isDarkMode ? '#f8fafc' : '#0f172a', marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
                 Program News & Updates
               </h2>
-              <p style={{ color: '#64748b', fontSize: '1.15rem', lineHeight: 1.7, maxWidth: '36rem', margin: '0 auto' }}>
+              <p style={{ color: isDarkMode ? '#94a3b8' : '#64748b', fontSize: '1.15rem', lineHeight: 1.7, maxWidth: '36rem', margin: '0 auto' }}>
                 Stay informed about the latest developments, partnerships, and success stories from WingMentor's aviation training ecosystem.
               </p>
             </div>
@@ -1642,9 +1642,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               position: 'relative',
               borderRadius: '24px',
               overflow: 'hidden',
-              background: 'white',
-              boxShadow: '0 15px 35px rgba(0,0,0,0.08)',
-              border: '1px solid rgba(0,0,0,0.04)',
+              background: isDarkMode ? 'linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.95) 100%)' : 'white',
+              boxShadow: isDarkMode ? '0 15px 35px rgba(0,0,0,0.3)' : '0 15px 35px rgba(0,0,0,0.08)',
+              border: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.04)',
               marginBottom: '2.5rem'
             }}>
               <div style={{
