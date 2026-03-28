@@ -798,7 +798,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         right: '0',
         bottom: '0',
         overflow: 'auto',
-        backgroundColor: 'white',
+        background: isDarkMode ? 'linear-gradient(135deg, #020817 0%, #0f172a 100%)' : 'white',
         zIndex: 10
       }}>
         {selectedNewsItem ? (
@@ -865,7 +865,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   {selectedNewsItem.date}
                 </span>
               </div>
-              <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 400, color: '#0f172a', marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+              <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.25rem)', fontWeight: 400, color: isDarkMode ? '#f8fafc' : '#0f172a', marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
                 {selectedNewsItem.title}
               </h1>
             </div>
@@ -943,7 +943,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               display: 'flex', 
               flexDirection: 'column', 
               gap: '1.5rem', 
-              color: '#475569', 
+              color: isDarkMode ? '#94a3b8' : '#475569', 
               fontSize: '17px', 
               lineHeight: 1.75,
               maxWidth: '800px',
