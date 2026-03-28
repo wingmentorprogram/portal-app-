@@ -788,7 +788,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
     }, [newsItems.length]);
 
     return (
-      <div style={{ 
+      <div className="wingmentor-subpage news-view-page" style={{ 
         padding: '2.5rem 3rem 2rem 3rem', 
         maxWidth: '1400px', 
         margin: '0 auto',
@@ -1933,8 +1933,8 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
     }, []);
 
     return (
-    <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
-      <div style={{ position: 'relative', minHeight: '100vh', background: 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)' }}>
+    <div className="wingmentor-subpage programs-view-page" style={{ width: '100%', height: '100%', overflow: 'auto' }}>
+      <div className="wingmentor-subpage-shell" style={{ position: 'relative', minHeight: '100vh', background: 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)' }}>
         <button
           onClick={() => setMainView('dashboard')}
           style={{
@@ -2635,8 +2635,8 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
     }, [pathwayUpdates.length]);
 
     return (
-      <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
-        <div style={{ position: 'relative', minHeight: '100vh', background: 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)' }}>
+      <div className="wingmentor-subpage pathways-view-page" style={{ width: '100%', height: '100%', overflow: 'auto' }}>
+        <div className="wingmentor-subpage-shell" style={{ position: 'relative', minHeight: '100vh', background: isDarkMode ? 'linear-gradient(135deg, #020817 0%, #0f172a 100%)' : 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)' }}>
           <button
             onClick={() => setMainView('dashboard')}
             style={{
@@ -2671,25 +2671,25 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
 
           <div style={{ padding: '2rem 3rem 1.5rem 3rem', textAlign: 'center', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{
-              background: 'rgba(255, 255, 255, 0.95)',
+              background: isDarkMode ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'rgba(255, 255, 255, 0.95)',
               borderRadius: '28px',
               padding: '3rem',
-              boxShadow: '0 20px 60px rgba(15, 23, 42, 0.07)',
-              border: '1px solid rgba(255, 255, 255, 0.8)',
+              boxShadow: isDarkMode ? '0 20px 60px rgba(0, 0, 0, 0.5)' : '0 20px 60px rgba(15, 23, 42, 0.07)',
+              border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid rgba(255, 255, 255, 0.8)',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)'
             }}>
               <div className="dashboard-logo" style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
                 <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '200px' }} />
               </div>
-              <div className="dashboard-subtitle">CONNECTING PILOTS TO THE INDUSTRY</div>
-              <h1 className="dashboard-title" style={{ marginBottom: '1rem' }}>Pathways</h1>
-              <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.5, maxWidth: '42rem', margin: '0 auto 1.5rem' }}>
+              <div className="dashboard-subtitle" style={{ color: isDarkMode ? '#60a5fa' : '#2563eb' }}>CONNECTING PILOTS TO THE INDUSTRY</div>
+              <h1 className="dashboard-title" style={{ marginBottom: '1rem', color: isDarkMode ? '#f8fafc' : '#0f172a' }}>Pathways</h1>
+              <p style={{ fontSize: '1rem', color: isDarkMode ? '#94a3b8' : '#475569', lineHeight: 1.5, maxWidth: '42rem', margin: '0 auto 1.5rem' }}>
                 Explore structured career roadmaps designed to guide your journey from student pilot to professional aviation careers.
               </p>
               <div style={{ maxWidth: '720px', margin: '0 auto 2rem', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 20px 45px rgba(15,23,42,0.12)', border: '1px solid rgba(226,232,240,0.8)' }}>
                 <img
-                  src="/wingmentor terminal.png 19-03-19-218.png"
+                  src="/wingmentor terminal.png"
                   alt="WingMentor Terminal"
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
@@ -3463,9 +3463,10 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
 
 
   // Dashboard View Component
-  const DashboardView = () => (
+  const DashboardView = () => {
+    return (
     <div className="dashboard-container animate-fade-in">
-      <div style={{ position: 'relative', minHeight: '100vh', background: 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)' }}>
+      <div style={{ position: 'relative', minHeight: '100vh', background: isDarkMode ? 'linear-gradient(135deg, #020817 0%, #0f172a 100%)' : 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)' }}>
         <div className="dashboard-header" style={{ marginBottom: '3rem', padding: '2rem 2rem 0 2rem' }}>
           <div className="dashboard-logo" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
             <img src="/logo.png" alt="WingMentor Logo" />
@@ -3480,12 +3481,12 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         <div style={{ padding: '0 2rem 2rem 2rem' }}>
           {/* Welcome Section */}
           <div style={{
-            background: 'white',
+            background: isDarkMode ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'white',
             borderRadius: '16px',
             padding: '2rem',
             marginBottom: '2rem',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-            borderLeft: '4px solid #0ea5e9'
+            boxShadow: isDarkMode ? '0 4px 6px -1px rgba(0, 0, 0, 0.5)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            borderLeft: isDarkMode ? '4px solid #60a5fa' : '4px solid #0ea5e9'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
               <div style={{
@@ -3582,11 +3583,11 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             
             {/* WingMentor Updates */}
             <div style={{
-              background: 'white',
+              background: isDarkMode ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'white',
               borderRadius: '16px',
               padding: '1.5rem',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-              borderLeft: '4px solid #0ea5e9'
+              boxShadow: isDarkMode ? '0 4px 6px -1px rgba(0, 0, 0, 0.5)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              borderLeft: isDarkMode ? '4px solid #60a5fa' : '4px solid #0ea5e9'
             }}>
               <div style={{ 
                 display: 'flex', 
@@ -3610,7 +3611,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                 <h3 style={{ 
                   fontSize: '1.125rem', 
                   fontWeight: 700, 
-                  color: '#1e293b', 
+                  color: isDarkMode ? '#f8fafc' : '#1e293b', 
                   margin: 0
                 }}>
                   WingMentor Updates
@@ -3619,9 +3620,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ 
                   padding: '1rem', 
-                  background: '#f8fafc', 
+                  background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
                   borderRadius: '12px',
-                  border: '1px solid #e2e8f0'
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
                 }}>
                   <div style={{ 
                     display: 'flex', 
@@ -3636,15 +3637,15 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       2 days ago
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#cbd5e1' : '#475569', lineHeight: 1.5 }}>
                     Recognition & Achievements page now available! Track your awards and certifications.
                   </div>
                 </div>
                 <div style={{ 
                   padding: '1rem', 
-                  background: '#f8fafc', 
+                  background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
                   borderRadius: '12px',
-                  border: '1px solid #e2e8f0'
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
                 }}>
                   <div style={{ 
                     display: 'flex', 
@@ -3659,7 +3660,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       1 week ago
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#cbd5e1' : '#475569', lineHeight: 1.5 }}>
                     Enhanced dashboard with new navigation and improved user experience.
                   </div>
                 </div>
@@ -3668,11 +3669,11 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
 
             {/* Program Notifications */}
             <div style={{
-              background: 'white',
+              background: isDarkMode ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'white',
               borderRadius: '16px',
               padding: '1.5rem',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-              borderLeft: '4px solid #10b981'
+              boxShadow: isDarkMode ? '0 4px 6px -1px rgba(0, 0, 0, 0.5)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              borderLeft: isDarkMode ? '4px solid #34d399' : '4px solid #10b981'
             }}>
               <div style={{ 
                 display: 'flex', 
@@ -3696,7 +3697,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                 <h3 style={{ 
                   fontSize: '1.125rem', 
                   fontWeight: 700, 
-                  color: '#1e293b', 
+                  color: isDarkMode ? '#f8fafc' : '#1e293b', 
                   margin: 0
                 }}>
                   Program Notifications
@@ -3705,9 +3706,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ 
                   padding: '1rem', 
-                  background: '#f8fafc', 
+                  background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
                   borderRadius: '12px',
-                  border: '1px solid #e2e8f0'
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
                 }}>
                   <div style={{ 
                     display: 'flex', 
@@ -3722,15 +3723,15 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       3 days ago
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#cbd5e1' : '#475569', lineHeight: 1.5 }}>
                     Advanced ATPL Program enrollment now open for Q2 2024.
                   </div>
                 </div>
                 <div style={{ 
                   padding: '1rem', 
-                  background: '#f8fafc', 
+                  background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
                   borderRadius: '12px',
-                  border: '1px solid #e2e8f0'
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
                 }}>
                   <div style={{ 
                     display: 'flex', 
@@ -3745,7 +3746,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       5 days ago
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#cbd5e1' : '#475569', lineHeight: 1.5 }}>
                     Complete your Foundational Program modules by end of month.
                   </div>
                 </div>
@@ -3754,11 +3755,11 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
 
             {/* Industry News */}
             <div style={{
-              background: 'white',
+              background: isDarkMode ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'white',
               borderRadius: '16px',
               padding: '1.5rem',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-              borderLeft: '4px solid #f59e0b'
+              boxShadow: isDarkMode ? '0 4px 6px -1px rgba(0, 0, 0, 0.5)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              borderLeft: isDarkMode ? '4px solid #fbbf24' : '4px solid #f59e0b'
             }}>
               <div style={{ 
                 display: 'flex', 
@@ -3782,7 +3783,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                 <h3 style={{ 
                   fontSize: '1.125rem', 
                   fontWeight: 700, 
-                  color: '#1e293b', 
+                  color: isDarkMode ? '#f8fafc' : '#1e293b', 
                   margin: 0
                 }}>
                   Industry News
@@ -3791,9 +3792,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ 
                   padding: '1rem', 
-                  background: '#f8fafc', 
+                  background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
                   borderRadius: '12px',
-                  border: '1px solid #e2e8f0'
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
                 }}>
                   <div style={{ 
                     display: 'flex', 
@@ -3808,15 +3809,15 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       1 day ago
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#cbd5e1' : '#475569', lineHeight: 1.5 }}>
                     Major airlines announce pilot recruitment drive for 2024-2025.
                   </div>
                 </div>
                 <div style={{ 
                   padding: '1rem', 
-                  background: '#f8fafc', 
+                  background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
                   borderRadius: '12px',
-                  border: '1px solid #e2e8f0'
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
                 }}>
                   <div style={{ 
                     display: 'flex', 
@@ -3831,7 +3832,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       4 days ago
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.875rem', color: '#475569', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#cbd5e1' : '#475569', lineHeight: 1.5 }}>
                     New simulator technology enhances training effectiveness by 40%.
                   </div>
                 </div>
@@ -3842,7 +3843,8 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         </div>
       </div>
     </div>
-  );
+    );
+  };
 
   // Main content panel
   const MainPanel = () => {
@@ -3855,39 +3857,30 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         width: `calc(100% - ${marginLeft}px)`,
         height: '100vh',
         overflow: 'auto',
-        position: 'relative'
+        position: 'relative',
+        paddingTop: '70px'
       }}>
+        {/* Global top bar - moved outside scaled div so position:fixed works */}
         <div
           style={{
-            transform: `scale(${mainPanelScale})`,
-            transformOrigin: 'top left',
-            width: inverseScalePercent,
-            minWidth: inverseScalePercent,
-            height: inverseScalePercent,
-            minHeight: inverseScalePercent
+            width: `calc(100% - ${marginLeft}px)`,
+            padding: '1.5rem 2.75rem 1rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            position: 'fixed',
+            top: 0,
+            left: `${marginLeft}px`,
+            right: 0,
+            zIndex: 100,
+            background: isDarkMode
+              ? 'linear-gradient(180deg, rgba(2,6,23,0.96) 0%, rgba(15,23,42,0.9) 100%)'
+              : 'linear-gradient(180deg, rgba(248,250,252,0.98) 0%, rgba(248,250,252,0.9) 100%)',
+            backdropFilter: 'blur(8px)',
+            borderBottom: isDarkMode ? '1px solid rgba(71,85,105,0.55)' : '1px solid rgba(226,232,240,0.8)',
+            boxSizing: 'border-box',
           }}
         >
-          {/* Global top bar */}
-          <div
-            style={{
-              width: '100%',
-              padding: '1.5rem 2.75rem 1rem',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              zIndex: 100,
-              background: isDarkMode
-                ? 'linear-gradient(180deg, rgba(2,6,23,0.96) 0%, rgba(15,23,42,0.9) 100%)'
-                : 'linear-gradient(180deg, rgba(248,250,252,0.98) 0%, rgba(248,250,252,0.9) 100%)',
-              backdropFilter: 'blur(8px)',
-              borderBottom: isDarkMode ? '1px solid rgba(71,85,105,0.55)' : '1px solid rgba(226,232,240,0.8)',
-              boxSizing: 'border-box',
-            }}
-          >
             <div>
               <p style={{ margin: 0, fontSize: '0.9rem', color: isDarkMode ? '#94a3b8' : '#94a3b8', letterSpacing: '0.08em' }}>WELCOME BACK</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
@@ -3941,7 +3934,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               </button>
 
               <button
-                onClick={() => setMainView('pilot-profile')}
+                onClick={() => setMainView('pilot-portfolio')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -4002,13 +3995,24 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             </div>
           </div>
 
-          {renderMainContent()}
+          <div
+            style={{
+              transform: `scale(${mainPanelScale})`,
+              transformOrigin: 'top left',
+              width: inverseScalePercent,
+              minWidth: inverseScalePercent,
+              height: inverseScalePercent,
+              minHeight: inverseScalePercent
+            }}
+          >
+            {renderMainContent()}
+          </div>
         </div>
-      </div>
     );
   };
 
-  const WingMentorNetworkView = ({ onBack, onViewChange }: { onBack: () => void; onViewChange?: (view: string) => void }) => (
+  const WingMentorNetworkView = ({ onBack, onViewChange }: { onBack: () => void; onViewChange?: (view: string) => void }) => {
+    return (
     <div
       className="dashboard-container animate-fade-in"
       style={{
@@ -4270,7 +4274,8 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         </footer>
       </main>
     </div>
-  );
+    );
+  };
 
   // Main Content Renderer
   const renderMainContent = () => {
@@ -4368,7 +4373,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
           />
         );
       case 'atpl-pathway':
-        return <ATPLPathwayPage onBack={() => setMainView('pathways')} />;
+        return <ATPLPathwayPage onBack={() => setMainView('pathways')} isDarkMode={isDarkMode} />;
       case 'private-sector':
         return <PrivateSectorPathwayPage onBack={() => setMainView('pathways')} />;
       case 'foundational-enrollment-check':
