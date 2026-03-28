@@ -3389,23 +3389,23 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               {/* Personalized Pathway Inquiry Component */}
               <div style={{ marginTop: '3rem', marginBottom: '2rem' }}>
                 <div style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  background: isDarkMode ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'rgba(255, 255, 255, 0.95)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
                   borderRadius: '24px',
                   padding: '3rem',
-                  boxShadow: '0 12px 40px rgba(15, 23, 42, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  boxShadow: isDarkMode ? '0 12px 40px rgba(0, 0, 0, 0.5)' : '0 12px 40px rgba(15, 23, 42, 0.08)',
+                  border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid rgba(255, 255, 255, 0.8)',
                   textAlign: 'center'
                 }}>
                   <img src="/logo.png" alt="WingMentor Logo" style={{ height: '90px', width: 'auto', marginBottom: '1rem' }} />
-                  <div style={{ color: '#2563eb', fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+                  <div style={{ color: isDarkMode ? '#60a5fa' : '#2563eb', fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
                     Personalized Pathway Inquiry
                   </div>
-                  <h2 style={{ fontSize: '1.8rem', fontWeight: 400, color: '#0f172a', margin: '0 0 1.5rem', fontFamily: 'Georgia, serif' }}>
+                  <h2 style={{ fontSize: '1.8rem', fontWeight: 400, color: isDarkMode ? '#f8fafc' : '#0f172a', margin: '0 0 1.5rem', fontFamily: 'Georgia, serif' }}>
                     Tailored Aviation Career Tracks
                   </h2>
-                  <p style={{ color: '#475569', fontSize: '1rem', lineHeight: 1.6, margin: '0 auto 2rem', maxWidth: '36rem' }}>
+                  <p style={{ color: isDarkMode ? '#94a3b8' : '#475569', fontSize: '1rem', lineHeight: 1.6, margin: '0 auto 2rem', maxWidth: '36rem' }}>
                     Is there a particular pathway you're interested in through your pilot journey? WingMentor creates specialized tracks for corporate pilotage, air rescue operations, crop dusting, and other individualized careers that align with your long-term aviation goals.
                   </p>
                   <div style={{ textAlign: 'left', maxWidth: '34rem', margin: '0 auto 2rem' }}>
@@ -3425,9 +3425,9 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       <div key={item.title} style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', padding: '0.35rem 0' }}>
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
                           <div style={{ width: 8, height: 8, borderRadius: 999, marginTop: 6, background: '#0ea5e9' }}></div>
-                          <h4 style={{ fontSize: '1.0625rem', margin: 0, fontWeight: 600, color: '#0f172a' }}>{item.title}</h4>
+                          <h4 style={{ fontSize: '1.0625rem', margin: 0, fontWeight: 600, color: isDarkMode ? '#f8fafc' : '#0f172a' }}>{item.title}</h4>
                         </div>
-                        <p style={{ margin: 0, fontSize: '0.9rem', color: '#475569' }}>{item.description}</p>
+                        <p style={{ margin: 0, fontSize: '0.9rem', color: isDarkMode ? '#cbd5e1' : '#475569' }}>{item.description}</p>
                       </div>
                     ))}
                   </div>
@@ -3449,7 +3449,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                       Inquire About Pathways & Internships
                     </button>
                   </div>
-                  <p style={{ fontSize: '0.85rem', color: '#94a3b8', letterSpacing: '0.2em', textTransform: 'uppercase', margin: 0 }}>
+                  <p style={{ fontSize: '0.85rem', color: isDarkMode ? '#94a3b8' : '#94a3b8', letterSpacing: '0.2em', textTransform: 'uppercase', margin: 0 }}>
                     Contact us for personalized pathway guidance and internship opportunities with WingMentor
                   </p>
                 </div>
