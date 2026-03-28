@@ -1064,6 +1064,14 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
                             </div>
                           ))}
                         </div>
+                        <div style={{ marginTop: '0.25rem', textAlign: 'center' }}>
+                          <span
+                            onClick={onViewDigitalLogbook}
+                            style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500 }}
+                          >
+                            View Flight Digital Logbook →
+                          </span>
+                        </div>
                       </div>
 
                       <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, minHeight: '100%' }}>
