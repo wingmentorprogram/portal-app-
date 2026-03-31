@@ -643,6 +643,16 @@ function App() {
     setCurrentView(view);
   };
 
+  // Expose handleViewChange globally for cross-component navigation
+  useEffect(() => {
+    // @ts-ignore
+    window.handleViewChange = handleViewChange;
+    return () => {
+      // @ts-ignore
+      delete window.handleViewChange;
+    };
+  }, []);
+
   const clearLoadingSequence = () => {
     loadingTimers.current.forEach((timerId) => clearTimeout(timerId));
     loadingTimers.current = [];

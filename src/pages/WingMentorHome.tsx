@@ -454,33 +454,6 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
           <section className="dashboard-section" style={{ marginTop: '0.5rem' }}>
             <div className="cards-list">
               <div 
-                className={`horizontal-card ${mainView === 'news' ? 'active' : ''}`} 
-                style={{ 
-                  cursor: 'pointer', 
-                  padding: '0.75rem 1.5rem',
-                  border: mainView === 'news' ? '2px solid #0ea5e9' : 'none',
-                  minHeight: '80px'
-                }} 
-                onClick={() => setMainView('news')}
-              >
-                <div className="horizontal-card-content-wrapper">
-                  <div style={{ maxWidth: '65%', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <div style={{ fontSize: '1.25rem', color: '#000000', fontWeight: 'bold' }}>•</div>
-                    <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                      <h3 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>News & Updates</h3>
-                      <p className="horizontal-card-desc" style={{ maxWidth: '100%', marginBottom: 0, color: '#64748b', fontSize: '0.875rem', lineHeight: 1.4 }}>
-                        Latest announcements and industry insights
-                      </p>
-                    </div>
-                  </div>
-                  <div className="hub-card-arrow">
-                    <Icons.ArrowRight style={{ width: 20, height: 20 }} />
-                  </div>
-                </div>
-                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="News & Updates" className="hub-card-bg-image" style={{ width: '35%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-              </div>
-
-              <div 
                 className={`horizontal-card ${mainView === 'applications' ? 'active' : ''}`} 
                 style={{ 
                   cursor: 'pointer', 
@@ -494,7 +467,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   <div style={{ maxWidth: '65%', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <div style={{ fontSize: '1.25rem', color: '#000000', fontWeight: 'bold' }}>•</div>
                     <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                      <h3 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Pilot Portfolio</h3>
+                      <h3 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Dashboard</h3>
                       <p className="horizontal-card-desc" style={{ maxWidth: '100%', marginBottom: 0, color: '#64748b', fontSize: '0.875rem', lineHeight: 1.4 }}>
                         Flight logs, training records, and documents
                       </p>
@@ -504,7 +477,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                     <Icons.ArrowRight style={{ width: 20, height: 20 }} />
                   </div>
                 </div>
-                <img src="/Captain-Paperwork-Medium.jpg" alt="Pilot Portfolio" className="hub-card-bg-image" style={{ width: '35%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+                <img src="/Captain-Paperwork-Medium.jpg" alt="Dashboard" className="hub-card-bg-image" style={{ width: '35%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               </div>
 
               <div 
@@ -575,7 +548,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   <div style={{ maxWidth: '65%', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <div style={{ fontSize: '1.25rem', color: '#000000', fontWeight: 'bold' }}>•</div>
                     <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
-                      <h3 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: '#0f172a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Pilot Recognition & Achievements</h3>
+                      <h3 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: '#0f172a', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Pilot Recognition</h3>
                       <p className="horizontal-card-desc" style={{ maxWidth: '100%', marginBottom: 0, color: '#64748b', fontSize: '0.875rem', lineHeight: 1.4 }}>
                         Awards, flight hours, and certifications
                       </p>
@@ -614,6 +587,34 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
                   </div>
                 </div>
                 <img src="/Networking.jpg" alt="WingMentor Network" className="hub-card-bg-image" style={{ width: '35%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+              </div>
+
+              {/* News & Updates Card - Moved under WingMentor Network */}
+              <div 
+                className={`horizontal-card ${mainView === 'news' ? 'active' : ''}`} 
+                style={{ 
+                  cursor: 'pointer', 
+                  padding: '0.75rem 1.5rem',
+                  border: mainView === 'news' ? '2px solid #0ea5e9' : 'none',
+                  minHeight: '80px'
+                }} 
+                onClick={() => setMainView('news')}
+              >
+                <div className="horizontal-card-content-wrapper">
+                  <div style={{ maxWidth: '65%', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ fontSize: '1.25rem', color: '#000000', fontWeight: 'bold' }}>•</div>
+                    <div className="horizontal-card-content" style={{ padding: '1rem 0', textAlign: 'left', flex: 1, maxWidth: '100%' }}>
+                      <h3 className="horizontal-card-title" style={{ fontSize: '1.25rem', marginBottom: '0.25rem', color: '#0f172a', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>News & Updates</h3>
+                      <p className="horizontal-card-desc" style={{ maxWidth: '100%', marginBottom: 0, color: '#64748b', fontSize: '0.875rem', lineHeight: 1.4 }}>
+                        Latest announcements and industry insights
+                      </p>
+                    </div>
+                  </div>
+                  <div className="hub-card-arrow">
+                    <Icons.ArrowRight style={{ width: 20, height: 20 }} />
+                  </div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="News & Updates" className="hub-card-bg-image" style={{ width: '35%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               </div>
             </div>
           </section>
@@ -4002,11 +4003,24 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               width: inverseScalePercent,
               minWidth: inverseScalePercent,
               height: inverseScalePercent,
-              minHeight: inverseScalePercent
+              minHeight: inverseScalePercent,
+              animation: 'fadeInSlide 0.7s ease-out'
             }}
           >
             {renderMainContent()}
           </div>
+          <style>{`
+            @keyframes fadeInSlide {
+              from {
+                opacity: 0;
+                transform: scale(${mainPanelScale}) translateY(20px);
+              }
+              to {
+                opacity: 1;
+                transform: scale(${mainPanelScale}) translateY(0);
+              }
+            }
+          `}</style>
         </div>
     );
   };
@@ -4510,7 +4524,11 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: isDarkMode ? '#020817' : '#f8fafc' }}>
+    <div style={{ 
+      display: 'flex', 
+      height: '100vh', 
+      background: isDarkMode ? '#020817' : '#f8fafc'
+    }}>
       <Sidebar />
       
       {/* Main Content Area */}

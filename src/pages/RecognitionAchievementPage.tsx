@@ -10,7 +10,7 @@ interface RecognitionAchievementPageProps {
   onBack: () => void;
   onViewExams?: () => void;
   onViewAtlas?: () => void;
-  userProfile?: { uid?: string; email?: string } | null;
+  userProfile?: { uid?: string; email?: string; firstName?: string; lastName?: string } | null;
   preloadedAchievements?: any[];
   preloadedPortfolio?: any;
 }
@@ -229,13 +229,10 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
           <span style={{ fontSize: '16px' }}>←</span> Back to Hub
         </button>
 
-        <div className="dashboard-header" style={{ marginBottom: '2rem' }}>
-          <div className="dashboard-logo" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
-            <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '240px' }} />
-          </div>
-          <div className="dashboard-subtitle">CONNECTING PILOTS TO THE INDUSTRY</div>
-          <h1 className="dashboard-title">Recognition & Achievements</h1>
-          <p>
+        <div className="dashboard-header" style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <h1 className="dashboard-title" style={{ margin: '0 0 0.5rem', fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 400, color: '#0f172a', letterSpacing: '-0.02em', fontFamily: 'Georgia, serif' }}>Recognition & Achievements</h1>
+          <div className="dashboard-subtitle" style={{ letterSpacing: '0.2em', color: '#2563eb', fontWeight: 700, fontSize: '0.75rem', marginBottom: '1rem', textTransform: 'uppercase' }}>Connecting Pilots to the Industry</div>
+          <p style={{ margin: '1rem auto 0', color: '#64748b', lineHeight: 1.7, fontSize: '1rem', maxWidth: '36rem' }}>
             View your awards, flight hours, certifications, and professional milestones earned through your training journey.
           </p>
         </div>
@@ -336,6 +333,19 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
                 onClick: onViewAtlas
               }].map(card => renderCard(card))}
             </div>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#0f172a' }}>Mentorship</h2>
+                <span style={{ fontSize: '0.8rem', letterSpacing: '0.2em', color: '#94a3b8', textTransform: 'uppercase' }}>Leadership & guidance</span>
+              </div>
+              {[{
+                title: 'Mentorship & Leadership',
+                description: 'Track your mentorship hours, peer observations, and consultation sessions with structured guidance records.',
+                cta: 'View Details',
+                filled: true,
+                onClick: onViewAtlas
+              }].map(card => renderCard(card))}
+            </div>
           </div>
         </section>
 
@@ -351,6 +361,193 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
           }}>
             Your Achievements
           </h2>
+          
+          {/* Atlas Resume Card */}
+          <div style={{ 
+            background: 'white',
+            borderRadius: '24px',
+            padding: '2rem',
+            marginBottom: '2rem',
+            boxShadow: '0 22px 55px rgba(15,23,42,0.08)',
+            border: '1px solid rgba(226,232,240,0.8)'
+          }}>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <div className="dashboard-logo" style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
+                <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '160px' }} />
+              </div>
+              <div className="dashboard-subtitle" style={{ letterSpacing: '0.3em', color: '#2563eb', fontSize: '0.8rem' }}>ATLAS RESUME DIRECTORY</div>
+              <h3 style={{ margin: '0.5rem 0', fontSize: '2rem', fontFamily: 'Georgia, serif', fontWeight: 400, color: '#0f172a' }}>Atlas-formatted Resume</h3>
+              <p style={{ margin: '0 auto', color: '#64748b', fontSize: '0.9rem', maxWidth: '42rem', lineHeight: 1.6 }}>
+                A digital resume designed for airline recruiters, presenting your verified WingMentor recognitions, hour breakdown, and mentorship credentials.
+              </p>
+            </div>
+
+            {/* Candidate Info */}
+            <div style={{
+              background: '#f8fafc',
+              borderRadius: '16px',
+              padding: '1.5rem',
+              marginBottom: '1.5rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '1rem'
+            }}>
+              <div>
+                <div style={{ fontSize: '0.75rem', letterSpacing: '0.2em', color: '#94a3b8', textTransform: 'uppercase' }}>Candidate</div>
+                <h4 style={{ margin: '0.35rem 0 0', fontSize: '1.25rem', color: '#0f172a' }}>{userProfile?.firstName || 'Benjamin'} {userProfile?.lastName || 'Bowler'}</h4>
+                <p style={{ margin: '0.2rem 0 0', color: '#64748b', fontSize: '0.85rem' }}>WingMentor Recognition Portfolio</p>
+              </div>
+              <button style={{
+                padding: '0.6rem 1.2rem',
+                borderRadius: '12px',
+                border: '1px solid #cbd5e1',
+                background: 'transparent',
+                color: '#0f172a',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+              onClick={() => navigator.clipboard.writeText('https://wingmentor.app/resume/' + (userProfile?.uid || 'demo'))}
+              >
+                Copy shareable resume URL
+              </button>
+            </div>
+
+            {/* Resume Sections Grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div style={{
+                background: '#f8fafc',
+                borderRadius: '16px',
+                padding: '1.25rem'
+              }}>
+                <h4 style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', color: '#0f172a' }}>Flight Experience</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>Total Hours</span>
+                    <strong style={{ color: '#0f172a' }}>0 hr</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>Pilot-in-Command</span>
+                    <strong style={{ color: '#0f172a' }}>0 hr</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>IFR / IMC</span>
+                    <strong style={{ color: '#0f172a' }}>0 hr</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>Night</span>
+                    <strong style={{ color: '#0f172a' }}>0 hr</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{
+                background: '#f8fafc',
+                borderRadius: '16px',
+                padding: '1.25rem'
+              }}>
+                <h4 style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', color: '#0f172a' }}>Certifications & Training</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>License</span>
+                    <strong style={{ color: '#0f172a' }}>ATPL (Frozen)</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>Medical</span>
+                    <strong style={{ color: '#0f172a' }}>Class 1 – Valid</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>Simulator</span>
+                    <strong style={{ color: '#0f172a' }}>A320 | B737 MAX</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{
+                background: '#f8fafc',
+                borderRadius: '16px',
+                padding: '1.25rem'
+              }}>
+                <h4 style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', color: '#0f172a' }}>Mentorship & Leadership</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>WingMentor Hours</span>
+                    <strong style={{ color: '#0f172a' }}>22 hr</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>Peer Mentorship</span>
+                    <strong style={{ color: '#0f172a' }}>10 hr observation</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b' }}>Consultation</span>
+                    <strong style={{ color: '#0f172a' }}>4 structured cases</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Highlighted Achievements */}
+            <div style={{
+              background: '#f8fafc',
+              borderRadius: '16px',
+              padding: '1.25rem',
+              marginBottom: '1.5rem'
+            }}>
+              <h4 style={{ margin: '0 0 0.75rem', fontSize: '0.9rem', color: '#0f172a' }}>Highlighted Achievements</h4>
+              <ul style={{ margin: 0, paddingLeft: '1.25rem', color: '#475569', fontSize: '0.85rem', lineHeight: 1.7 }}>
+                <li>WingMentor Foundational Program – Verified</li>
+                <li>Airbus Evidence-Based Training Certified</li>
+                <li>Emirates ATPL Readiness Program – Enrolled</li>
+              </ul>
+            </div>
+
+            {/* Export & Verification */}
+            <div style={{
+              background: '#f8fafc',
+              borderRadius: '16px',
+              padding: '1.5rem'
+            }}>
+              <h4 style={{ margin: '0 0 0.5rem', fontSize: '1rem', color: '#0f172a' }}>Export & Verification</h4>
+              <p style={{ margin: '0 0 1rem', color: '#64748b', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                Download a PDF copy of your Atlas-formatted resume or share the verification link directly with airline recruiters.
+              </p>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <button
+                  onClick={onViewAtlas}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '12px',
+                    border: 'none',
+                    background: '#0ea5e9',
+                    color: '#fff',
+                    fontWeight: 600,
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  Open Printable Resume
+                </button>
+                <button
+                  onClick={() => navigator.clipboard.writeText('https://wingmentor.app/resume/' + (userProfile?.uid || 'demo'))}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '12px',
+                    border: '1px solid #cbd5e1',
+                    background: 'white',
+                    color: '#0f172a',
+                    fontWeight: 600,
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  Share verification
+                </button>
+              </div>
+            </div>
+          </div>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             {achievements.map((achievement) => (
@@ -406,35 +603,6 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Coming Soon Section */}
-        <section className="dashboard-section" style={{ marginTop: '2rem' }}>
-          <div className="recognition-coming-soon-card" style={{
-            background: '#f8fafc',
-            borderRadius: '12px',
-            padding: '2rem',
-            textAlign: 'center',
-            border: '2px dashed #cbd5e1'
-          }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🚀</div>
-            <h3 style={{ 
-              fontSize: '1.25rem', 
-              fontWeight: 700, 
-              color: '#1e293b', 
-              marginBottom: '0.5rem' 
-            }}>
-              More Achievements Coming Soon
-            </h3>
-            <p style={{ 
-              fontSize: '0.875rem', 
-              color: '#64748b',
-              maxWidth: '500px',
-              margin: '0 auto'
-            }}>
-              Continue your training journey to unlock more badges, certifications, and recognition milestones.
-            </p>
           </div>
         </section>
 

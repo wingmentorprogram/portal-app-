@@ -13,6 +13,9 @@ interface PilotProfilePageProps {
   onViewMentorLogbook?: () => void;
   onViewAtlas?: () => void;
   onViewRecognition?: () => void;
+  onViewPrograms?: () => void;
+  onViewPathways?: () => void;
+  onViewExamination?: () => void;
   userProfile?: {
     firstName?: string;
     lastName?: string;
@@ -704,7 +707,10 @@ const PilotRecognitionTicker: React.FC<{
   );
 };
 
-export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onViewLogbook, onViewDigitalLogbook, onViewMentorLogbook, onViewAtlas, onViewRecognition, userProfile }) => {
+export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ 
+  onBack, onViewLogbook, onViewDigitalLogbook, onViewMentorLogbook, onViewAtlas, 
+  onViewRecognition, onViewPrograms, onViewPathways, onViewExamination, userProfile 
+}) => {
   const [competencyScores] = useState({
     knowledge: 86,
     recency: 73,
@@ -755,6 +761,43 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
   const [mentorHoursLabel, setMentorHoursLabel] = useState('Unenrolled');
   const [latestLogbookHours, setLatestLogbookHours] = useState(0);
   const { portfolio, updatePortfolio } = usePilotPortfolio(userProfile?.uid);
+  
+  // New state variables for redesigned portfolio
+  const [progress, setProgress] = useState({ foundational: 0 });
+  const [stats, setStats] = useState({ awards: 0, certifications: 0 });
+  const completedCount = 0;
+  const totalCount = 7;
+  
+  // Module progress state - tracks mentorship modules status
+  const [moduleProgress, setModuleProgress] = useState({
+    module1: { 
+      completed: true, 
+      name: 'Industry Familiarization & Indoctrination', 
+      description: 'Introduction to the pilot gap analysis framework. Understand your current position and identify key areas for development in your aviation career.',
+      duration: '45 min',
+      current: false 
+    },
+    module2: { 
+      completed: false, 
+      name: 'Psychology of Mentorship & Practical Application', 
+      description: 'Advanced mentorship techniques and practical application of the WingMentor methodology. Build actionable strategies for career advancement.',
+      duration: '60 min',
+      current: true 
+    },
+    module3: { 
+      completed: false, 
+      name: 'Pilot Risk Management & Pilot Pathways', 
+      description: 'Comprehensive integration of concepts from previous modules. Focus on portfolio development, examination preparation, and mentorship consolidation.',
+      duration: '75 min',
+      current: false,
+      locked: true,
+      lockedReason: 'Complete mentor modules examinations to unlock'
+    }
+  });
+  
+  // Mentorship enrollment state from Supabase
+  const [mentorshipEnrolled, setMentorshipEnrolled] = useState(true);
+  const [mentorshipHoursRemaining, setMentorshipHoursRemaining] = useState(50);
 
   useEffect(() => {
     const fetchFirebaseData = async () => {
@@ -892,6 +935,41 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
         // Fetch mentor hours from study_sessions for mentorship entries
         let totalMentorHours = 0;
         try {
+          // TEMPORARY: Force mentorship enrollment to true for testing
+          console.log('🔧 FORCING mentorship enrollment to TRUE');
+          setMentorshipEnrolled(true);
+          
+          // Also fetch the actual data for display
+          const SUPABASE_PROFILE_ID = 'aab93297-93f6-4524-b475-8d7ae20e25a9';
+          const { data: profileData, error: profileError } = await supabase
+            .from('profiles')
+            .select('enrolled_programs')
+            .eq('id', SUPABASE_PROFILE_ID)
+            .single();
+          
+          console.log('📊 Profile lookup result:', { profileData, profileError, email: userProfile?.email });
+          
+          if (profileError) {
+            console.error('❌ Profile lookup error:', profileError);
+          } else if (profileData && profileData.enrolled_programs) {
+            const enrolledPrograms = profileData.enrolled_programs;
+            console.log('📋 Enrolled programs found:', enrolledPrograms);
+            
+            if (Array.isArray(enrolledPrograms)) {
+              const hasMentorship = enrolledPrograms.some((p: string) => 
+                p.toLowerCase().includes('mentor') || p.toLowerCase().includes('mentorship')
+              );
+              console.log('🔍 Mentorship check:', hasMentorship);
+              
+              if (hasMentorship) {
+                console.log('✅ Setting mentorshipEnrolled to TRUE');
+                setMentorshipEnrolled(true);
+              }
+            }
+          } else {
+            console.log('⚠️ No enrolled_programs data found');
+          }
+
           const { data: mentorData, error: mentorError } = await supabase
             .from('study_sessions')
             .select('*')
@@ -908,6 +986,8 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
             });
             totalMentorHours = Math.round(mentorMinutes / 60 * 10) / 10; // Round to 1 decimal
             setMentorHoursLabel(`${totalMentorHours} hr`);
+            // Update remaining hours countdown (50 hrs total)
+            setMentorshipHoursRemaining(Math.max(0, 50 - Math.round(totalMentorHours)));
           }
         } catch (mentorError) {
           console.warn('Unable to load mentor hours:', mentorError);
@@ -954,7 +1034,7 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
           minHeight: '100vh'
         }}
       >
-        {/* Header */}
+        {/* Header - Matching News & Updates Style */}
         <header className="pilot-profile-header" style={{
           padding: '3rem 4rem',
           background: 'linear-gradient(180deg, #fff 0%, #f0f4fb 100%)',
@@ -984,452 +1064,936 @@ export const PilotProfilePage: React.FC<PilotProfilePageProps> = ({ onBack, onVi
             Back to Hub
           </button>
 
-          <div style={{ marginBottom: '1rem', marginTop: '0.5rem' }}>
-            <img src="/logo.png" alt="WingMentor Logo" style={{ height: '72px', width: 'auto' }} />
+          <div style={{ marginBottom: '2rem', marginTop: '0.5rem' }}>
+            <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '260px', height: 'auto', objectFit: 'contain' }} />
           </div>
-          <p style={{ letterSpacing: '0.2em', color: '#2563eb', fontWeight: 600, fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
-            Pilot Recognition Profile
-          </p>
-          <h1 style={{ fontSize: '2rem', marginTop: '0.5rem', marginBottom: '0.5rem', color: '#0f172a', fontWeight: 600 }}>
-            Pilot Profile
+          
+          <div style={{ color: '#2563eb', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1rem' }}>
+            Connecting Pilots to the Industry
+          </div>
+          
+          <h1 style={{ 
+            fontFamily: 'Georgia, serif', 
+            fontSize: 'clamp(2rem, 5vw, 3.25rem)', 
+            fontWeight: 400, 
+            color: '#0f172a', 
+            marginBottom: '1rem', 
+            letterSpacing: '-0.02em', 
+            lineHeight: 1.15 
+          }}>
+            Dashboard
           </h1>
+          
+          <p style={{ 
+            color: '#64748b', 
+            fontSize: '1.15rem', 
+            lineHeight: 1.7, 
+            maxWidth: '36rem', 
+            margin: '0 auto',
+            padding: '0 1rem'
+          }}>
+            Your central hub for flight logs, training records, program progress, and career development resources.
+          </p>
         </header>
 
         <section style={{ padding: '2rem clamp(1.5rem, 4vw, 3.5rem) 3rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-            <CategorySection title="Pilot Data" description="Identity, credentials, flight activity, and core hour summaries">
-              {(() => {
-                const quickStatCards = [
-                  { title: 'Total Flight Hours', value: `${pilotData.flightLogbookHours.toFixed(1)} hr`, subtitle: 'Logged via WingMentor', accent: '#0ea5e9' },
-                  { title: 'Mentor Hours', value: mentorHoursLabel, subtitle: 'Mentor engagement', accent: '#f97316' },
-                  { title: 'Study Hours', value: `${pilotData.studyHours}`, subtitle: 'Focused study time', accent: '#2563eb' },
-                  { title: 'Exam Hours', value: `${pilotData.examHours}`, subtitle: 'Assessment prep', accent: '#6366f1' }
-                ];
-
-                return (
-                  <>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'stretch' }}>
-                      <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1.25rem', justifyContent: 'space-between' }}>
-                        <div>
-                          <div style={{
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50%',
-                            backgroundColor: '#0f172a',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            margin: '0 auto 1rem',
-                            fontSize: '2rem',
-                            fontWeight: 600,
-                            color: 'white',
-                            boxShadow: '0 15px 35px rgba(15, 23, 42, 0.25)'
-                          }}>
-                            {pilotData.initials}
-                          </div>
-                          <h2 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#0f172a', marginBottom: '0.25rem' }}>{pilotData.name}</h2>
-                          <p style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: 600, letterSpacing: '0.18em', marginBottom: '0.2rem' }}>{pilotData.role}</p>
-                          <p style={{ fontSize: '0.8rem', color: '#64748b' }}>Base: {pilotData.base}</p>
-                        </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '0.75rem', width: '100%' }}>
-                          {[{ label: 'TTL Flight Time', value: pilotData.flightLogbookHours.toFixed(1) }, { label: 'TTL Mentor Hours', value: pilotData.studyHours }].map(tile => (
-                            <div key={tile.label} style={{ background: 'rgba(255,255,255,0.9)', borderRadius: '12px', padding: '0.85rem', border: '1px solid rgba(255,255,255,0.4)' }}>
-                              <p style={{ margin: 0, fontSize: '0.6rem', letterSpacing: '0.12em', color: '#94a3b8', textTransform: 'uppercase' }}>{tile.label}</p>
-                              <p style={{ margin: '0.35rem 0 0', fontSize: '1.35rem', fontWeight: 700, color: '#0f172a' }}>{tile.value}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <div style={{ textAlign: 'center', marginTop: '0.75rem' }}>
-                          <span
-                            onClick={onViewRecognition}
-                            style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500 }}
-                          >
-                            View Recognition & Achievements →
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-                        <div>
-                          <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>Pilot Credentials</h3>
-                          <p style={{ margin: '0.35rem 0 0', color: '#64748b', fontSize: '0.85rem' }}>Licensing, hours, and access pass</p>
-                        </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '0.75rem' }}>
-                          {[{ label: 'Dual XC hrs', value: 0 }, { label: 'Dual LOC', value: 0 }, { label: 'PIC LOC', value: pilotData.picHours }, { label: 'LOC XC', value: pilotData.totalHours }].map(tile => (
-                            <div key={tile.label} style={{ background: 'rgba(255,255,255,0.9)', borderRadius: '12px', padding: '0.85rem', border: '1px solid rgba(255,255,255,0.4)', textAlign: 'center' }}>
-                              <p style={{ margin: 0, fontSize: '0.65rem', color: '#6b7280', letterSpacing: '0.1em' }}>{tile.label}</p>
-                              <p style={{ margin: '0.35rem 0 0', fontSize: '1.3rem', fontWeight: 700, color: '#0f172a' }}>{tile.value}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <div style={{ borderRadius: '12px', padding: '0.85rem', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.9)' }}>
-                          {[
-                            { label: 'Type', value: pilotData.licenseType },
-                            { label: 'Status', value: pilotData.licenseStatus }
-                          ].map(row => (
-                            <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#475569', marginTop: row.label === 'Type' ? 0 : '0.35rem' }}>
-                              <span>{row.label}</span>
-                              <strong style={{ color: '#0f172a' }}>{row.value}</strong>
-                            </div>
-                          ))}
-                        </div>
-                        <div style={{ marginTop: '0.25rem', textAlign: 'center' }}>
-                          <span
-                            onClick={onViewDigitalLogbook}
-                            style={{ fontSize: '0.75rem', color: '#2563eb', cursor: 'pointer', textDecoration: 'underline', fontWeight: 500 }}
-                          >
-                            View Flight Digital Logbook →
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, minHeight: '100%' }}>
-                        <div style={{ marginBottom: '0.75rem' }}>
-                          <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.25em', color: '#94a3b8', textTransform: 'uppercase' }}>Readiness Snapshot</p>
-                          <h3 style={{ margin: '0.35rem 0 0', fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>Resource & Availability</h3>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                          {[
-                            { label: 'Medical Certificate', value: 'Valid - 06/2025' },
-                            { label: 'Radio License', value: `${pilotData.radioLicenseNumber} · Expires ${pilotData.radioLicenseExpiry}` },
-                            { label: 'Last Flown', value: pilotData.lastFlownDate }
-                          ].map(item => (
-                            <div key={item.label} style={{ borderRadius: '14px', padding: '0.85rem', border: '1px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.9)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                              <div style={{ color: '#475569', fontSize: '0.8rem', fontWeight: 600 }}>{item.label}</div>
-                              <div style={{ color: '#0f172a', fontWeight: 700, fontSize: '0.85rem', textAlign: 'right' }}>{item.value}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pilot-profile-summary-card" style={{
-                        gridColumn: '1 / -1',
-                        background: 'white',
-                        borderRadius: '26px',
-                        padding: '1.5rem',
-                        border: '1px solid rgba(226,232,240,0.9)',
-                        boxShadow: '0 20px 45px rgba(15,23,42,0.08)'
-                      }}>
-                        <div style={{
-                          display: 'grid',
-                          gridTemplateColumns: `repeat(${quickStatCards.length}, minmax(0, 1fr))`,
-                          gap: '0.35rem'
-                        }}>
-                          {quickStatCards.map((stat, index) => (
-                            <div
-                              key={stat.title}
-                              style={{
-                                padding: '0.4rem 0.75rem',
-                                textAlign: 'center',
-                                position: 'relative'
-                              }}
-                            >
-                              {index < quickStatCards.length - 1 && (
-                                <span
-                                  aria-hidden
-                                  style={{
-                                    position: 'absolute',
-                                    top: '20%',
-                                    right: 0,
-                                    width: '1px',
-                                    height: '60%',
-                                    background: 'linear-gradient(180deg, transparent, rgba(148,163,184,0.5), transparent)'
-                                  }}
-                                />
-                              )}
-                              <p style={{ margin: 0, fontSize: '0.6rem', letterSpacing: '0.18em', color: '#94a3b8', textTransform: 'uppercase' }}>{stat.title}</p>
-                              <p style={{ margin: '0.35rem 0 0', fontSize: '1.85rem', fontWeight: 700, color: stat.accent }}>{stat.value}</p>
-                              <p style={{ margin: '0.1rem 0 0', fontSize: '0.75rem', color: '#94a3b8' }}>{stat.subtitle}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Pilot Portfolio - Full width rectangular card */}
-                      <div style={{
-                        gridColumn: '1 / -1',
-                        background: 'white',
-                        borderRadius: '16px',
-                        padding: '1.25rem 2rem',
-                        border: '1px solid rgba(226,232,240,0.9)',
-                        boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '1.5rem'
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
-                          <div style={{
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '12px',
-                            background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            fontSize: '1.5rem'
-                          }}>
-                            📄
-                          </div>
-                          <div>
-                            <p style={{ margin: 0, fontSize: '0.65rem', letterSpacing: '0.2em', color: '#94a3b8', textTransform: 'uppercase' }}>Pilot Portfolio</p>
-                            <h3 style={{ margin: '0.2rem 0', fontSize: '1.1rem', fontWeight: 600, color: '#0f172a' }}>Atlas Formatted Resume</h3>
-                            <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem' }}>Preview the recruiter-ready resume on Recognition & Achievements</p>
-                          </div>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                          <button
-                            style={{
-                              padding: '0.75rem 1.5rem',
-                              borderRadius: '10px',
-                              border: 'none',
-                              background: '#0ea5e9',
-                              color: '#fff',
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              fontSize: '0.9rem'
-                            }}
-                            onClick={() => {
-                              if (onViewAtlas) {
-                                onViewAtlas();
-                              } else {
-                                window.location.href = '/atlas-resume';
-                              }
-                            }}
-                          >
-                            View Atlas Resume
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                  </>
-                );
-              })()}
-            </CategorySection>
-
-            <CategorySection title="Pilot Logbooks" description="Verified flight records, digital access, and mentor logbook links">
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
-                <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, borderRadius: '24px', padding: '1.75rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
-                    <div>
-                      <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Flight Logbook</p>
-                      <h3 style={{ margin: '0.35rem 0 0', fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Recent Hours</h3>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Total</div>
-                      <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0ea5e9' }}>{pilotData.flightLogbookHours.toFixed(1)}</div>
-                    </div>
-                  </div>
-
-                  {flightLogsLoading ? (
-                    <div style={{ textAlign: 'center', color: '#94a3b8', padding: '1rem 0' }}>Loading...</div>
-                  ) : flightLogs.length === 0 ? (
-                    <div style={{
-                      padding: '1.25rem',
-                      borderRadius: '14px',
-                      border: '1px dashed rgba(148, 163, 184, 0.4)',
-                      textAlign: 'center',
-                      color: '#94a3b8',
-                      fontSize: '0.9rem'
-                    }}>
-                      No recent flights logged
-                    </div>
-                  ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      {flightLogs.slice(0, 3).map((log) => (
-                        <div
-                          key={log.id}
-                          style={{
-                            borderRadius: '12px',
-                            border: '1px solid rgba(226,232,240,0.6)',
-                            padding: '0.85rem 1rem',
-                            background: 'rgba(255,255,255,0.6)',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center'
-                          }}
-                        >
-                          <div>
-                            <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{log.date}</div>
-                            <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#0f172a' }}>{log.route}</div>
-                          </div>
-                          <div style={{ fontWeight: 700, color: '#0ea5e9', fontSize: '1.1rem' }}>{(log.hours || 0).toFixed(1)}h</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="pilot-profile-glass-card" style={{ ...baseCardStyle, borderRadius: '24px', padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            
+            {/* 1. Pilot Programs Progress */}
+            <div style={{ marginBottom: '3rem' }}>
+              {/* Section Header */}
+              <div style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
+                <h2 style={{ fontFamily: 'Georgia, serif', margin: '0 0 0.5rem', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 400, color: '#0f172a', letterSpacing: '-0.02em' }}>
+                  Programs
+                </h2>
+                <p style={{ letterSpacing: '0.2em', color: '#2563eb', fontWeight: 600, fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
+                  The first step towards Pilot Recognition
+                </p>
+                <p style={{ margin: '0', color: '#64748b', lineHeight: 1.6, fontSize: '0.95rem', maxWidth: '500px' }}>
+                  Track your training progress and program enrollment across all WingMentor programs
+                </p>
+              </div>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                {/* Foundational Program Card - Glassy Style */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.7)',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1rem'
+                }}>
                   <div>
-                    <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Mentor Engagement</p>
-                    <h3 style={{ margin: '0.35rem 0', fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Recent Mentor Hours</h3>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 600, marginTop: '0.5rem', color: '#0f172a' }}>
-                      <span>{pilotData.studyHours} hr mentorship</span>
-                      <span>{mentorHoursLabel}</span>
+                    <span style={{ fontSize: '0.75rem', color: '#64748b', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Core Training</span>
+                    <h3 style={{ margin: '0.25rem 0 0', fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Foundational Program</h3>
+                  </div>
+                  
+                  <p style={{ margin: 0, color: '#64748b', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                    Master core aviation fundamentals, instrument procedures, and CRM techniques through structured simulator training.
+                  </p>
+                  
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#475569', marginBottom: '0.5rem' }}>
+                      <span>Progress</span>
+                      <span style={{ fontWeight: 600, color: '#0ea5e9' }}>{progress.foundational}%</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748b', fontSize: '0.85rem', marginTop: '0.35rem' }}>
-                      <span>Observations: {pilotData.examHours}</span>
-                      <span>Cases: {pilotData.interviewCount}</span>
+                    <div style={{ height: '8px', borderRadius: '999px', background: 'rgba(226, 232, 240, 0.6)', overflow: 'hidden' }}>
+                      <div style={{ width: `${progress.foundational}%`, height: '100%', background: 'linear-gradient(90deg, #0ea5e9, #0284c7)', borderRadius: '999px' }} />
                     </div>
                   </div>
+                  
                   <button
+                    onClick={() => {
+                      // Check if enrolled - if progress > 0 or foundationalProgress contains enrollment indicator
+                      const isEnrolled = progress.foundational > 0 || pilotData.foundationalProgress !== 'UNENROLLED / N/A';
+                      if (isEnrolled) {
+                        // Navigate to foundational program page
+                        window.location.href = '/foundational';
+                      } else {
+                        // Navigate to enrollment page if not enrolled
+                        window.location.href = '/foundational-program';
+                      }
+                    }}
                     style={{
-                      borderRadius: '999px',
+                      marginTop: '0.5rem',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '12px',
                       border: 'none',
-                      padding: '0.75rem 2rem',
-                      background: '#0ea5e9',
+                      background: 'rgba(14, 165, 233, 0.9)',
                       color: '#fff',
                       fontWeight: 600,
                       cursor: 'pointer',
-                      fontSize: '0.95rem'
-                    }}
-                    onClick={onViewLogbook}
-                  >
-                    View Mentor Logbook
-                  </button>
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-                <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '22px', padding: '1.25rem', border: '1px solid rgba(226,232,240,0.9)', boxShadow: '0 10px 30px rgba(15,23,42,0.04)' }}>
-                  <p style={{ margin: 0, fontSize: '0.65rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: '#94a3b8' }}>Logbook</p>
-                  <h3 style={{ margin: '0.35rem 0 0.75rem', fontSize: '1.2rem', fontWeight: 600, color: '#0f172a' }}>Digital Logbook Access</h3>
-                  <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', minHeight: '2.25rem' }}>Verified flight record history</p>
-                  <button
-                    style={{
-                      marginTop: '1rem',
-                      borderRadius: '999px',
-                      border: '1px solid rgba(0,0,0,0.12)',
-                      padding: '0.65rem 1.4rem',
-                      fontSize: '0.85rem',
-                      fontWeight: 600,
-                      color: '#0f172a',
-                      background: 'rgba(15,23,42,0.06)',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(15,23,42,0.12)';
-                      e.currentTarget.style.transform = 'translateY(-1px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(15,23,42,0.06)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                    onClick={() => {
-                      console.log('Digital Logbook clicked, handler:', onViewDigitalLogbook);
-                      onViewDigitalLogbook?.();
+                      fontSize: '0.9rem',
+                      backdropFilter: 'blur(10px)'
                     }}
                   >
-                    Open Logbook
+                    {progress.foundational > 0 || pilotData.foundationalProgress !== 'UNENROLLED / N/A' ? 'Access Platform' : 'Enroll Now'}
                   </button>
                 </div>
 
-                <div style={{ background: 'white', borderRadius: '22px', padding: '1.25rem', border: '1px solid rgba(226,232,240,0.9)', boxShadow: '0 10px 30px rgba(15,23,42,0.04)' }}>
-                  <p style={{ margin: 0, fontSize: '0.65rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: '#94a3b8' }}>Logbook</p>
-                  <h3 style={{ margin: '0.35rem 0 0.75rem', fontSize: '1.2rem', fontWeight: 600, color: '#0f172a' }}>Foundational Program Mentor Logbook</h3>
-                  <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', minHeight: '2.25rem' }}>Linked to portal in future</p>
-                  <button
-                    style={{
-                      marginTop: '1rem',
-                      borderRadius: '999px',
-                      border: '1px solid rgba(0,0,0,0.12)',
-                      padding: '0.65rem 1.4rem',
-                      fontSize: '0.85rem',
-                      fontWeight: 600,
-                      color: '#047857',
-                      background: 'rgba(15,23,42,0.06)',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(15,23,42,0.12)';
-                      e.currentTarget.style.transform = 'translateY(-1px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(15,23,42,0.06)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                    onClick={() => {
-                      console.log('Mentor Logbook clicked, handler:', onViewMentorLogbook);
-                      onViewMentorLogbook?.();
-                    }}
-                  >
-                    Open Logbook
-                  </button>
-                </div>
-              </div>
-            </CategorySection>
-
-            <CategorySection title="Pilot Status" description="Live job alignment, readiness metrics, and mentor touchpoints">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-                  <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                      <div>
-                        <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Performance Statistics</p>
-                        <h3 style={{ margin: '0.4rem 0 0', fontSize: '1.1rem', fontWeight: 600 }}>Unified Tracking & Progress</h3>
-                      </div>
-                      <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#0ea5e9', padding: '0.25rem 0.85rem', borderRadius: '999px', border: '1px solid rgba(14, 165, 233, 0.3)' }}>{pilotData.avgRating}</span>
+                {/* Transition Program Card - Greyed Out */}
+                <div
+                  style={{
+                    background: 'rgba(243, 244, 246, 0.9)',
+                    borderRadius: '24px',
+                    padding: '1.75rem',
+                    boxShadow: '0 20px 45px rgba(15,23,42,0.04)',
+                    border: '1px solid rgba(209, 213, 219, 0.5)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                    opacity: 0.7,
+                    transition: 'all 0.3s ease',
+                    position: 'relative',
+                    cursor: 'not-allowed'
+                  }}
+                  onMouseEnter={(e) => {
+                    const tooltip = e.currentTarget.querySelector('.coming-soon-tooltip') as HTMLElement;
+                    if (tooltip) tooltip.style.opacity = '1';
+                  }}
+                  onMouseLeave={(e) => {
+                    const tooltip = e.currentTarget.querySelector('.coming-soon-tooltip') as HTMLElement;
+                    if (tooltip) tooltip.style.opacity = '0';
+                  }}
+                >
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: '#9ca3af', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Advanced Training</span>
+                    <h3 style={{ margin: '0.25rem 0 0', fontSize: '1.25rem', fontWeight: 700, color: '#6b7280' }}>Transition Program</h3>
+                  </div>
+                  
+                  <p style={{ margin: 0, color: '#9ca3af', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                    Advanced training for pilots transitioning to airline operations, including multi-crew coordination and airline procedures.
+                  </p>
+                  
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#9ca3af', marginBottom: '0.5rem' }}>
+                      <span>Progress</span>
+                      <span style={{ fontWeight: 600 }}>Locked</span>
                     </div>
-                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                      {[{ title: 'Exam Progress', subtitle: 'Historical Scores & Subject Mastery' }, { title: 'Study Tracking', subtitle: 'Distribution Analysis & Clock Time' }].map(card => (
-                        <div key={card.title} className="pilot-profile-glass-card" style={{ flex: '1 1 240px', background: '#f8fafc', borderRadius: '14px', padding: '1rem', border: '1px solid #e2e8f0' }}>
-                          <p style={{ margin: 0, fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#94a3b8' }}>{card.title}</p>
-                          <p style={{ margin: '0.5rem 0 0', color: '#0f172a' }}>{card.subtitle}</p>
+                    <div style={{ height: '8px', borderRadius: '999px', background: 'rgba(209, 213, 219, 0.5)', overflow: 'hidden' }}>
+                      <div style={{ width: '0%', height: '100%', background: '#9ca3af', borderRadius: '999px' }} />
+                    </div>
+                  </div>
+                  
+                  <button
+                    disabled
+                    style={{
+                      marginTop: '0.5rem',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '12px',
+                      border: 'none',
+                      background: '#d1d5db',
+                      color: '#9ca3af',
+                      fontWeight: 600,
+                      cursor: 'not-allowed',
+                      fontSize: '0.9rem'
+                    }}
+                  >
+                    Coming Soon
+                  </button>
+                  
+                  {/* Coming Soon Tooltip */}
+                  <div
+                    className="coming-soon-tooltip"
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      background: 'rgba(15, 23, 42, 0.95)',
+                      color: 'white',
+                      padding: '0.75rem 1.25rem',
+                      borderRadius: '12px',
+                      fontSize: '0.875rem',
+                      fontWeight: 600,
+                      opacity: 0,
+                      transition: 'opacity 0.2s ease',
+                      pointerEvents: 'none',
+                      whiteSpace: 'nowrap',
+                      zIndex: 10
+                    }}
+                  >
+                    Coming Soon
+                  </div>
+                </div>
+
+                {/* Examination Portal Access Card - Black */}
+                <div
+                  onClick={onViewExamination}
+                  style={{
+                    background: 'rgba(15, 23, 42, 0.95)',
+                    borderRadius: '24px',
+                    padding: '1.75rem',
+                    boxShadow: '0 20px 45px rgba(15,23,42,0.2)',
+                    border: '1px solid rgba(51, 65, 85, 0.8)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(15, 23, 42, 1)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(15, 23, 42, 0.95)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: '#94a3b8', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Assessments</span>
+                    <h3 style={{ margin: '0.25rem 0 0', fontSize: '1.25rem', fontWeight: 700, color: '#f8fafc' }}>Examination Portal</h3>
+                  </div>
+                  
+                  <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                    Access your examination portal, view results, and track your assessment progress across all modules.
+                  </p>
+                  
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#94a3b8', marginBottom: '0.5rem' }}>
+                      <span>Latest Score</span>
+                      <span style={{ fontWeight: 600, color: '#10b981' }}>{competencyScores.exams}%</span>
+                    </div>
+                    <div style={{ height: '8px', borderRadius: '999px', background: 'rgba(51, 65, 85, 0.5)', overflow: 'hidden' }}>
+                      <div style={{ width: `${competencyScores.exams}%`, height: '100%', background: 'linear-gradient(90deg, #10b981, #059669)', borderRadius: '999px' }} />
+                    </div>
+                  </div>
+                  
+                  <button
+                    style={{
+                      marginTop: '0.5rem',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(148, 163, 184, 0.3)',
+                      background: 'transparent',
+                      color: '#f8fafc',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      fontSize: '0.9rem',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                  >
+                    Access Portal →
+                  </button>
+                </div>
+
+                {/* Program Stats Card - Glassy Grey Style */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.7)',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  color: '#0f172a',
+                  gridColumn: '1 / -1'
+                }}>
+                  <h3 style={{ margin: '0 0 1rem', fontSize: '1.1rem', fontWeight: 600, color: '#0f172a' }}>Program Overview</h3>
+                  <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between' }}>
+                    <div style={{ background: 'rgba(248, 250, 252, 0.8)', borderRadius: '12px', padding: '1rem', textAlign: 'center', flex: 1, border: '1px solid rgba(226,232,240,0.5)' }}>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#64748b' }}>{completedCount}</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>Modules Completed</div>
+                    </div>
+                    <div style={{ background: 'rgba(248, 250, 252, 0.8)', borderRadius: '12px', padding: '1rem', textAlign: 'center', flex: 1, border: '1px solid rgba(226,232,240,0.5)' }}>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#64748b' }}>{competencyScores.exams}%</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>Latest Exam Score</div>
+                    </div>
+                    <div style={{ background: 'rgba(248, 250, 252, 0.8)', borderRadius: '12px', padding: '1rem', textAlign: 'center', flex: 1, border: '1px solid rgba(226,232,240,0.5)' }}>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#64748b' }}>{competencyScores.recency}%</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>FAA Recency Score</div>
+                    </div>
+                    <div style={{ background: 'rgba(248, 250, 252, 0.8)', borderRadius: '12px', padding: '1rem', textAlign: 'center', flex: 1, border: '1px solid rgba(226,232,240,0.5)' }}>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#64748b' }}>{mentorshipHoursRemaining} hrs</div>
+                      <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>Mentorship Hours Left</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mentorship Logbook Card - Glassy Grey Style */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.7)',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  color: '#0f172a',
+                  gridColumn: '1 / -1'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                    <div>
+                      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Mentorship Logbook</h3>
+                      <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: '#64748b' }}>Track your mentorship sessions and hours</p>
+                    </div>
+                    
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '2rem', fontWeight: 700, color: mentorshipEnrolled ? '#64748b' : '#94a3b8' }}>
+                          {mentorshipEnrolled ? mentorHoursLabel : '0 hr'}
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
-                    <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Official Results</p>
-                    <h3 style={{ margin: '0.4rem 0 1rem', fontSize: '1rem', fontWeight: 600 }}>Foundational Program Progress</h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                      <div style={{ background: '#eff6ff', borderRadius: '12px', padding: '0.85rem', textAlign: 'center' }}>
-                        <p style={{ margin: 0, fontSize: '0.7rem', color: '#64748b', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Pass Rate</p>
-                        <p style={{ margin: '0.35rem 0 0', fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>{pilotData.passRate}</p>
+                        <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>
+                          Total Mentor Hours
+                        </div>
                       </div>
-                      <div style={{ background: '#eff6ff', borderRadius: '12px', padding: '0.85rem', textAlign: 'center' }}>
-                        <p style={{ margin: 0, fontSize: '0.7rem', color: '#64748b', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Interview</p>
-                        <p style={{ margin: '0.35rem 0 0', fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>{pilotData.interviewCount}</p>
-                      </div>
-                    </div>
-                    <div style={{ background: '#fef3c7', borderRadius: '12px', padding: '0.9rem', textAlign: 'center', fontWeight: 600, color: '#92400e', border: '1px solid rgba(249, 115, 22, 0.3)' }}>
-                      {pilotData.foundationalProgress}
+                      <button
+                        onClick={() => {
+                          if (mentorshipEnrolled) {
+                            // Navigate to mentorship logbook page
+                            window.location.href = '/mentorship-logbook';
+                          } else {
+                            // Navigate to mentorship enrollment page
+                            window.location.href = '/mentorship-enroll';
+                          }
+                        }}
+                        style={{
+                          padding: '0.75rem 1.5rem',
+                          borderRadius: '12px',
+                          border: '1px solid rgba(100, 116, 139, 0.3)',
+                          background: mentorshipEnrolled ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.3)',
+                          color: mentorshipEnrolled ? '#0f172a' : '#64748b',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          fontSize: '0.9rem',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = mentorshipEnrolled ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.5)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = mentorshipEnrolled ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.3)';
+                        }}
+                      >
+                        {mentorshipEnrolled ? 'Access Logbook' : 'Enroll Now'}
+                      </button>
                     </div>
                   </div>
-
-                  <div className="pilot-profile-glass-card" style={{ background: 'white', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.06)', border: '1px solid rgba(226, 232, 240, 0.8)' }}>
-                    <p style={{ margin: 0, fontSize: '0.7rem', letterSpacing: '0.3em', color: '#94a3b8', textTransform: 'uppercase' }}>Mentor Feedback</p>
-                    <p style={{ fontSize: '0.9rem', color: '#64748b', textAlign: 'center', padding: '1.5rem 0', margin: 0 }}>No mentor feedback available yet.</p>
-                  </div>
-
                 </div>
-                <div>
-                  <PilotRecognitionTicker 
-                    flightHours={latestLogbookHours} 
-                    examPassRate={pilotData.passRate}
-                    licenseType={pilotData.licenseType}
-                    airlineConnections={airlineAffiliations.map(a => ({ name: a.name, status: a.status }))}
-                  />
+
+                {/* Modules Access Card - Glassy Grey Style */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.7)',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  color: '#0f172a',
+                  gridColumn: '1 / -1'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+                    <div>
+                      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Modules Access</h3>
+                      <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: '#64748b' }}>
+                        Continue your mentorship journey through structured modules
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+                    {/* Module 1 */}
+                    <div
+                      style={{
+                        background: moduleProgress.module1.completed ? 'rgba(236, 253, 245, 0.6)' : 'rgba(248, 250, 252, 0.6)',
+                        borderRadius: '16px',
+                        padding: '1.5rem',
+                        border: '1px solid rgba(226,232,240,0.5)',
+                        transition: 'all 0.2s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.75rem'
+                      }}
+                    >
+                      <div>
+                        <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a' }}>Module 1</span>
+                        <h4 style={{ margin: '0.5rem 0 0', fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>{moduleProgress.module1.name}</h4>
+                        <p style={{ margin: '0.75rem 0 0', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.5 }}>{moduleProgress.module1.description}</p>
+                      </div>
+                      <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
+                        <p style={{ margin: '0 0 0.75rem', fontSize: '0.8rem', color: '#94a3b8' }}>{moduleProgress.module1.duration}</p>
+                        <button
+                          onClick={() => {
+                            // @ts-ignore
+                            if (window.handleViewChange) {
+                              // @ts-ignore
+                              window.handleViewChange('pilotgapmodule1');
+                            } else {
+                              window.location.href = '/pilotgapmodule1';
+                            }
+                          }}
+                          style={{
+                            width: '100%',
+                            padding: '0.75rem 1.5rem',
+                            borderRadius: '12px',
+                            border: 'none',
+                            background: moduleProgress.module1.completed ? 'rgba(16, 185, 129, 0.9)' : '#2563eb',
+                            color: '#fff',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            transition: 'all 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = moduleProgress.module1.completed ? 'rgba(5, 150, 105, 0.9)' : '#1d4ed8';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = moduleProgress.module1.completed ? 'rgba(16, 185, 129, 0.9)' : '#2563eb';
+                          }}
+                        >
+                          {moduleProgress.module1.completed ? 'Recap' : 'Launch Module'}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Module 2 */}
+                    <div
+                      style={{
+                        background: moduleProgress.module2.current ? 'rgba(240, 249, 255, 0.6)' : 'rgba(248, 250, 252, 0.6)',
+                        borderRadius: '16px',
+                        padding: '1.5rem',
+                        border: moduleProgress.module2.current ? '1px solid rgba(37, 99, 235, 0.3)' : '1px solid rgba(226,232,240,0.5)',
+                        transition: 'all 0.2s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.75rem'
+                      }}
+                    >
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                          <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a' }}>Module 2</span>
+                          {moduleProgress.module2.current && (
+                            <span style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: 600 }}>Current</span>
+                          )}
+                        </div>
+                        <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>{moduleProgress.module2.name}</h4>
+                        <p style={{ margin: '0.75rem 0 0', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.5 }}>{moduleProgress.module2.description}</p>
+                      </div>
+                      <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
+                        <p style={{ margin: '0 0 0.75rem', fontSize: '0.8rem', color: '#94a3b8' }}>{moduleProgress.module2.duration}</p>
+                        <button
+                          onClick={() => {
+                            // @ts-ignore
+                            if (window.handleViewChange) {
+                              // @ts-ignore
+                              window.handleViewChange('pilotgapmodule2');
+                            } else {
+                              window.location.href = '/pilotgapmodule2';
+                            }
+                          }}
+                          style={{
+                            width: '100%',
+                            padding: '0.75rem 1.5rem',
+                            borderRadius: '12px',
+                            border: 'none',
+                            background: '#2563eb',
+                            color: '#fff',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            transition: 'all 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#1d4ed8';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#2563eb';
+                          }}
+                        >
+                          Open Module
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Module 3 */}
+                    <div
+                      style={{
+                        background: 'rgba(248, 250, 252, 0.4)',
+                        borderRadius: '16px',
+                        padding: '1.5rem',
+                        border: '1px solid rgba(226,232,240,0.5)',
+                        opacity: 0.7,
+                        transition: 'all 0.2s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.75rem'
+                      }}
+                    >
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                          <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0f172a' }}>Module 3</span>
+                          <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Locked</span>
+                        </div>
+                        <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>{moduleProgress.module3.name}</h4>
+                        <p style={{ margin: '0.75rem 0 0', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.5 }}>{moduleProgress.module3.description}</p>
+                      </div>
+                      <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
+                        <p style={{ margin: '0 0 0.75rem', fontSize: '0.8rem', color: '#94a3b8' }}>{moduleProgress.module3.duration}</p>
+                        <button
+                          disabled
+                          style={{
+                            width: '100%',
+                            padding: '0.75rem 1.5rem',
+                            borderRadius: '12px',
+                            border: '1px solid rgba(148, 163, 184, 0.3)',
+                            background: 'rgba(148, 163, 184, 0.2)',
+                            color: '#94a3b8',
+                            fontWeight: 600,
+                            cursor: 'not-allowed',
+                            fontSize: '0.9rem'
+                          }}
+                        >
+                          {moduleProgress.module3.lockedReason}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </CategorySection>
-          </div>
-        </section>
-
-        {/* Airline Passport + Competency Compass */}
-        <section style={{ padding: '0 clamp(1.5rem, 4vw, 3.5rem) 3rem' }}>
-          <CategorySection title="Recruiter Visibility" description="Sync your verified data with partner airlines and showcase competency scores">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <AirlinePassport userId={userProfile?.uid} />
-              <CompetencyCompass scores={competencyScores} />
             </div>
-          </CategorySection>
+
+            {/* 2. Pilot Recognition */}
+            <div style={{ marginBottom: '3rem' }}>
+              {/* Section Header - Matching Recognition Page Format */}
+              <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '180px', height: 'auto', objectFit: 'contain' }} />
+                </div>
+                <div style={{ letterSpacing: '0.2em', color: '#2563eb', fontWeight: 700, fontSize: '0.75rem', marginBottom: '1rem', textTransform: 'uppercase' }}>
+                  Connecting Pilots to the Industry
+                </div>
+                <h2 style={{ fontFamily: 'Georgia, serif', margin: '0.5rem 0', fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 400, color: '#0f172a', letterSpacing: '-0.02em' }}>
+                  Recognition & Achievements
+                </h2>
+                <p style={{ margin: '1rem auto 0', color: '#64748b', lineHeight: 1.7, fontSize: '1rem', maxWidth: '36rem' }}>
+                  View your awards, flight hours, certifications, and professional milestones earned through your training journey.
+                </p>
+              </div>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                {/* Recognition Summary Card */}
+                <div style={{
+                  background: 'white',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(226,232,240,0.8)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '1.5rem'
+                    }}>
+                      🏆
+                    </div>
+                    <div>
+                      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Recognition & Achievements</h3>
+                    </div>
+                  </div>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div style={{ background: '#f8fafc', borderRadius: '12px', padding: '1rem', textAlign: 'center' }}>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0ea5e9' }}>{stats.awards}</div>
+                      <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Awards</div>
+                    </div>
+                    <div style={{ background: '#f8fafc', borderRadius: '12px', padding: '1rem', textAlign: 'center' }}>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#10b981' }}>{stats.certifications}</div>
+                      <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Certifications</div>
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={onViewRecognition}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '12px',
+                      border: '1px solid #e2e8f0',
+                      background: 'transparent',
+                      color: '#0f172a',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      fontSize: '0.9rem'
+                    }}
+                  >
+                    View Recognition Profile →
+                  </button>
+                </div>
+
+                {/* Atlas Resume Quick Access */}
+                <div style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(226,232,240,0.8)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '1.5rem'
+                    }}>
+                      📄
+                    </div>
+                    <div>
+                      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Atlas Resume</h3>
+                    </div>
+                  </div>
+                  
+                  <p style={{ margin: '0 0 1rem', color: '#64748b', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                    Your industry-grade resume for airline recruiters with verified credentials and flight hours.
+                  </p>
+                  
+                  <button
+                    onClick={onViewAtlas}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '12px',
+                      border: 'none',
+                      background: '#8b5cf6',
+                      color: '#fff',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      fontSize: '0.9rem'
+                    }}
+                  >
+                    View Atlas Resume
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Pathways */}
+            <div style={{ marginBottom: '3rem' }}>
+              {/* Section Header */}
+              <div style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
+                <h2 style={{ margin: '0.5rem 0', fontSize: '1.75rem', fontWeight: 600, color: '#0f172a', fontFamily: 'Georgia, serif' }}>
+                  Aviation Career Tracks
+                </h2>
+                <p style={{ letterSpacing: '0.2em', color: '#2563eb', fontWeight: 700, fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
+                  Career Pathways
+                </p>
+                <p style={{ margin: '0', color: '#64748b', lineHeight: 1.6, fontSize: '0.95rem', maxWidth: '500px' }}>
+                  Structured career roadmaps and training tracks for your aviation journey
+                </p>
+              </div>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                {/* ATPL Pathway */}
+                <div style={{
+                  background: 'white',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(226,232,240,0.8)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onClick={onViewPathways}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, #10b981, #059669)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '1.5rem'
+                    }}>
+                      ✈️
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', color: '#64748b', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Airline Track</span>
+                      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>ATPL Pathway</h3>
+                    </div>
+                  </div>
+                  
+                  <p style={{ margin: '0 0 1rem', color: '#64748b', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                    Complete pathway from Student Pilot to Airline Transport Pilot License with structured milestones.
+                  </p>
+                  
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem', background: '#ecfdf5', color: '#059669', borderRadius: '999px', fontWeight: 500 }}>Airline Ready</span>
+                    <span style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem', background: '#f0f9ff', color: '#0284c7', borderRadius: '999px', fontWeight: 500 }}>ATPL License</span>
+                  </div>
+                </div>
+
+                {/* Private Sector Pathway */}
+                <div style={{
+                  background: 'white',
+                  borderRadius: '24px',
+                  padding: '1.75rem',
+                  boxShadow: '0 20px 45px rgba(15,23,42,0.08)',
+                  border: '1px solid rgba(226,232,240,0.8)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onClick={onViewPathways}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, #f97316, #ea580c)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '1.5rem'
+                    }}>
+                      🚁
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', color: '#64748b', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Alternative Track</span>
+                      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Private Sector</h3>
+                    </div>
+                  </div>
+                  
+                  <p style={{ margin: '0 0 1rem', color: '#64748b', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                    Specialized pathways for corporate aviation, charter operations, and specialized flying roles.
+                  </p>
+                  
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem', background: '#fff7ed', color: '#c2410c', borderRadius: '999px', fontWeight: 500 }}>Corporate</span>
+                    <span style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem', background: '#fff7ed', color: '#c2410c', borderRadius: '999px', fontWeight: 500 }}>Charter</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Applications & Quick Links */}
+            <CategorySection title="Applications" description="Quick access to W1000, examination portal, and external resources">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                {/* W1000 Link */}
+                <a
+                  href="https://w1000.wingmentor.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '1.5rem',
+                    boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
+                    border: '1px solid rgba(226,232,240,0.8)',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    gap: '0.75rem',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <div style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '14px',
+                    background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '1.75rem'
+                  }}>
+                    W
+                  </div>
+                  <div>
+                    <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>W1000</h4>
+                    <p style={{ margin: '0.25rem 0 0', fontSize: '0.8rem', color: '#64748b' }}>Training Platform</p>
+                  </div>
+                </a>
+
+                {/* Examination Portal */}
+                <button
+                  onClick={onViewExamination}
+                  style={{
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '1.5rem',
+                    boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
+                    border: '1px solid rgba(226,232,240,0.8)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    gap: '0.75rem'
+                  }}
+                >
+                  <div style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '14px',
+                    background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '1.75rem'
+                  }}>
+                    📝
+                  </div>
+                  <div>
+                    <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>Examinations</h4>
+                    <p style={{ margin: '0.25rem 0 0', fontSize: '0.8rem', color: '#64748b' }}>Portal & Results</p>
+                  </div>
+                </button>
+
+                {/* Main Website */}
+                <a
+                  href="https://wingmentor.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '1.5rem',
+                    boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
+                    border: '1px solid rgba(226,232,240,0.8)',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    gap: '0.75rem'
+                  }}
+                >
+                  <div style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '14px',
+                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '1.75rem'
+                  }}>
+                    🌐
+                  </div>
+                  <div>
+                    <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>Website</h4>
+                    <p style={{ margin: '0.25rem 0 0', fontSize: '0.8rem', color: '#64748b' }}>wingmentor.app</p>
+                  </div>
+                </a>
+
+                {/* Digital Logbook */}
+                <button
+                  onClick={onViewDigitalLogbook}
+                  style={{
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '1.5rem',
+                    boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
+                    border: '1px solid rgba(226,232,240,0.8)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    gap: '0.75rem'
+                  }}
+                >
+                  <div style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '14px',
+                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '1.75rem'
+                  }}>
+                    📖
+                  </div>
+                  <div>
+                    <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>Logbook</h4>
+                    <p style={{ margin: '0.25rem 0 0', fontSize: '0.8rem', color: '#64748b' }}>Flight Records</p>
+                  </div>
+                </button>
+              </div>
+            </CategorySection>
+
+          </div>
         </section>
       </main>
     </div>

@@ -180,7 +180,9 @@ export const GraphicsPresetSelector: React.FC<GraphicsPresetSelectorProps> = ({
         padding: '2rem',
         position: 'relative',
         zIndex: 10,
-        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+        background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
+        transform: 'scale(0.92)',
+        transformOrigin: 'center center'
       }}
     >
       <div
