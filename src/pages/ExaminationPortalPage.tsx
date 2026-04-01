@@ -28,6 +28,7 @@ export const ExaminationPortalPage: React.FC<ExaminationPortalPageProps> = ({
       id: 'foundational-knowledge',
       title: 'Foundational Knowledge Examination',
       description: 'Demonstrate your understanding of core WingMentor concepts and aviation mentorship fundamentals.',
+      shortcut: { label: 'Module 1: Industry Familiarization', link: '/modules/industry-familiarization' },
       icon: 'Book',
       status: module01Completed ? 'available' : 'locked',
       duration: '45 min',
@@ -38,6 +39,7 @@ export const ExaminationPortalPage: React.FC<ExaminationPortalPageProps> = ({
       id: 'pilot-licensure',
       title: 'Pilot Licensure Examination',
       description: 'Select your current license rating and take the corresponding examination to test your technical knowledge.',
+      shortcut: { label: 'W1000 Application, Examination Practice Terminal', link: '/w1000-practice' },
       icon: 'Award',
       status: 'available',
       duration: '90 min',
@@ -165,9 +167,29 @@ export const ExaminationPortalPage: React.FC<ExaminationPortalPageProps> = ({
       <h3 style={{ margin: '0 0 0.5rem', fontSize: '1rem', color: '#0f172a', fontWeight: 600 }}>
         {exam.title}
       </h3>
-      <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '1rem', flex: 1 }}>
+      <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '0.5rem', flex: 1 }}>
         {exam.description}
       </p>
+      
+      {/* Shortcut Link */}
+      {exam.shortcut && (
+        <a 
+          href={exam.shortcut.link}
+          style={{ 
+            color: '#2563eb', 
+            fontSize: '0.8rem', 
+            fontWeight: 500,
+            textDecoration: 'none',
+            marginBottom: '1rem',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.25rem'
+          }}
+        >
+          {exam.shortcut.label}
+          <span style={{ fontSize: '0.7rem' }}>→</span>
+        </a>
+      )}
       
       {/* Exam Details */}
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', fontSize: '0.8rem', color: '#64748b' }}>
@@ -239,8 +261,48 @@ export const ExaminationPortalPage: React.FC<ExaminationPortalPageProps> = ({
   );
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'Inter, system-ui, sans-serif', paddingTop: '120px' }}>
-      <div style={{ padding: '2rem 3rem', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2.5rem',
+      position: 'relative',
+      zIndex: 10,
+      overflow: 'hidden',
+      fontFamily: 'Inter, system-ui, sans-serif',
+    }}>
+      {/* Shader Background - Same as Login Page */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'radial-gradient(circle at 20% 20%, rgba(59,130,246,0.25), transparent 45%), radial-gradient(circle at 80% 10%, rgba(14,165,233,0.25), transparent 40%)',
+        mixBlendMode: 'screen',
+        pointerEvents: 'none',
+        zIndex: 0
+      }} />
+      
+      <div style={{
+        position: 'absolute',
+        width: '480px',
+        height: '480px',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.12), transparent 60%)',
+        top: '15%',
+        right: '5%',
+        filter: 'blur(10px)',
+        opacity: 0.8,
+        pointerEvents: 'none',
+        zIndex: 0
+      }} />
+
+      <div style={{ 
+        position: 'relative', 
+        zIndex: 1, 
+        padding: '2rem 3rem', 
+        maxWidth: '1200px', 
+        margin: '0 auto',
+        paddingTop: '120px'
+      }}>
         <button
           onClick={onBack}
           style={{
@@ -259,11 +321,13 @@ export const ExaminationPortalPage: React.FC<ExaminationPortalPageProps> = ({
         {/* Single White Card Container */}
         <div
           style={{
-            background: '#fff',
+            background: 'rgba(255, 255, 255, 0.92)',
             borderRadius: '24px',
             padding: '2.5rem',
-            boxShadow: '0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05)',
-            border: '1px solid rgba(226, 232, 240, 0.6)',
+            boxShadow: '0 40px 120px rgba(15, 23, 42, 0.25)',
+            border: '1px solid rgba(255, 255, 255, 0.65)',
+            backdropFilter: 'blur(18px)',
+            WebkitBackdropFilter: 'blur(18px)',
           }}
         >
           {/* Header Section */}

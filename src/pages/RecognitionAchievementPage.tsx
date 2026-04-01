@@ -346,6 +346,25 @@ export const RecognitionAchievementPage: React.FC<RecognitionAchievementPageProp
                 onClick: onViewAtlas
               }].map(card => renderCard(card))}
             </div>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#0f172a' }}>Pilot Recognition</h2>
+                <span style={{ fontSize: '0.8rem', letterSpacing: '0.2em', color: '#94a3b8', textTransform: 'uppercase' }}>Awards, certifications & achievements</span>
+              </div>
+              {[{
+                title: 'Recognition Portfolio',
+                description: 'View your complete collection of awards, flight hours, certifications, and professional milestones.',
+                cta: 'View Portfolio',
+                filled: false,
+                onClick: () => {}
+              }, {
+                title: 'Achievement Summary',
+                description: 'Track your progress with detailed breakdowns of skills mastered and recognition earned.',
+                cta: 'View Summary',
+                filled: true,
+                onClick: () => {}
+              }].map(card => renderCard(card))}
+            </div>
           </div>
         </section>
 

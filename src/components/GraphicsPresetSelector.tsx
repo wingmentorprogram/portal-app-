@@ -180,7 +180,7 @@ export const GraphicsPresetSelector: React.FC<GraphicsPresetSelectorProps> = ({
         padding: '2rem',
         position: 'relative',
         zIndex: 10,
-        background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%)',
+        background: 'transparent',
         transform: 'scale(0.92)',
         transformOrigin: 'center center'
       }}
@@ -191,12 +191,12 @@ export const GraphicsPresetSelector: React.FC<GraphicsPresetSelectorProps> = ({
           maxWidth: '900px',
           borderRadius: '28px',
           overflow: 'hidden',
-          background: '#fff',
-          boxShadow: '0 40px 120px rgba(15,23,42,0.18)',
-          border: '1px solid rgba(255,255,255,0.7)'
+          background: '#ffffff',
+          boxShadow: '0 40px 120px rgba(15,23,42,0.25)',
+          border: '1px solid rgba(226,232,240,0.8)'
         }}
       >
-        {/* Logo Header */}
+        {/* Logo Header - Solid Dark */}
         <div
           style={{
             background: 'linear-gradient(145deg, #020817 0%, #0f172a 55%, #0b3b67 100%)',
@@ -292,7 +292,7 @@ export const GraphicsPresetSelector: React.FC<GraphicsPresetSelectorProps> = ({
             })}
           </div>
 
-          {/* Auto-detected Recommendation */}
+          {/* Auto-detected Recommendation - Solid Dark */}
           <div
             style={{
               borderRadius: '18px',
@@ -317,7 +317,7 @@ export const GraphicsPresetSelector: React.FC<GraphicsPresetSelectorProps> = ({
             </div>
           </div>
 
-          {/* Info Section */}
+          {/* Info Section - Solid */}
           <div
             style={{
               borderRadius: '18px',

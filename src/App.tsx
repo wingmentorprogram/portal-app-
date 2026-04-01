@@ -3,7 +3,7 @@ import './App.css';
 
 // Mentor Management System Imports
 import { onAuthStateChange, type AuthState, SUPER_ADMIN_EMAIL, signOut, supabase } from './lib/supabase-auth';
-import { PilotProfilePage } from './pages/PilotProfilePage';
+import { DashboardPage } from './pages/DashboardPage';
 import { PilotPortfolioPage } from './pages/PilotPortfolioPage';
 import FoundationalProgramPage from './pages/FoundationalProgramPage';
 import { WingMentorHome, type MainView } from './pages/WingMentorHome';

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Icons } from '../icons';
 import type { UserProfile } from '../types/user';
 import { RecognitionAchievementPage } from './RecognitionAchievementPage';
-import { PilotProfilePage } from './PilotProfilePage';
+import { DashboardPage } from './DashboardPage';
 import FoundationalProgramPage from './FoundationalProgramPage';
 import FoundationalProgramLogbookPage from './FoundationalProgramLogbookPage';
 import { EnrollmentOnboardingPage } from './EnrollmentOnboardingPage';
@@ -16,9 +16,11 @@ import { PrivateSectorPathwayPage } from './PrivateSectorPathwayPage';
 import LogbookPage from './LogbookPage';
 import ExaminationResultsPage from './ExaminationResultsPage';
 import AtlasResumePage from './AtlasResumePage';
+import FullAtlasResumePage from './FullAtlasResumePage';
 import PrintableResumePage from './PrintableResumePage';
 import { DigitalLogbookPage } from './DigitalLogbookPage';
 import { MentorLogbookPage } from './MentorLogbookPage';
+import PilotLicensureExperiencePage from './PilotLicensureExperiencePage';
 import { PathwayCarousel } from '../components/PathwayCarousel';
 import { getUserTrack, getTrackConfig, canAccessPage, getRedirectPage } from '../config/accessControl';
 import { getEnrollmentStatus, supabase } from '../lib/supabase-auth';
@@ -216,6 +218,7 @@ export type MainView =
   | 'foundational'
   | 'foundational-get-started'
   | 'foundational-onboarding'
+  | 'foundational-loading'
   | 'enrollment-confirmation'
   | 'post-enrollment-slideshow'
   | 'transition'
@@ -229,6 +232,7 @@ export type MainView =
   | 'logbook'
   | 'digital-logbook'
   | 'mentor-logbook'
+  | 'pilot-licensure-experience'
   | 'atlas-resume'
   | 'printable-resume'
   | 'pilot-gap-module'
@@ -244,7 +248,8 @@ export type MainView =
   | 'foundational-exam'
   | 'license-selection'
   | 'interview-evaluation'
-  | 'program-syllabus';
+  | 'program-syllabus'
+  | 'full-atlas-resume';
 
 const pathwayUpdates = [
   {
@@ -1969,25 +1974,73 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
           Back to Hub
         </button>
 
-        {/* Programs Header */}
-        <div style={{ padding: '2rem 3rem 1.5rem 3rem', textAlign: 'center', maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.95)',
-            borderRadius: '28px',
-            padding: '3rem',
-            boxShadow: '0 20px 60px rgba(15, 23, 42, 0.07)',
-            border: '1px solid rgba(255, 255, 255, 0.8)',
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)'
+        {/* Programs Header - Matching Dashboard Format */}
+        <div className="dashboard-header" style={{ marginBottom: '3rem', padding: '2rem 2rem 0 2rem' }}>
+          <div style={{ marginBottom: '2rem', marginTop: '0.5rem' }}>
+            <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '260px', height: 'auto', objectFit: 'contain' }} />
+          </div>
+          
+          <div style={{ color: '#2563eb', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1rem' }}>
+            Connecting Pilots to the Industry
+          </div>
+          
+          <h1 style={{ 
+            fontFamily: 'Georgia, serif', 
+            fontSize: 'clamp(2rem, 5vw, 3.25rem)', 
+            fontWeight: 400, 
+            color: '#0f172a', 
+            marginBottom: '1rem', 
+            letterSpacing: '-0.02em', 
+            lineHeight: 1.15 
           }}>
-            <div className="dashboard-logo" style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
-              <img src="/logo.png" alt="WingMentor Logo" style={{ maxWidth: '200px' }} />
+            Programs
+          </h1>
+          
+          <p style={{ 
+            color: '#64748b', 
+            fontSize: '1.15rem', 
+            lineHeight: 1.7, 
+            maxWidth: '36rem', 
+            margin: '0 auto',
+            padding: '0 1rem'
+          }}>
+            Access Foundational and Transition mentorship programs designed to refine your core mechanics and CRM skills through high-fidelity simulator practice.
+          </p>
+        </div>
+
+        <div style={{ padding: '0 2rem 2rem 2rem' }}>
+          {/* Programs Welcome Card */}
+          <div style={{
+            background: 'white',
+            borderRadius: '16px',
+            padding: '2rem',
+            marginBottom: '2rem',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            borderLeft: '4px solid #0ea5e9'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                fontSize: '1.5rem'
+              }}>
+                ✈️
+              </div>
+              <div>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>
+                  Welcome to Your Training Programs
+                </h2>
+                <p style={{ color: '#64748b', margin: '0.25rem 0 0 0' }}>
+                  Choose from our comprehensive mentorship programs designed to advance your aviation career
+                </p>
+              </div>
             </div>
-            <div className="dashboard-subtitle">CONNECTING PILOTS TO THE INDUSTRY</div>
-            <h1 className="dashboard-title" style={{ marginBottom: '1rem' }}>Programs</h1>
-            <p style={{ maxWidth: '800px', margin: '0 auto', color: '#475569', lineHeight: 1.6 }}>
-              Access Foundational and Transition mentorship programs designed to refine your core mechanics and CRM skills through high-fidelity simulator practice.
-            </p>
           </div>
         </div>
 
@@ -3579,6 +3632,97 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             </div>
           </div>
 
+          {/* Pilot Recognition Section */}
+          <div style={{
+            background: isDarkMode ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' : 'white',
+            borderRadius: '16px',
+            padding: '2rem',
+            marginBottom: '2rem',
+            boxShadow: isDarkMode ? '0 4px 6px -1px rgba(0, 0, 0, 0.5)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            borderLeft: isDarkMode ? '4px solid #8b5cf6' : '4px solid #7c3aed'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#0f172a' }}>Pilot Recognition</h2>
+              <span style={{ fontSize: '0.8rem', letterSpacing: '0.2em', color: '#94a3b8', textTransform: 'uppercase' }}>Awards, certifications & achievements</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '1rem', 
+                background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
+                borderRadius: '12px',
+                border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
+              }}>
+                <div style={{ fontSize: '2rem', fontWeight: 700, color: '#8b5cf6', marginBottom: '0.25rem' }}>
+                  4
+                </div>
+                <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Awards
+                </div>
+              </div>
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '1rem', 
+                background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
+                borderRadius: '12px',
+                border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
+              }}>
+                <div style={{ fontSize: '2rem', fontWeight: 700, color: '#0ea5e9', marginBottom: '0.25rem' }}>
+                  194
+                </div>
+                <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Flight Hours
+                </div>
+              </div>
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '1rem', 
+                background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
+                borderRadius: '12px',
+                border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
+              }}>
+                <div style={{ fontSize: '2rem', fontWeight: 700, color: '#10b981', marginBottom: '0.25rem' }}>
+                  12
+                </div>
+                <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Skills
+                </div>
+              </div>
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '1rem', 
+                background: isDarkMode ? 'rgba(30, 41, 59, 0.8)' : '#f8fafc', 
+                borderRadius: '12px',
+                border: isDarkMode ? '1px solid rgba(71, 85, 105, 0.5)' : '1px solid #e2e8f0'
+              }}>
+                <div style={{ fontSize: '2rem', fontWeight: 700, color: '#f59e0b', marginBottom: '0.25rem' }}>
+                  3
+                </div>
+                <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Certifications
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+              <button
+                onClick={() => setMainView('recognition')}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '12px',
+                  border: '1px solid #7c3aed',
+                  background: 'transparent',
+                  color: '#7c3aed',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                View Full Recognition Portfolio
+              </button>
+            </div>
+          </div>
+
           {/* News & Updates Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem' }}>
             
@@ -3849,19 +3993,20 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
 
   // Main content panel
   const MainPanel = () => {
-    const marginLeft = SIDEBAR_BASE_WIDTH * sidebarScale;
+    const marginLeft = showSidebar ? SIDEBAR_BASE_WIDTH * sidebarScale : 0;
     const mainPanelScale = (mainView === 'programs' || mainView === 'pathways') ? 1 : 1.25;
     const inverseScalePercent = `${(100 / mainPanelScale).toFixed(4)}%`;
     return (
       <div style={{
         marginLeft: `${marginLeft}px`,
-        width: `calc(100% - ${marginLeft}px)`,
+        width: showSidebar ? `calc(100% - ${marginLeft}px)` : '100%',
         height: '100vh',
         overflow: 'auto',
         position: 'relative',
-        paddingTop: '70px'
+        paddingTop: showSidebar ? '70px' : '0'
       }}>
         {/* Global top bar - moved outside scaled div so position:fixed works */}
+        {showSidebar && (
         <div
           style={{
             width: `calc(100% - ${marginLeft}px)`,
@@ -3995,6 +4140,7 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
               </button>
             </div>
           </div>
+        )}
 
           <div
             style={{
@@ -4339,14 +4485,19 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         );
       case 'applications':
         return (
-          <PilotProfilePage 
+          <DashboardPage 
             onBack={() => setMainView('dashboard')} 
             onViewLogbook={() => setMainView('logbook')}
             onViewDigitalLogbook={() => setMainView('digital-logbook')}
             onViewMentorLogbook={() => setMainView('mentor-logbook')}
             onViewAtlas={() => setMainView('atlas-resume')}
             onViewRecognition={() => setMainView('recognition')}
-            userProfile={userProfile ?? undefined} 
+            onViewPrograms={() => setMainView('programs')}
+            onViewPathways={() => setMainView('pathways')}
+            onViewExamination={() => setMainView('examination-portal')}
+            onViewFoundationalProgram={() => setMainView('foundational-enrolled')}
+            onViewFoundationalEnrollment={() => setMainView('foundational')}
+            onViewLicensureExperience={() => setMainView('pilot-licensure-experience')} 
           />
         );
       case 'recognition':
@@ -4362,14 +4513,19 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         return <ExaminationResultsPage onBack={() => setMainView('recognition')} userProfile={userProfile} />;
       case 'pilot-portfolio':
         return (
-          <PilotProfilePage 
+          <DashboardPage 
             onBack={() => setMainView('dashboard')} 
             onViewLogbook={() => setMainView('logbook')}
             onViewDigitalLogbook={() => setMainView('digital-logbook')}
             onViewMentorLogbook={() => setMainView('mentor-logbook')}
             onViewAtlas={() => setMainView('atlas-resume')}
             onViewRecognition={() => setMainView('recognition')}
-            userProfile={userProfile ?? undefined} 
+            onViewPrograms={() => setMainView('programs')}
+            onViewPathways={() => setMainView('pathways')}
+            onViewExamination={() => setMainView('examination-portal')}
+            onViewFoundationalProgram={() => setMainView('foundational-enrolled')}
+            onViewFoundationalEnrollment={() => setMainView('foundational')}
+            onViewLicensureExperience={() => setMainView('pilot-licensure-experience')} 
           />
         );
       case 'logbook':
@@ -4378,8 +4534,12 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
         return <DigitalLogbookPage onBack={() => setMainView('pilot-portfolio')} userProfile={userProfile ?? undefined} />;
       case 'mentor-logbook':
         return <MentorLogbookPage onBack={() => setMainView('pilot-portfolio')} userProfile={userProfile ?? undefined} />;
+      case 'pilot-licensure-experience':
+        return <PilotLicensureExperiencePage onBack={() => setMainView('pilot-portfolio')} userProfile={userProfile ?? undefined} />;
       case 'atlas-resume':
         return <AtlasResumePage onBack={() => setMainView('recognition')} onPrint={() => setMainView('printable-resume')} userProfile={userProfile} />;
+      case 'full-atlas-resume':
+        return <FullAtlasResumePage onBack={() => setMainView('dashboard')} onPrint={() => window.print()} userProfile={userProfile} />;
       case 'wingmentor-network':
         return <WingMentorNetworkView onBack={() => setMainView('dashboard')} onViewChange={onViewChange} />;
       case 'aviation-expectations':
@@ -4435,6 +4595,167 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
             onLaunchPilotGapModule2={() => onViewChange?.('module-02')}
             onLaunchModule3={() => onViewChange?.('module-03')}
           />
+        );
+
+      case 'foundational-loading':
+        return (
+          <div
+            style={{
+              minHeight: '100vh',
+              background: 'linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 'clamp(1rem, 3vw, 3rem)'
+            }}
+          >
+            <div
+              style={{
+                maxWidth: '520px',
+                width: '100%',
+                background: 'white',
+                borderRadius: '28px',
+                padding: '3rem',
+                boxShadow: '0 30px 80px rgba(15, 23, 42, 0.15)',
+                border: '1px solid rgba(226, 232, 240, 0.8)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '2rem',
+                animation: 'fadeIn 0.4s ease-out'
+              }}
+            >
+              {/* Logo */}
+              <img
+                src="/logo.png"
+                alt="WingMentor"
+                style={{ width: '220px', height: 'auto' }}
+              />
+
+              {/* Loading Screen Title */}
+              <div style={{ textAlign: 'center' }}>
+                <h1
+                  style={{
+                    margin: 0,
+                    fontSize: '2rem',
+                    fontWeight: 700,
+                    color: '#0f172a',
+                    textAlign: 'center',
+                    letterSpacing: '-0.02em'
+                  }}
+                >
+                  Loading Screen
+                </h1>
+                <p
+                  style={{
+                    margin: '0.75rem 0 0',
+                    fontSize: '1rem',
+                    color: '#64748b',
+                    textAlign: 'center'
+                  }}
+                >
+                  Foundational Program Platform
+                </p>
+              </div>
+
+              {/* Loading Spinner */}
+              <div
+                style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  border: '4px solid #e2e8f0',
+                  borderTopColor: '#0ea5e9',
+                  borderRightColor: '#0ea5e9',
+                  animation: 'spin 1s linear infinite'
+                }}
+              />
+
+              {/* Loading Steps */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.875rem',
+                  width: '100%'
+                }}
+              >
+                {[
+                  'Verifying enrollment status',
+                  'Loading training modules',
+                  'Preparing simulator scenarios'
+                ].map((step, index) => (
+                  <div
+                    key={step}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      fontSize: '0.9rem',
+                      color: '#475569',
+                      padding: '0.5rem 0'
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        background: '#0ea5e9',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        flexShrink: 0
+                      }}
+                    >
+                      {index + 1}
+                    </div>
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Progress Bar */}
+              <div
+                style={{
+                  width: '100%',
+                  height: '8px',
+                  background: '#e2e8f0',
+                  borderRadius: '999px',
+                  overflow: 'hidden'
+                }}
+              >
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(90deg, #0ea5e9, #0284c7)',
+                    borderRadius: '999px',
+                    animation: 'loadingProgress 2.5s ease-in-out infinite'
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Keyframe Animations */}
+            <style>{`
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              @keyframes loadingProgress {
+                0% { transform: translateX(-100%); }
+                50% { transform: translateX(0); }
+                100% { transform: translateX(100%); }
+              }
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+            `}</style>
+          </div>
         );
 
       case 'foundational-logbook':
@@ -4523,13 +4844,16 @@ export const WingMentorHome: React.FC<WingMentorHomeProps> = ({
     }
   };
 
+  // Determine if we should show the sidebar (hide for standalone views like enrollment and program platform)
+  const showSidebar = mainView !== 'foundational' && mainView !== 'foundational-get-started' && mainView !== 'foundational-onboarding' && mainView !== 'foundational-enrolled' && mainView !== 'foundational-loading';
+
   return (
     <div style={{ 
       display: 'flex', 
       height: '100vh', 
       background: isDarkMode ? '#020817' : '#f8fafc'
     }}>
-      <Sidebar />
+      {showSidebar && <Sidebar />}
       
       {/* Main Content Area */}
       <MainPanel />
